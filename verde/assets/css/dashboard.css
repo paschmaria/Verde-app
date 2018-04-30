@@ -18657,7 +18657,8 @@ svg {
 .fe-zoom-out:before {
   content: "\ea06";
 }
-
+/* Custom styles */
+#loader
 .image-wrapper {
   border-radius: 3px;
   padding-left: 0;
@@ -18680,4 +18681,24 @@ svg {
 .farm-picture {
   min-height: 100%;
   border-radius: 3px;
+}
+
+@media (max-width: 320px) {
+  .custom-switch-input:checked ~ .custom-switch-indicator:before {
+    left: calc(0.2rem + 1px);
+  }
+}
+
+@media (max-width: 375px) {
+  .custom-switch-input:checked ~ .custom-switch-indicator:before {
+    left: calc(0.4rem + 1px);
+  }
+}
+
+@media (min-width: 767.98px) {
+  .w-cols .col-md-2 {
+    -ms-flex: 0 0 14.28571429%;
+    flex: 0 0 14.28571429%;
+    max-width: 14.28571429%;
+  }
 }

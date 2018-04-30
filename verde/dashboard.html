@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Language" content="en" />
     <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="theme-color" content="#4188c9">
+    <meta name="theme-color" content="#817729">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -39,6 +39,8 @@
     <script src="./assets/plugins/maps-google/plugin.js"></script>
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
+    <!-- Skycons -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script>
   </head>
   <body class="">
     <div class="page">
@@ -249,15 +251,15 @@
               <div class="col-lg-6">
                 <div class="card">
                   <div class="card-header">
-                    <h3 class="card-title">Weather Forecast for: </h3>
+                    <h3 class="card-title">Weather Trends for: </h3>
                     <div class="card-options">
-                      <select name="location" class="form-control custom-select">
+                      <select id="stateToggle" name="location" class="form-control custom-select">
                         <option value="">Location</option>
-                        <option value="1">Kebbi</option>
-                        <option value="2">Kaduna</option>
-                        <option selected="selected" value="3">Kano</option>
-                        <option value="4">Jigawa</option>
-                        <option value="5">Borno</option>
+                        <option data-location='{"longitude":"2.5284488", "latitude":"11.6827587"}' value="1">Kebbi</option>
+                        <option data-location='{"longitude":"6.3327384", "latitude":"10.2546175"}' value="2">Kaduna</option>
+                        <option selected="selected" data-location='{"longitude":"8.4708578", "latitude":"11.9978786"}' value="3">Kano</option>
+                        <option data-location='{"longitude":"8.2489528", "latitude":"11.9910136"}' value="4">Jigawa</option>
+                        <option data-location='{"longitude":"10.8600634", "latitude":"11.8592838"}' value="5">Borno</option>
                       </select>
                     </div>
                   </div>
@@ -303,7 +305,7 @@
                         },
                         type: 'bar', // default type of chart
                         types: {
-                          data2: 'line'
+                          data2: 'spline'
                         },
                         colors: {
                           'data1': tabler.colors["green-darker"],
@@ -311,14 +313,14 @@
                         },
                         names: {
                             // name of each serie
-                          'data1': 'Rainfall',
-                          'data2': 'Temperature'
+                          'data1': 'Rainfall (mm)',
+                          'data2': 'Max Temp. (°C)'
                         }
                       },
                       axis: {
                         y: {
                           label: {
-                            text: 'Rainfall',
+                            text: 'Rainfall (mm)',
                             position: 'outer-middle'
                           },
                           tick: {
@@ -334,7 +336,7 @@
                         y2: {
                           show: true,
                           label: { // ADD
-                            text: 'Temperature',
+                            text: 'Max Temp. (°C)',
                             position: 'outer-middle'
                           },
                           tick: {
@@ -377,6 +379,10 @@
                     <div class="card">
                       <div class="card-header">
                         <h3 class="card-title">Message Costs</h3>
+                        <div class="card-options">
+                          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                          <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
                       </div>
                       <div class="card-body">
                         <div id="chart-donut" style="height: 14rem;"></div>
@@ -422,6 +428,10 @@
                     <div class="card">
                       <div class="card-header">
                         <h3 class="card-title">Sales</h3>
+                        <div class="card-options">
+                          <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                          <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
                       </div>
                       <div class="card-body">
                         <div id="chart-pie" style="height: 14rem;"></div>
@@ -494,970 +504,187 @@
             <div class="row row-cards row-deck">
               <div class="col-12">
                 <div class="card">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-                      <thead>
-                        <tr>
-                          <th class="text-center w-1"><i class="icon-people"></i></th>
-                          <th>User</th>
-                          <th>Usage</th>
-                          <th class="text-center">Payment</th>
-                          <th>Activity</th>
-                          <th class="text-center">Satisfaction</th>
-                          <th class="text-center"><i class="icon-settings"></i></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/26.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Elizabeth Martin</div>
-                            <div class="small text-muted">
-                              Registered: Mar 19, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>42%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-yellow" role="progressbar" style="width: 42%"
-						     aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-visa"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>4 minutes ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">42%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/17.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Michelle Schultz</div>
-                            <div class="small text-muted">
-                              Registered: Mar 2, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>0%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-red" role="progressbar" style="width: 0%"
-						     aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-googlewallet"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>5 minutes ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.0" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">0%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/21.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Crystal Austin</div>
-                            <div class="small text-muted">
-                              Registered: Apr 7, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>96%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-green" role="progressbar" style="width: 96%"
-						     aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-mastercard"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>a minute ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.96" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">96%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/male/32.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Douglas Ray</div>
-                            <div class="small text-muted">
-                              Registered: Jan 15, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>6%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-red" role="progressbar" style="width: 6%"
-						     aria-valuenow="6" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-shopify"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>a minute ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.06" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">6%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/12.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Teresa Reyes</div>
-                            <div class="small text-muted">
-                              Registered: Mar 4, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>36%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-red" role="progressbar" style="width: 36%"
-						     aria-valuenow="36" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-ebay"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>2 minutes ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.36" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">36%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/4.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Emma Wade</div>
-                            <div class="small text-muted">
-                              Registered: Mar 20, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>7%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-red" role="progressbar" style="width: 7%"
-						     aria-valuenow="7" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-paypal"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>a minute ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.07" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">7%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/27.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Carol Henderson</div>
-                            <div class="small text-muted">
-                              Registered: Feb 22, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>80%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-green" role="progressbar" style="width: 80%"
-						     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-visa"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>9 minutes ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.8" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">80%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/male/20.jpg)">
-                              <span class="avatar-status bg-green"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div>Christopher Harvey</div>
-                            <div class="small text-muted">
-                              Registered: Jan 22, 2018
-                            </div>
-                          </td>
-                          <td>
-                            <div class="clearfix">
-                              <div class="float-left">
-                                <strong>83%</strong>
-                              </div>
-                              <div class="float-right">
-                                <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                              </div>
-                            </div>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-green" role="progressbar" style="width: 83%"
-						     aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <i class="payment payment-googlewallet"></i>
-                          </td>
-                          <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>8 minutes ago</div>
-                          </td>
-                          <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.83" data-thickness="3" data-color="blue">
-                              <div class="chart-circle-value">83%</div>
-                            </div>
-                          </td>
-                          <td class="text-center">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4">
-                <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Browser Stats</h4>
+                    <h3 class="card-title">Weekly Weather Forecast</h3>
+                    <div class="card-options">
+                      <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                      <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                    </div>
                   </div>
-                  <table class="table card-table">
-                    <tr>
-                      <td width="1"><i class="fa fa-chrome text-muted"></i></td>
-                      <td>Google Chrome</td>
-                      <td class="text-right"><span class="text-muted">23%</span></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa fa-firefox text-muted"></i></td>
-                      <td>Mozila Firefox</td>
-                      <td class="text-right"><span class="text-muted">15%</span></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa fa-safari text-muted"></i></td>
-                      <td>Apple Safari</td>
-                      <td class="text-right"><span class="text-muted">7%</span></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa fa-internet-explorer text-muted"></i></td>
-                      <td>Internet Explorer</td>
-                      <td class="text-right"><span class="text-muted">9%</span></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa fa-opera text-muted"></i></td>
-                      <td>Opera mini</td>
-                      <td class="text-right"><span class="text-muted">23%</span></td>
-                    </tr>
-                    <tr>
-                      <td><i class="fa fa-edge text-muted"></i></td>
-                      <td>Microsoft edge</td>
-                      <td class="text-right"><span class="text-muted">9%</span></td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-              <div class="col-sm-6 col-lg-4">
-                <div class="card">
-                  <div class="card-header">
-                    <h2 class="card-title">Projects</h2>
-                  </div>
-                  <table class="table card-table">
-                    <tr>
-                      <td>Admin Template</td>
-                      <td class="text-right">
-                        <span class="badge badge-default">65%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Landing Page</td>
-                      <td class="text-right">
-                        <span class="badge badge-success">Finished</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Backend UI</td>
-                      <td class="text-right">
-                        <span class="badge badge-danger">Rejected</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Personal Blog</td>
-                      <td class="text-right">
-                        <span class="badge badge-default">40%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>E-mail Templates</td>
-                      <td class="text-right">
-                        <span class="badge badge-default">13%</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Corporate Website</td>
-                      <td class="text-right">
-                        <span class="badge badge-warning">Pending</span>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-              <div class="col-md-6 col-lg-4">
-                <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Members</h3>
-                  </div>
-                  <div class="card-body o-auto" style="height: 15rem">
-                    <ul class="list-unstyled list-separated">
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/12.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Amanda Hunt</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">amanda_hunt@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/21.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Laura Weaver</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">lauraweaver@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/29.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Margaret Berry</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">margaret88@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/2.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Nancy Herrera</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">nancy_83@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/male/34.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Edward Larson</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">edward90@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-separated-item">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/11.jpg)"></span>
-                          </div>
-                          <div class="col">
-                            <div>
-                              <a href="javascript:void(0)" class="text-inherit">Joan Hanson</a>
-                            </div>
-                            <small class="d-block item-except text-sm text-muted h-1x">joan.hanson@example.com</small>
-                          </div>
-                          <div class="col-auto">
-                            <div class="item-action dropdown">
-                              <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                  <div class="card-body">
+                    <div class="dimmer active">
+                      <div class="loader"></div>
+                      <div class="dimmer-content">
+                        <div class="row w-cols"></div>
+                      </div>
+                    </div>                    
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-12">
-                <div class="row">
-                  <div class="col-sm-6 col-lg-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-value float-right text-blue">+5%</div>
-                        <h3 class="mb-1">423</h3>
-                        <div class="text-muted">Users online</div>
-                      </div>
-                      <div class="card-chart-bg">
-                        <div id="chart-bg-users-1" style="height: 100%"></div>
-                      </div>
-                    </div>
-                    <script>
-                      require(['c3', 'jquery'], function (c3, $) {
-                      	$(document).ready(function() {
-                      		var chart = c3.generate({
-                      			bindto: '#chart-bg-users-1',
-                      			padding: {
-                      				bottom: -10,
-                      				left: -1,
-                      				right: -1
-                      			},
-                      			data: {
-                      				names: {
-                      					data1: 'Users online'
-                      				},
-                      				columns: [
-                      					['data1', 30, 40, 10, 40, 12, 22, 40]
-                      				],
-                      				type: 'area'
-                      			},
-                      			legend: {
-                      				show: false
-                      			},
-                      			transition: {
-                      				duration: 0
-                      			},
-                      			point: {
-                      				show: false
-                      			},
-                      			tooltip: {
-                      				format: {
-                      					title: function (x) {
-                      						return '';
-                      					}
-                      				}
-                      			},
-                      			axis: {
-                      				y: {
-                      					padding: {
-                      						bottom: 0,
-                      					},
-                      					show: false,
-                      					tick: {
-                      						outer: false
-                      					}
-                      				},
-                      				x: {
-                      					padding: {
-                      						left: 0,
-                      						right: 0
-                      					},
-                      					show: false
-                      				}
-                      			},
-                      			color: {
-                      				pattern: ['#467fcf']
-                      			}
-                      		});
-                      	});
-                      });
-                    </script>
-                  </div>
-                  <div class="col-sm-6 col-lg-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-value float-right text-red">-3%</div>
-                        <h3 class="mb-1">423</h3>
-                        <div class="text-muted">Users online</div>
-                      </div>
-                      <div class="card-chart-bg">
-                        <div id="chart-bg-users-2" style="height: 100%"></div>
-                      </div>
-                    </div>
-                    <script>
-                      require(['c3', 'jquery'], function (c3, $) {
-                      	$(document).ready(function() {
-                      		var chart = c3.generate({
-                      			bindto: '#chart-bg-users-2',
-                      			padding: {
-                      				bottom: -10,
-                      				left: -1,
-                      				right: -1
-                      			},
-                      			data: {
-                      				names: {
-                      					data1: 'Users online'
-                      				},
-                      				columns: [
-                      					['data1', 30, 40, 10, 40, 12, 22, 40]
-                      				],
-                      				type: 'area'
-                      			},
-                      			legend: {
-                      				show: false
-                      			},
-                      			transition: {
-                      				duration: 0
-                      			},
-                      			point: {
-                      				show: false
-                      			},
-                      			tooltip: {
-                      				format: {
-                      					title: function (x) {
-                      						return '';
-                      					}
-                      				}
-                      			},
-                      			axis: {
-                      				y: {
-                      					padding: {
-                      						bottom: 0,
-                      					},
-                      					show: false,
-                      					tick: {
-                      						outer: false
-                      					}
-                      				},
-                      				x: {
-                      					padding: {
-                      						left: 0,
-                      						right: 0
-                      					},
-                      					show: false
-                      				}
-                      			},
-                      			color: {
-                      				pattern: ['#e74c3c']
-                      			}
-                      		});
-                      	});
-                      });
-                    </script>
-                  </div>
-                  <div class="col-sm-6 col-lg-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-value float-right text-green">-3%</div>
-                        <h3 class="mb-1">423</h3>
-                        <div class="text-muted">Users online</div>
-                      </div>
-                      <div class="card-chart-bg">
-                        <div id="chart-bg-users-3" style="height: 100%"></div>
-                      </div>
-                    </div>
-                    <script>
-                      require(['c3', 'jquery'], function (c3, $) {
-                      	$(document).ready(function() {
-                      		var chart = c3.generate({
-                      			bindto: '#chart-bg-users-3',
-                      			padding: {
-                      				bottom: -10,
-                      				left: -1,
-                      				right: -1
-                      			},
-                      			data: {
-                      				names: {
-                      					data1: 'Users online'
-                      				},
-                      				columns: [
-                      					['data1', 30, 40, 10, 40, 12, 22, 40]
-                      				],
-                      				type: 'area'
-                      			},
-                      			legend: {
-                      				show: false
-                      			},
-                      			transition: {
-                      				duration: 0
-                      			},
-                      			point: {
-                      				show: false
-                      			},
-                      			tooltip: {
-                      				format: {
-                      					title: function (x) {
-                      						return '';
-                      					}
-                      				}
-                      			},
-                      			axis: {
-                      				y: {
-                      					padding: {
-                      						bottom: 0,
-                      					},
-                      					show: false,
-                      					tick: {
-                      						outer: false
-                      					}
-                      				},
-                      				x: {
-                      					padding: {
-                      						left: 0,
-                      						right: 0
-                      					},
-                      					show: false
-                      				}
-                      			},
-                      			color: {
-                      				pattern: ['#5eba00']
-                      			}
-                      		});
-                      	});
-                      });
-                    </script>
-                  </div>
-                  <div class="col-sm-6 col-lg-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <div class="card-value float-right text-yellow">9%</div>
-                        <h3 class="mb-1">423</h3>
-                        <div class="text-muted">Users online</div>
-                      </div>
-                      <div class="card-chart-bg">
-                        <div id="chart-bg-users-4" style="height: 100%"></div>
-                      </div>
-                    </div>
-                    <script>
-                      require(['c3', 'jquery'], function (c3, $) {
-                      	$(document).ready(function() {
-                      		var chart = c3.generate({
-                      			bindto: '#chart-bg-users-4',
-                      			padding: {
-                      				bottom: -10,
-                      				left: -1,
-                      				right: -1
-                      			},
-                      			data: {
-                      				names: {
-                      					data1: 'Users online'
-                      				},
-                      				columns: [
-                      					['data1', 30, 40, 10, 40, 12, 22, 40]
-                      				],
-                      				type: 'area'
-                      			},
-                      			legend: {
-                      				show: false
-                      			},
-                      			transition: {
-                      				duration: 0
-                      			},
-                      			point: {
-                      				show: false
-                      			},
-                      			tooltip: {
-                      				format: {
-                      					title: function (x) {
-                      						return '';
-                      					}
-                      				}
-                      			},
-                      			axis: {
-                      				y: {
-                      					padding: {
-                      						bottom: 0,
-                      					},
-                      					show: false,
-                      					tick: {
-                      						outer: false
-                      					}
-                      				},
-                      				x: {
-                      					padding: {
-                      						left: 0,
-                      						right: 0
-                      					},
-                      					show: false
-                      				}
-                      			},
-                      			color: {
-                      				pattern: ['#f1c40f']
-                      			}
-                      		});
-                      	});
-                      });
-                    </script>
-                  </div>
-                </div>
-              </div>
+              <script>
+                require(['jquery'], function($) {
+                  $(document).ready(function(){
+                    function skycons() {
+                      var i,
+                          e,
+                          icons = new Skycons({
+                            "color" : "#467fcf",
+                            "resizeClear": true
+                          }),
+                          list  = [ // all used icons
+                            "clear-day",
+                            "clear-night",
+                            "partly-cloudy-day",
+                            "partly-cloudy-night",
+                            "cloudy",
+                            "rain",
+                            "sleet",
+                            "snow",
+                            "wind",
+                            "fog"
+                          ];
+
+                      for(i = list.length; i--;) {
+                        var weatherType = list[i],
+                            elements    = document.getElementsByClassName(weatherType);
+
+                        // loop thru the elements and set them up
+                        for (e = elements.length; e--;) {
+                          icons.set(elements[e], weatherType);
+                        }
+                      }
+
+                      // animate the icons
+                      icons.play();
+                    }
+
+                    var stateToggle = $("#stateToggle"),
+                               long = stateToggle.find(":selected").data("location").longitude,
+                                lat = stateToggle.find(":selected").data("location").latitude;
+
+                    weatherReport(long, lat);
+
+                    function weatherReport(longitude, latitude) {
+                      
+                      var apiKey = 'ebb41009b925db9ab7200157af5cfaae',
+                             url = 'https://api.darksky.net/forecast/',
+                            lati = latitude,
+                           longi = longitude,
+                        api_call = url + apiKey + "/" + lati + "," + longi + "?format=jsonp&extend=hourly&units=si&callback=?";
+
+                      var days = [
+                        'Sunday',
+                        'Monday',
+                        'Tuesday',
+                        'Wednesday',
+                        'Thursday',
+                        'Friday',
+                        'Saturday'
+                      ];
+                      
+                      var sunday = [],
+                          monday = [],
+                         tuesday = [],
+                       wednesday = [],
+                        thursday = [],
+                          friday = [],
+                        saturday = [];
+                      // Call to the DarkSky API to retrieve JSON
+                      $.getJSON(api_call, function(forecast) {
+                        console.log(forecast);
+                        
+                        // Loop through hourly forecasts
+                        for(var j = 0, k = forecast.hourly.data.length; j < k; j++) {
+
+                          var hourly_date    = new Date(forecast.hourly.data[j].time * 1000),
+                              hourly_day     = days[hourly_date.getDay()],
+                              hourly_temp    = forecast.hourly.data[j].temperature;
+
+                          // push 24 hour forecast values to our empty days array
+                          switch(hourly_day) {
+                            case 'Sunday':
+                              sunday.push(hourly_temp);
+                              break;
+                            case 'Monday':
+                              monday.push(hourly_temp);
+                              break;
+                            case 'Tuesday':
+                              tuesday.push(hourly_temp);
+                              break;
+                            case 'Wednesday':
+                              wednesday.push(hourly_temp);
+                              break;
+                            case 'Thursday':
+                              thursday.push(hourly_temp);
+                              break;
+                            case 'Friday':
+                              friday.push(hourly_temp);
+                              break;
+                            case 'Saturday':
+                              saturday.push(hourly_temp);
+                              break;
+                            default: console.log(hourly_date.toLocaleTimeString());
+                              break;
+                          }
+                        }
+    
+                        // Loop thru daily forecasts
+                        for(var i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
+                          var date = new Date(forecast.daily.data[i].time * 1000),
+                               day = days[date.getDay()],
+                              time = forecast.daily.data[i].time,
+                              wind = forecast.daily.data[i].windSpeed,
+                           tempMax = Math.round(forecast.daily.data[i].temperatureMax),
+                           skicons = forecast.daily.data[i].icon,
+                           summary = forecast.daily.data[i].summary,
+                          humidity = forecast.daily.data[i].humidity,
+                         precipInt = forecast.daily.data[i].precipIntensity;
+
+                          $(".w-cols").append(
+                            `<div class="col-md-2">
+                                <div class="shade-${skicons}">
+                                  <div class="front">
+                                    <div clss="graphic">
+                                      <canvas class="${skicons}" width="140"></canvas>  
+                                    </div>
+                                    <div>
+                                      <b>Day</b>: ${date.toLocaleDateString()}
+                                    </div>
+                                    <div>
+                                      <b>Max. Temp</b>: ${tempMax}°C
+                                    </div>
+                                    <div>
+                                      <b>Wind Speed</b>: ${wind}m/s
+                                    </div>
+                                    <div>
+                                      <b>Humidity</b>: ${humidity}
+                                    </div>
+                                    <div>
+                                      <b>Precipitation</b>: ${precipInt}mm/h
+                                    </div>
+                                    <p class="summary">${summary}</p>                                    
+                                  </div>
+                                </div>
+                              </div>`
+                          )
+                        };
+                        
+                        $(".dimmer").removeClass("active");
+                        skycons();
+                      })
+                    }
+  
+                    $("#stateToggle").change(function(e) {
+                      
+                      var long = $(this).find(":selected").data("location").longitude,
+                           lat = $(this).find(":selected").data("location").latitude;
+
+                      // console.log(long);
+                      weatherReport(long, lat);
+                    })
+                  })
+                })
+              </script>
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
@@ -1652,7 +879,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
