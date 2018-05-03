@@ -46,7 +46,7 @@
         <div class="header py-4">
           <div class="container">
             <div class="d-flex">
-              <a class="header-brand" href="./dashboard.html">
+              <a class="header-brand" href="./dashboard.php">
                 <img src="./assets/images/logo.png" class="header-brand-img" alt="[VERDE]">
               </a>
               <div class="d-flex order-lg-2 ml-auto">
@@ -131,7 +131,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard.html" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard.php" class="nav-link"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer.html" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -199,7 +199,7 @@
                     <h3 class="card-title">Make new Voice Call</h3>
                   </div>
                   <div class="card-body">
-                    <form action="">
+                    <form method="post" action="./voice_upload.php" enctype="multipart/form-data">
                       <div class="form-group">
                         <div class="row align-items-center">
                           <label class="col-sm-2">To:</label>
@@ -219,7 +219,7 @@
                               labelField: 'name',
                               searchField: ['name', 'phone'],
                               options: [
-                                  {phone: '08129023456', name: 'Musa Ibrahim'},
+                                  {phone: '08106129023', name: 'Onuorah Paschal'},
                                   {phone: '09098762345', name: 'Nurudeen Dawodu'},
                                   {phone: '08056785432', name: 'Ismail Samson'}
                               ],
@@ -280,40 +280,40 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="custom-switch">
-                          <input type="checkbox" id="tts-checkbox" class="custom-switch-input" checked>
+                        <!-- <label class="custom-switch">
+                          <input type="checkbox" id="tts-checkbox" name="tts-checkbox" class="custom-switch-input">
                           <span class="custom-switch-indicator"></span>
                           <span class="custom-switch-description">Switch between Text-to-Speech converter and Media upload.</span>
                         </label>
                       </div>
                       <div class="form-group" id="text">
-                        <textarea rows="10" class="form-control" placeholder="Type message to be sent..."></textarea>
-                      </div>
+                        <textarea rows="10" class="form-control" placeholder="Type message to be sent..." hidden></textarea>
+                      </div> -->
                       <div class="form-group" id="media">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input">
+                          <input type="file" class="custom-file-input" name="audio_file">
                           <label class="custom-file-label">Upload Media file</label>
                         </div>
                       </div>
-                      <script>
-                        var _ttsCheckbox = document.getElementById("tts-checkbox"),
-                            _mediaBox = document.getElementById("media"),
-                            _textBox = document.getElementById("text");
+                      <!-- <script>
+                        require(['jquery'], function($){
+                          $(document).ready(function(){
+                            var _ttsCheckbox = document.getElementById("tts-checkbox"),
+                                   _mediaBox = document.getElementById("media"),
+                                    _textBox = document.getElementById("text");
 
-                        if (_ttsCheckbox.attributes.checked) {
-                          _mediaBox.style.display = "none";
-                        }
-
-                        _ttsCheckbox.addEventListener('change', function(e){
-                          if (!e.target.checked) {
-                            _mediaBox.style.display = "block";
-                            _textBox.style.display = "none";
-                          } else {
-                            _mediaBox.style.display = "none";
-                            _textBox.style.display = "block";
-                          }
+                            _ttsCheckbox.addEventListener('change', function(e){
+                              if (!e.target.checked) {
+                                _mediaBox.style.display = "block";
+                                _textBox.style.display = "none";
+                              } else {
+                                _mediaBox.style.display = "none";
+                                _textBox.style.display = "block";
+                              }
+                            })
+                          })
                         })
-                      </script>
+                      </script> -->
                       <div class="btn-list mt-4 text-right">
                         <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
                         <button type="submit" class="btn btn-primary btn-space">Send message</button>

@@ -18694,7 +18694,7 @@ svg {
   }
 }
 
-@media (min-width: 767.98px) {
+@media (min-width: 768px) {
   .w-cols .col-md-2 {
     -ms-flex: 0 0 14.28571429%;
     flex: 0 0 14.28571429%;

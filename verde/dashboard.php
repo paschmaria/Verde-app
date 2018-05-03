@@ -1,3 +1,12 @@
+<?php 
+  session_start(); 
+  if(!$_SESSION['logged']){ 
+      header("Location: ../login.html"); 
+      exit; 
+  } 
+// echo 'Welcome, '.$_SESSION['username'];
+?>
+
 <!Doctype html>
 <html lang="en" dir="ltr">
   <head>
@@ -48,7 +57,7 @@
         <div class="header py-4">
           <div class="container">
             <div class="d-flex">
-              <a class="header-brand" href="./dashboard.html">
+              <a class="header-brand" href="./dashboard.php">
                 <img src="./assets/images/logo.png" class="header-brand-img" alt="[VERDE]">
               </a>
               <div class="d-flex order-lg-2 ml-auto">
@@ -107,7 +116,7 @@
                     <!-- <a class="dropdown-item" href="#">
                       <i class="dropdown-icon fe fe-help-circle"></i> Need help?
                     </a> -->
-                    <a class="dropdown-item" href="../login.html">
+                    <a class="dropdown-item" href="../logout.php">
                       <i class="dropdown-icon fe fe-log-out"></i> Sign out
                     </a>
                   </div>
@@ -133,7 +142,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard.html" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard.php" class="nav-link active"><i class="fe fe-home"></i> Home</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer.html" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -312,12 +321,6 @@
                   </div>
                 </div>
               </div>
-              <script>
-                // require(['c3', 'jquery'], function(c3, $) {
-                //   $(document).ready(function(){
-                    
-                // });
-              </script>
             </div>
             <div class="row row-cards row-deck">
               <div class="col-lg-3 col-md-6 col-12">
@@ -452,7 +455,7 @@
                       <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
                     </div>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body text-center">
                     <div class="dimmer active">
                       <div class="loader"></div>
                       <div class="dimmer-content">
@@ -465,8 +468,7 @@
               <script>
                 require(['c3', 'jquery'], function(c3, $) {
                   $(document).ready(function(){
-                    function weatherCharts(rain, temp, wind, hum) {
-                      // console.log(temp);
+                    function weatherCharts(date, rain, temp, wind, hum) {
                       var chart1 = c3.generate({
                         bindto: '#chart-rainfall-temperature', // id of chart wrapper
                         data: {
@@ -498,15 +500,15 @@
                               text: 'Rainfall (mm/h)',
                               position: 'outer-middle'
                             },
-                            tick: {
-                              format: function (d) { return d + 'mm/h'; }
-                            },
+                            // tick: {
+                            //   format: function (d) { return d + 'mm/h'; }
+                            // },
                             inner: false
                           },
                           x: {
                             type: 'category',
                             // name of each category
-                            categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+                            categories: date
                           },
                           y2: {
                             show: true,
@@ -514,9 +516,9 @@
                               text: 'Max Temp. (°C)',
                               position: 'outer-middle'
                             },
-                            tick: {
-                              format: function (d) { return d + '°C'; }
-                            },
+                            // tick: {
+                            //   format: function (d) { return d + '°C'; }
+                            // },
                             inner: false
                           }
                         },
@@ -566,15 +568,15 @@
                               text: 'Wind (m/s)',
                               position: 'outer-middle'
                             },
-                            tick: {
-                              format: function (d) { return d + 'm/s'; }
-                            },
+                            // tick: {
+                            //   format: function (d) { return d + 'm/s'; }
+                            // },
                             inner: false
                           },
                           x: {
                             type: 'category',
                             // name of each category
-                            categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+                            categories: date
                           },
                           y2: {
                             show: true,
@@ -656,13 +658,13 @@
                         api_call = url + apiKey + "/" + lati + "," + longi + "?format=jsonp&extend=hourly&units=si&callback=?";
 
                       var days = [
-                        'Sunday',
-                        'Monday',
-                        'Tuesday',
-                        'Wednesday',
-                        'Thursday',
-                        'Friday',
-                        'Saturday'
+                        'Sun',
+                        'Mon',
+                        'Tue',
+                        'Wed',
+                        'Thur',
+                        'Fri',
+                        'Sat'
                       ];
                       
                       var sunday = [],
@@ -686,25 +688,25 @@
 
                           // push 24 hour forecast values to our empty days array
                           switch(hourly_day) {
-                            case 'Sunday':
+                            case 'Sun':
                               sunday.push(hourly_temp);
                               break;
-                            case 'Monday':
+                            case 'Mon':
                               monday.push(hourly_temp);
                               break;
-                            case 'Tuesday':
+                            case 'Tue':
                               tuesday.push(hourly_temp);
                               break;
-                            case 'Wednesday':
+                            case 'Wed':
                               wednesday.push(hourly_temp);
                               break;
-                            case 'Thursday':
+                            case 'Thur':
                               thursday.push(hourly_temp);
                               break;
-                            case 'Friday':
+                            case 'Fri':
                               friday.push(hourly_temp);
                               break;
-                            case 'Saturday':
+                            case 'Sat':
                               saturday.push(hourly_temp);
                               break;
                             default: console.log(hourly_date.toLocaleTimeString());
@@ -712,10 +714,11 @@
                           }
                         }
 
-                        var precipArr = [],
-                              tempArr = [],
-                              windArr = [],
-                             humidArr = [];
+                        var dayArr = [],
+                          precipArr = [],
+                            tempArr = [],
+                            windArr = [],
+                           humidArr = [];
                         
                         // Loop through daily forecasts
                         for(var i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
@@ -756,16 +759,17 @@
                                 </div>
                               </div>`
                           )
-
+                          
+                          dayArr.push(day);
                           precipArr.push(precipInt);
                           tempArr.push(tempMax);
                           windArr.push(wind);
                           humidArr.push(humidity);
                         };
-                        // console.log(tempMax);
 
+                        // console.log(day);
                         $(".dimmer").removeClass("active");
-                        weatherCharts(precipArr, tempArr, windArr, humidArr);
+                        weatherCharts(dayArr, precipArr, tempArr, windArr, humidArr);
                         skycons();
                       })
                     }
