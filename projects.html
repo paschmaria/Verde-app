@@ -5,9 +5,11 @@
 	<!-- META TAGS -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 	<meta name="description" content="Plurimus Technologies is a creative company that leverages technology to solve social impact and improve wellbeing and quality of life.">
-
+	<!-- FAVICON -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+	<!-- MAILCHIMP -->
+	<link rel="stylesheet" href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css">
 	<!-- STYLES -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/ionicons.min.css">
@@ -30,16 +32,16 @@
 					<ul class="first-level">
 						<li><a href="index.html" class="animsition-link">Home</a></li>
 						<li><a href="about.html" class="animsition-link">about us</a></li>
-						<li><a href="">projects</a>
+						<li><a href="javascript:void(0);">projects</a>
 							<ul class="second-level">
 								<li><a href="projects.html" class="animsition-link">project list</a></li>
 								<li><a href="verde.html" class="animsition-link">verde</a></li>
 								<li><a href="radix.html" class="animsition-link">radix</a></li>
 							</ul>
 						</li>
-						<li><a href="blog-1.html" class="animsition-link">blog</a>
+						<li><a href="blog.html" class="animsition-link">blog</a>
 							<!-- <ul class="second-level">
-								<li><a href="blog-1.html" class="animsition-link">posts list</a></li>
+								<li><a href="blog.html" class="animsition-link">posts list</a></li>
 								<li><a href="single-post.html" class="animsition-link">single post</a></li>
 							</ul> -->
 						</li>
@@ -65,9 +67,15 @@
 		</div>
 	</div>
 
-	<!-- PORTFOLIO -->
+	<!-- PROJECTS -->
 	<section class="portfolio">
 		<div class="container">
+			<div class="row">
+				<div class="section-title">
+					<span>mission critical projects</span>
+			</div>
+				
+
 			<!-- categories  -->
 			<div class="col-md-3">
 				<div class="row categories-grid wow fadeInLeft">
@@ -88,12 +96,12 @@
 				<div class="row portfolio_container">
 					<!-- single work -->
 					<div class="col-md-4 agriculture">
-						<a href="single-project.html" class="portfolio_item work-grid wow fadeInUp">
-							<img src="assets/img/work-1.jpg" alt="image">
+						<a href="verde.html" class="portfolio_item work-grid wow fadeInUp">
+							<img src="assets/img/verde.png" alt="[VERDE]">
 							<div class="portfolio_item_hover">
 								<div class="item_info">
 									<span>Verde</span>
-									<em>The Farmer's Companion</em>
+									<em>Enhancing Food Security</em>
 								</div>
 							</div>
 						</a>
@@ -103,7 +111,7 @@
 					<!-- single work -->
 					<div class="col-md-4 environment">
 						<a href="single-project.html" class="portfolio_item work-grid wow fadeInUp" data-wow-delay=".6s">
-							<img src="assets/img/work-2.jpg" alt="image">
+							<img src="assets/img/radix_2.png" alt="[RADIX]">
 							<div class="portfolio_item_hover">
 								<div class="item_info">
 									<span>Radix</span>
@@ -123,12 +131,12 @@
 	<!-- portfolio -->
 
 	<!-- newsletter -->
-	<section class="green-section wow fadeInUp" style="padding:50px 0">
+	<section class="wow fadeInUp" style="padding:50px 0">
 		<div class="container">
 			<div class="col-md-6 col-sm-12">
 				<div class="row">
-					<span class="white-text montserrat-text uppercase" style="font-size:30px;display:block;">
-						want to join us? let us know
+					<span class="yellow-text montserrat-text uppercase" style="font-size:30px;display:block;">
+						want to join us?
 					</span>
 					<a href="contact.html" class="btn blue" style="margin-top:30px"><span>get in touch</span></a>
 				</div>
@@ -136,18 +144,22 @@
 
 			<div class="col-md-6 col-sm-12">
 				<div class="row">
-					<div class="white-section" style="padding:20px">
+					<div id="mc_embed_signup" class="">
 						<span class="montserrat-text uppercase" style="font-size:24px">stay informed with our newsletter</span>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua.
+							Get updates on the most exciting projects we're working on. Don't worry, we hate spam too and only send out emails once a week.
 						</p>
-						<form action="#" method="post">
+						<form action="https://plurimustech.us18.list-manage.com/subscribe/post?u=ff1de4258e8a1f419a040171e&amp;id=c85ebfb0d8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 0;" novalidate>
 							<div class="input_1">
-								<input type="email" name="email" required>
+								<input type="email" name="EMAIL" class="required email" id="mce-EMAIL">
 								<span>your email</span>
 							</div>
-							<button type="submit" class="btn yellow" style="margin-top:20px"><span>send</span></button>
+							<div id="mce-responses" class="clear" style="margin: 0;">
+								<div class="response" id="mce-error-response" style="display:none; margin: 0; color:#067bea;"></div>
+								<div class="response" id="mce-success-response" style="display:none; margin: 0; color:#067bea;"></div>
+							</div>
+							<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ff1de4258e8a1f419a040171e_c85ebfb0d8" tabindex="-1" value=""></div>
+							<button type="submit" name="subscribe" class="btn yellow" style="margin-top:20px"><span>subscribe</span></button>
 						</form>
 					</div>
 				</div>
@@ -165,7 +177,7 @@
 							<li><a href="index.html" class="animsition-link link">Home</a></li>
 							<li><a href="about.html" class="animsition-link link">about us</a></li>
 							<li><a href="projects.html" class="animsition-link link">projects</a></li>
-							<li><a href="blog-1.html" class="animsition-link link">blog</a></li>
+							<li><a href="blog.html" class="animsition-link link">blog</a></li>
 							<li><a href="contact.html" class="animsition-link link">contact us</a></li>
 						</ul>
 					</nav>
@@ -180,8 +192,8 @@
 					<ul class="social-icons" style="margin-top:30px;float:right">
 						<li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
 						<li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
-						<li><a href="#"><i class="icon ion-social-linkedin"></i></a></li>
-						<li><a href="#"><i class="icon ion-social-instagram"></i></a></li>
+						<li><a href="https://www.linkedin.com/company/plurimus-technologies/"><i class="icon ion-social-linkedin"></i></a></li>
+						<li><a href="https://www.instagram.com/plurimustech"><i class="icon ion-social-instagram"></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -195,8 +207,7 @@
 	<script type="text/javascript" src="assets/js/jquery.animsition.min.js"></script>
 	<script type="text/javascript" src="assets/js/wow.min.js"></script>
 	<script type="text/javascript" src="assets/js/main.js"></script>
-
-	<script type="text/javascript" charset="utf-8">
+	<script type="text/javascript">
 		$(window).load(function() {
 			new WOW().init();
 			// initialize isotope
@@ -221,5 +232,10 @@
 			}); 
 		});
 	</script>
+	
+	<!-- Mailchimp -->
+	<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
+	<script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+	<!--End mc_embed_signup-->
 </body>
 </html>

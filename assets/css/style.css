@@ -1,21 +1,3 @@
-/*
-// Table of contents //
-
-		Body
-	0.  General
-	1.  Header & footer
-	2.  Site heroes
-	3.  Services
-	4.  Portfolio
-	5.  Inputs & textareas styles
-	6.  Benefits styles
-	7.  Pricing plans styles
-	8.  Team styles
-	9.  Testimonials styles
-	10. clients styles
-	11. Blog styles
-	
-*/
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700); /* Montserrat font */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800); /* Open sans font */
 
@@ -388,9 +370,9 @@ nav.desktop-nav ul.first-level > li > ul.second-level > li > a{
 	padding: 0 20px;
 	color:#fff;
 }
-nav.desktop-nav ul.first-level > li > ul.second-level > li:nth-child(even) > a{
+/* nav.desktop-nav ul.first-level > li > ul.second-level > li:nth-child(even) > a{
 	background-color: #585866;
-}
+} */
 nav.desktop-nav ul.first-level > li > ul.second-level > li > a:hover{
 	background-color: #404051;
 }
@@ -822,7 +804,8 @@ footer.main-footer nav.footer-nav ul li a{
 	top:0px;
 	left: 5px;
 	background-color: #fff;
-	padding: 5px
+	padding: 5px;
+	z-index: 5;
 }
 /*input 2*/
 .input_2{
@@ -1270,4 +1253,8 @@ footer.main-footer nav.footer-nav ul li a{
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
 	right: 0px; 
+}
+div#mc_embed_signup input {
+	border: 0;
+	border-radius: 0;
 }
