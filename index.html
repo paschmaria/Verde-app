@@ -1,368 +1,101 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>PLURIMUS - Creative Thinking {x} Technology</title>
-		<!-- META TAGS -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-		<meta name="description" content="Plurimus Technologies is a creative company that leverages technology to solve social impact and improve wellbeing and quality of life.">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#817729">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <title>Verde - Agricultural Extension and Analytics</title>
+    <link rel="icon" href="assets/images/favico.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="./assets/device-mockups/device-mockups.min.css">
+    <!-- Dashboard CSS -->
+    <link href="./assets/css/dashboard.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="./assets/css/new-age.css" rel="stylesheet">
 
-		<!-- STYLES -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/css/ionicons.min.css">
-		<link rel="stylesheet" href="assets/css/flexslider.css">
-		<link rel="stylesheet" href="assets/css/animsition.min.css">
-		<link rel="stylesheet" href="assets/css/animate.css">
-		<link rel="stylesheet" href="assets/css/style.css">
-	</head>
-	<body class="animsition">
-		<!-- HEADER  -->
-		<header class="main-header">
-			<div class="container">
-				<div class="logo">
-					<a href="index.html"><img src="assets/img/logo.png" alt="[LOGO]"></a>
-				</div>
+    <script src="./assets/js/require.min.js"></script>
+    <script src="./assets/js/dashboard.js"></script>
+    <script>
+      setTimeout(hideURLbar, 0);
+      function hideURLbar(){
+        window.scrollTo(0,1);
+      }
+      requirejs.config({
+          baseUrl: '.'
+      });
+    </script>
+  </head>
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="./">
+          <img  src="./assets/images/logo.png" class="header-brand-img shrink" alt="[VERDE]" style="display: none;">
+          <img  src="./assets/images/logo_2.png" class="header-brand-img" alt="[VERDE]">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="padding: .75rem .25rem;">
+              <a class="nav-link" href="./login" style="font-weight: 700;">login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-7 col-md-6 my-auto">
+            <div class="header-content mx-auto">
+              <h1 class="mb-5">Verde is an agricultural extension and analytics tool designed to help smallholder farmers increase productivity and maximise yield.</h1>
+              <a href="./register" class="btn btn-outline btn-xl">Get started!</a>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-6 my-auto">
+            <div class="device-container">
+              <div class="device-mockup galaxy_s5 portrait white">
+                <div class="device">
+                  <div class="screen">
+                    <!-- Content for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                    <img src="./assets/images/verde.png" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-				<div class="menu">
-					<!-- desktop navbar -->
-					<nav class="desktop-nav">
-						<ul class="first-level">
-							<li><a href="index.html" class="animsition-link">Home</a></li>
-							<li><a href="about.html" class="animsition-link">about us</a></li>
-							<li><a href="">projects</a>
-								<ul class="second-level">
-									<li><a href="projects.html" class="animsition-link">project list</a></li>
-									<li><a href="verde.html" class="animsition-link">verde</a></li>
-									<li><a href="radix.html" class="animsition-link">radix</a></li>
-								</ul>
-							</li>
-							<li><a href="blog-1.html" class="animsition-link">blog</a>
-								<!-- <ul class="second-level">
-									<li><a href="blog-1.html" class="animsition-link">posts list</a></li>
-									<li><a href="single-post.html" class="animsition-link">single post</a></li>
-								</ul> -->
-							</li>
-							<li><a href="contact.html" class="animsition-link">contact us</a></li>
-						</ul>
-					</nav>
-					<!-- mobile navbar -->
-					<nav class="mobile-nav"></nav>
-					<div class="menu-icon">
-						<div class="line"></div>
-						<div class="line"></div>
-						<div class="line"></div>
-					</div>
-				</div>
-			</div>
-		</header>
+    <footer>
+      <div class="container">
+        <p>Copyright © 2018 <a href="../" target="_blank" class="text-primary">Plurimus Technologies</a>. All rights reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Terms and Conditions</a>
+          </li><!-- 
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li> -->
+        </ul>
+      </div>
+    </footer>
+  </body>
 
-		<!-- HERO SECTION  -->
-		<div class="site-hero">
-			<ul class="slides">
-				<li>
-					<div><span class="small-title uppercase montserrat-text">we're</span></div>
-					<div class="big-title uppercase montserrat-text">creative thinkers</div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.</p>
-				</li>
-				<li>
-					<div><span class="small-title uppercase montserrat-text">we solve</span></div>
-					<div class="big-title uppercase montserrat-text">social problems</div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. </p>
-				</li>
-			</ul>
-		</div>
-
-		<!-- MISSION -->
-		<div class="container">
-			<div class="agency">
-				<div class="col-md-5 col-sm-12">
-					<div class="row">
-						<img src="assets/img/agency.jpg" alt="image">
-					</div>
-				</div>
-				<div class="col-md-offset-1 col-md-6 col-sm-12">
-					<div class="row">
-						<div class="section-title">
-							<span>our mission</span>
-						</div>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor nisi ut aliquip ex ea commodo
-							consequat. in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. 
-						</p>
-						<a href="about.html" class="btn yellow" style="float:right;margin-top:30px"><span>read more</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<!-- WHY CHOOSE US -->
-		<section class="services">
-			<div class="container">
-				<div class="row">
-					<div class="section-title">
-						<span>why choose us</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-
-				<div class="col-md-7 col-sm-12 services-left wow fadeInUp">
-					<div class="row" style="margin-bottom:50px">
-						<div class="col-md-6 col-sm-12">
-							<div class="row">
-								<i class="icon ion-ios-infinite-outline"></i>
-								<span class="montserrat-text uppercase service-title">unlimited options</span>
-								<ul>
-									<li>branding</li>
-									<li>design &amp; copywriting</li>
-									<li>concept development</li>
-									<li>user experience</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-12">
-							<div class="row">
-								<i class="icon ion-ios-shuffle"></i>
-								<span class="montserrat-text uppercase service-title">design &amp; development</span>
-								<ul>
-									<li>branding</li>
-									<li>design &amp; copywriting</li>
-									<li>concept development</li>
-									<li>user experience</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="row">
-								<i class="icon ion-ios-cart-outline"></i>
-								<span class="montserrat-text uppercase service-title">e-commerce</span>
-								<ul>
-									<li>branding</li>
-									<li>design &amp; copywriting</li>
-									<li>concept development</li>
-									<li>user experience</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-12">
-							<div class="row">
-								<i class="icon ion-ios-settings"></i>
-								<span class="montserrat-text uppercase service-title">customizable design</span>
-								<ul>
-									<li>branding</li>
-									<li>design &amp; copywriting</li>
-									<li>concept development</li>
-									<li>user experience</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-5 col-sm-12 services-right wow fadeInUp" data-wow-delay=".1s">
-					<div class="row">
-						<img src="assets/img/serv.jpg" alt="image">
-					</div>
-				</div>
-
-			</div>
-		</section>
-
-		<!-- PROJECTS -->
-		<section class="portfolio">
-			<div class="container">
-				<div class="row">
-					<div class="section-title">
-						<span>our projects</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-					
-
-				<!-- categories  -->
-				<div class="col-md-3">
-					<div class="row categories-grid wow fadeInLeft">
-						<span class="montserrat-text uppercase">choose category</span>
-
-						<nav class="categories">
-							<ul class="portfolio_filter">
-								<li><a href="" class="active" data-filter="*">all</a></li>
-								<li><a href="" data-filter=".agriculture">agriculture</a></li>
-								<li><a href="" data-filter=".environment">environmental sustainability</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-
-				<!-- all works -->
-				<div class="col-md-9">
-					<div class="row portfolio_container">
-						<!-- single work -->
-						<div class="col-md-4 agriculture">
-							<a href="single-project.html" class="portfolio_item work-grid wow fadeInUp">
-								<img src="assets/img/work-1.jpg" alt="image">
-								<div class="portfolio_item_hover">
-									<div class="item_info">
-										<span>Verde</span>
-										<em>The Farmer's Companion</em>
-									</div>
-								</div>
-							</a>
-						</div>
-						<!-- end single work -->
-
-						<!-- single work -->
-						<div class="col-md-4 environment">
-							<a href="single-project.html" class="portfolio_item work-grid wow fadeInUp" data-wow-delay=".6s">
-								<img src="assets/img/work-2.jpg" alt="image">
-								<div class="portfolio_item_hover">
-									<div class="item_info">
-										<span>Radix</span>
-										<em>Initiating Behaviourial Change</em>
-									</div>
-								</div>
-							</a>
-						</div>
-						<!-- end single work -->
-					</div>
-					<!-- end row -->
-				</div>
-				<!-- all works end -->
-			</div>
-			<!-- end container -->
-		</section>
-		<!-- portfolio -->
-
-		<!-- newsletter -->
-		<section class="green-section wow fadeInUp" style="padding:50px 0">
-			<div class="container">
-				<div class="col-md-6 col-sm-12">
-					<div class="row">
-						<span class="white-text montserrat-text uppercase" style="font-size:30px;display:block;">
-							want to join us? let us know
-						</span>
-						<a href="contact.html" class="btn blue" style="margin-top:30px"><span>get in touch</span></a>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-sm-12">
-					<div class="row">
-						<div class="white-section" style="padding:20px">
-							<span class="montserrat-text uppercase" style="font-size:24px">stay informed with our newsletter</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua.
-							</p>
-							<form action="#" method="post">
-								<div class="input_1">
-									<input type="email" name="email" required>
-									<span>your email</span>
-								</div>
-								<button type="submit" class="btn yellow" style="margin-top:20px"><span>send</span></button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- FOOTER -->
-		<footer class="main-footer wow fadeInUp">
-			<div class="container">
-				<div class="col-md-7 col-sm-12">
-					<div class="row">
-						<nav class="footer-nav">
-							<ul>
-								<li><a href="index.html" class="animsition-link link">Home</a></li>
-								<li><a href="about.html" class="animsition-link link">about us</a></li>
-								<li><a href="projects.html" class="animsition-link link">projects</a></li>
-								<li><a href="blog-1.html" class="animsition-link link">blog</a></li>
-								<li><a href="contact.html" class="animsition-link link">contact us</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-
-				<div class="col-md-5 col-sm-12" style="text-align:right;">
-					<div class="row">
-						<div class="uppercase blue-text">
-							plurimus technologies &copy; 2018. all rights reserved.
-						</div>
-						<ul class="social-icons" style="margin-top:30px;float:right">
-							<li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
-							<li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
-							<li><a href="#"><i class="icon ion-social-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon ion-social-instagram"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</footer>
-
-		<!-- SCRIPTS -->
-		<script type="text/javascript" src="assets/js/jquery-2.1.4.min.js"></script>
-		<script type="text/javascript" src="assets/js/isotope.pkgd.min.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.flexslider.js"></script>
-		<script type="text/javascript" src="assets/js/smoothScroll.js"></script>
-		<script type="text/javascript" src="assets/js/jquery.animsition.min.js"></script>
-		<script type="text/javascript" src="assets/js/wow.min.js"></script>
-		<script type="text/javascript" src="assets/js/main.js"></script>
-
-		<script type="text/javascript" charset="utf-8">
-			$(window).load(function() {
-				setTimeout(hideURLbar, 0);
-				function hideURLbar(){
-					window.scrollTo(0,1);
-				}
-
-				new WOW().init();
-
-				// initialise flexslider
-				$('.site-hero').flexslider({
-					animation: "fade",
-					directionNav: false,
-					controlNav: false, 
-					keyboardNav: true,
-					slideToStart: 0,
-					animationLoop: true,
-					pauseOnHover: false,
-					slideshowSpeed: 4000, 
-				});
-
-				// initialize isotope
-				var $container = $('.portfolio_container');
-				$container.isotope({
-					filter: '*',
-				});
-			
-				$('.portfolio_filter a').click(function(){
-					$('.portfolio_filter .active').removeClass('active');
-					$(this).addClass('active');
-			
-					var selector = $(this).attr('data-filter');
-					$container.isotope({
-						filter: selector,
-						animationOptions: {
-							duration: 500,
-							animationEngine : "jquery"
-						}
-					});
-					return false;
-				}); 
-			});
-		</script>
-	</body>
 </html>
