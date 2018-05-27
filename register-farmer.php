@@ -157,11 +157,11 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-overview.html" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
                       <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-biodata.html" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography.html" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo.html" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">

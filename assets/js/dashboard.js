@@ -1,11 +1,12 @@
 require.config({
   shim: {
     'bootstrap': ['jquery'],
+    'raphaël': ['jquery'],
     'easing': ['jquery'],
     'sparkline': ['jquery'],
     'tablesorter': ['jquery'],
     'vector-map': ['jquery'],
-    'vector-map-de': ['vector-map', 'jquery'],
+    'vector-map-ng': ['vector-map', 'jquery'],
     'vector-map-world': ['vector-map', 'jquery'],
     'core': ['bootstrap', 'jquery']
   },
@@ -17,10 +18,12 @@ require.config({
     'selectize': 'assets/js/vendors/selectize.min',
     'tablesorter': 'assets/js/vendors/jquery.tablesorter.min',
     'vector-map': 'assets/js/vendors/jquery-jvectormap-2.0.3.min',
-    'vector-map-de': 'assets/js/vendors/jquery-jvectormap-de-merc',
+    'vector-map-ng': 'assets/js/vendors/jquery-jvectormap-ng-merc',
     'vector-map-world': 'assets/js/vendors/jquery-jvectormap-world-mill',
     'circle-progress': 'assets/js/vendors/circle-progress.min',
-    'easing': 'assets/js/vendors/jquery.easing.min.js'
+    'easing': 'assets/js/vendors/jquery.easing.min.js',
+    'raphaël': 'assets/js/vendors/raphaël.min.js',
+    'chart': 'assets/js/vendors/chart.bundle.min'
   }
 });
 window.tabler = {
@@ -89,7 +92,7 @@ window.tabler = {
     'lime-lighter': '#d7f2c2',
     'lime-lightest': '#f2fbeb',
     'green': '#5eba00',
-    'green-darkest': '#132500',
+    'green-darkest': '#172c01',
     'green-darker': '#817729',
     'green-dark': '#4b9500',
     'green-light': '#8ecf4d',
