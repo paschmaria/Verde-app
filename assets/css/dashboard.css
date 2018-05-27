@@ -18721,14 +18721,12 @@ svg {
   cursor: not-allowed;
 }
 
-/* .mapsvg-region {
-  transition: all .2s ease-in-out;
-  transform-origin: 50% 50%;
+.mapsvg-region {
+  transition: opacity 0.5s ease-in-out;
 }
-
 .mapsvg-region:hover {
-  transform: scale(1.2);
-} */
+  opacity: 0.6;
+}
 
 @media (max-width: 320px) {
   .custom-switch-input:checked ~ .custom-switch-indicator:before {
