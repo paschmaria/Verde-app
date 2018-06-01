@@ -149,7 +149,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link active"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -157,11 +157,10 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
-                      <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-overview" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-biodata" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">
@@ -171,7 +170,6 @@
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-send"></i> Push</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="./sms" class="dropdown-item"><i class="fe fe-message-square"></i> SMS</a>
-                      <!-- <a href="./charts.html" class="dropdown-item">Charts</a> -->
                       <a href="./voice" class="dropdown-item"><i class="fe fe-phone-outgoing"></i> Voice Calls</a>
                     </div>
                   </li>

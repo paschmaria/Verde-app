@@ -149,7 +149,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -157,11 +157,10 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
-                      <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-overview" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-biodata" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">
@@ -387,46 +386,43 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="form-label">Sampled Soil Depth (inches)<span class="form-required">*</span></label>
+                          <label class="form-label">Sampled Soil Depth (cm)<span class="form-required">*</span></label>
                           <div>
                             <label class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" name="" value="0_2">
-                              <span class="custom-control-label">0-2</span>
+                              <span class="custom-control-label">0-15</span>
                             </label>
                             <label class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" name="" value="2_4">
-                              <span class="custom-control-label">2-4</span>
+                              <span class="custom-control-label">15-30</span>
                             </label>
                             <label class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" name="" value="4_6">
-                              <span class="custom-control-label">4-6</span>
+                              <span class="custom-control-label">30-45</span>
                             </label>
                             <label class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" name="" value="6_8">
-                              <span class="custom-control-label">6-8</span>
+                              <span class="custom-control-label">>45</span>
                             </label>
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="form-label">Sampled Soil Types<span class="form-required">*</span></label>
-                          <div>
-                            <label class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" name="" value="sandy">
-                              <span class="custom-control-label">Sandy Soil</span>
-                            </label>
-                            <label class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" name="" value="loamy">
-                              <span class="custom-control-label">Loamy Soil</span>
-                            </label>
-                            <label class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" name="" value="laterite">
-                              <span class="custom-control-label">Laterite Soil</span>
-                            </label>
-                            <label class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" name="" value="alluvial">
-                              <span class="custom-control-label">Alluvial Soil</span>
-                            </label>
-                          </div>
+                          <label class="form-label">Sampled Soil Type<span class="form-required">*</span></label>
+                          <select name="soil_type" class="form-control custom-select">
+                            <option value="">Choose type</option>
+                            <option value="clay">Clay</option>
+                            <option value="loam">Loam</option>
+                            <option value="sand">Sand</option>
+                            <option value="silt">Silt</option>
+                            <option value="sandy_clay">Sandy Clay</option>
+                            <option value="silty_clay">Silty Clay</option>
+                            <option value="clay_loam">Clay Loam</option>
+                            <option value="loamy_sand">Loamy Sand</option>
+                            <option value="sandy_loam">Sandy Loam</option>
+                            <option value="silt_loam">Silt Loam</option>
+                            <option value="silt_clay_loam">Silt Clay Loam</option>
+                            <option value="sandy_clay_loam">Sandy Clay Loam</option>
+                          </select>
                         </div>
                         <div class="form-group">
                           <label class="form-label">Soil pH<span class="form-required">*</span></label>
