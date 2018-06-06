@@ -40,7 +40,12 @@
     <!-- Input Mask Plugin -->
     <script src="{% static 'assets/plugins/input-mask/plugin.js' %}"></script>
     <!-- Skycons -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script>  
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script> 
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="{% static 'assets/js/vendors/jquery-3.2.1.min.js' %}"></script> 
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="core" src="{% static 'assets/js/core.js' %}"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="d3" src="{% static 'assets/plugins/charts-c3/js/d3.v3.min.js' %}"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="c3" src="{% static 'assets/plugins/charts-c3/js/c3.min.js' %}"></script>
   </head>
   <body class="">
     <div class="page">
@@ -146,11 +151,11 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="{% url 'farmers-overview' %}" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
                       <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="{% url 'farmers-bio-data' %}" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="{% url 'farmers-demography' %}" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
+                      <a href="{% url 'farmers-crop-info' %}" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">

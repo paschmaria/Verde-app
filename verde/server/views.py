@@ -33,3 +33,6 @@ def dashboard(request):
 
 def register_farmer(request):
     return render(request, "register-farmer.html")
+
+def farmers_demography(request):
+    return render(request, "farmer-demography.html")

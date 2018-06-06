@@ -13,5 +13,9 @@ urlpatterns = [
     url(r'^sms/$', register_farmer, name="sms"),
     url(r'^voice/$', register_farmer, name="voice"),
     url(r'^reports/$', register_farmer, name="reports"),
+    url(r'^farmers/overview$', register_farmer, name="farmers-overview"),
+    url(r'^farmers/bio-data$', register_farmer, name="farmers-bio-data"),
+    url(r'^farmers/demography$', register_farmer, name="farmers-demography"),
+    url(r'^farmers/crop-info$', register_farmer, name="farmers-crop-info"),    
     url(r'', index, name="landing"),
 ]
