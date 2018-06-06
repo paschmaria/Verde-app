@@ -1,6 +1,7 @@
 {% extends 'base_auth.html' %}
 {% load staticfiles %}
 
+
 {% block body %}
 <div class="row">
   <div class="col col-login mx-auto">
@@ -10,7 +11,7 @@
       </a>
     </div>
     <form class="card" method="post">
-      {% csrf_token %} {{ form.non_field_errors }}
+      {% csrf_token %} 
 
       <div class="card-body p-6">
         <h3 class="card-title text-center">Welcome</h3>
@@ -31,6 +32,10 @@
             <span class="custom-control-label">Remember me</span>
           </label>
         </div>
+        {% for error in form.non_field_errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+
         {% for error in field.errors %}
         <p class="error">{{ error }}</p>
         {% endfor %}
