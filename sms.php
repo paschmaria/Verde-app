@@ -1,7 +1,7 @@
 <?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
 ?>
@@ -221,7 +221,7 @@
                         <div class="row align-items-center">
                           <label class="col-sm-2">To:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers...">
+                            <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers..." required>
                           </div>
                         </div>
                       </div>
@@ -292,14 +292,17 @@
                         <div class="row align-items-center">
                           <label class="col-sm-2">From:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" required>
                           </div>
                         </div>
                       </div>
-                      <textarea rows="10" class="form-control"></textarea>
-                      <div class="btn-list mt-4 text-right">
-                        <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
-                        <button type="submit" class="btn btn-primary btn-space">Send message</button>
+                      <textarea rows="10" class="form-control" required></textarea>
+                      <div class="d-flex justify-content-center">
+                          <small class="mt-4 text-muted pl-2 w-25">4 min</small>
+                          <div class="btn-list mt-4 text-right">
+                            <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
+                            <button type="submit" class="btn btn-primary btn-space">Send message</button>
+                          </div>
                       </div>
                     </form>
                   </div>

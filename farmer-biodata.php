@@ -1,10 +1,10 @@
-<!-- <?php 
+<?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

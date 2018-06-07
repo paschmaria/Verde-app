@@ -1,10 +1,10 @@
-<!-- <?php 
+<?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
       header("Location: ./login.php"); 
       exit; 
   }
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -108,16 +108,16 @@
                     </span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
-                        <!-- <?php 
+                        <?php 
                           if ($_SESSION['user']['firstname']) {
                             echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname'];
                           } else {
                             echo ucfirst($_SESSION['user']['username']);
                           }
-                        ?>   -->
+                        ?>
                       </span>
                       <small class="text-muted d-block mt-1">
-                        <!-- <?php echo ucfirst($_SESSION['user']['user_type']); ?> -->
+                        <?php echo ucfirst($_SESSION['user']['user_type']); ?>
                       </small>
                     </span>
                   </a>

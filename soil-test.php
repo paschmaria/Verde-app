@@ -214,10 +214,10 @@
                           <label class="form-label">Farmer Name<span class="form-required">*</span></label>
                           <div class="row gutters-xs">
                             <div class="col-6">
-                              <input type="text" class="form-control" placeholder="First name">
+                              <input type="text" class="form-control" placeholder="First name" required>
                             </div>
                             <div class="col-6">
-                              <input type="text" class="form-control" placeholder="Last name">
+                              <input type="text" class="form-control" placeholder="Last name" required>
                             </div>
                           </div>
                         </div>
@@ -225,13 +225,13 @@
                           <label class="form-label">Farm Location<span class="form-required">*</span></label>
                           <div class="row gutters-xs">
                             <div class="col-6">
-                              <select name="location[state]" class="form-control custom-select">
+                              <select name="location[state]" class="form-control custom-select" required>
                                 <option value="">State</option>
                                 <option value="1">Kano</option>
                               </select>
                             </div>
                             <div class="col-6">
-                              <select name="location[town]" class="form-control custom-select">
+                              <select name="location[town]" class="form-control custom-select" required>
                                 <option value="">Select town or village</option>
                                 <option value="1">Ajingi</option>
                                 <option value="2">Albasu</option>
@@ -255,7 +255,7 @@
                         <div class="form-group">
                           <label class="form-label">Farm Size<span class="form-required">*</span></label>
                           <div class="input-group">
-                            <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                            <input type="number" class="form-control" aria-label="Text input with select dropdown" required>
                             <div class="input-group-append">
                               <select name="land[area]" class="form-control custom-select">
                                 <option value="1">Acre</option>
@@ -269,7 +269,7 @@
                           <label class="form-label">Date of last Fertilizer application<span class="form-required">*</span></label>
                           <div class="row gutters-xs">
                             <div class="col-5">
-                              <select name="fertilizer[month]" class="form-control custom-select">
+                              <select name="fertilizer[month]" class="form-control custom-select" required>
                                 <option value="">Month</option>
                                 <option value="1">January</option>
                                 <option value="2">February</option>
@@ -286,7 +286,7 @@
                               </select>
                             </div>
                             <div class="col-3">
-                              <select name="fertilizer[day]" class="form-control custom-select">
+                              <select name="fertilizer[day]" class="form-control custom-select" required>
                                 <option value="">Day</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -322,7 +322,7 @@
                               </select>
                             </div>
                             <div class="col-4">
-                              <select name="fertilizer[year]" class="form-control custom-select">
+                              <select name="fertilizer[year]" class="form-control custom-select" required>
                                 <option value="">Year</option>
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
@@ -333,7 +333,7 @@
                         </div>
                         <div class="form-group">
                           <label class="form-label">Type of Soil Tillage<span class="form-required">*</span></label>
-                          <select name="tillage" class="form-control custom-select">
+                          <select name="tillage" class="form-control custom-select" required>
                             <option value="">Choose type</option>
                             <option value="1">Conventional Tillage</option>
                             <option value="2">Conservation Tillage</option>
@@ -342,7 +342,7 @@
                         </div>
                         <div class="form-group">
                           <label class="form-label">Planted Crop(s)<span class="form-required">*</span></label>
-                          <input type="text" class="form-control" name="crops" id="input-tags" value="Wheat">
+                          <input type="text" class="form-control" name="crops" id="input-tags" value="Wheat" required>
                         </div>
                         <script>
                           require(['jquery', 'selectize'], function ($, selectize) {
@@ -365,15 +365,15 @@
                         <div class="row">
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
-                              <label class="form-label">Amt. of Samples Collected</label>
-                              <input type="number" class="form-control">
+                              <label class="form-label">Amt. of Samples Collected<span class="form-required">*</span></label>
+                              <input type="number" class="form-control" required>
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                               <label class="form-label">Av. Sample Size<span class="form-required">*</span></label>
                               <div class="input-group">
-                                <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                                <input type="number" class="form-control" aria-label="Text input with select dropdown" required>
                                 <div class="input-group-append">
                                   <select name="sample_size" class="form-control custom-select">
                                     <option value="1">mg</option>
@@ -408,7 +408,7 @@
                         </div>
                         <div class="form-group">
                           <label class="form-label">Sampled Soil Type<span class="form-required">*</span></label>
-                          <select name="soil_type" class="form-control custom-select">
+                          <select name="soil_type" class="form-control custom-select" required>
                             <option value="">Choose type</option>
                             <option value="clay">Clay</option>
                             <option value="loam">Loam</option>
@@ -431,7 +431,7 @@
                               <input type="range" id="pHRange" class="form-control custom-range" step="1" min="0" max="14">
                             </div>
                             <div class="col">
-                              <input type="number" id="pHBox" class="form-control" value="14">
+                              <input type="number" id="pHBox" class="form-control" value="14" required>
                             </div>
                           </div>
                         </div>

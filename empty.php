@@ -1,7 +1,7 @@
 <?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
 ?>
@@ -102,7 +102,9 @@
                           }
                           echo $initials;
                         } else if ($_SESSION['user']['user_type'] === 'agent') {
-                          echo "A";
+                          echo "AG";
+                        } else {
+                          echo "AD"
                         }
                       ?>
                     </span>

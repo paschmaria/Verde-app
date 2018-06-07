@@ -218,7 +218,7 @@
                                 <img src="./assets/images/image.png" alt="" class="img-fluid camera">
                                 <div id="picPreview" class="p-1" style="height: inherit;"></div>
                               </label>
-                              <input type="file" name="farmer-pic" id="farmer-pic-input" onchange="getPicture(this.files);" accept="image/*">
+                              <input type="file" name="farmer-pic" id="farmer-pic-input" onchange="getPicture(this.files);" accept="image/*" required>
                             </div>
                           </div>
                         </div>
@@ -271,7 +271,7 @@
                           <label class="form-label">Date of birth<span class="form-required">*</span></label>
                           <div class="row gutters-xs">
                             <div class="col-5">
-                              <select name="user[month]" class="form-control custom-select">
+                              <select name="user[month]" class="form-control custom-select" required>
                                 <option value="">Month</option>
                                 <option value="1">January</option>
                                 <option value="2">February</option>
@@ -288,7 +288,7 @@
                               </select>
                             </div>
                             <div class="col-3">
-                              <select name="user[day]" class="form-control custom-select">
+                              <select name="user[day]" class="form-control custom-select" required>
                                 <option value="">Day</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -324,7 +324,7 @@
                               </select>
                             </div>
                             <div class="col-4">
-                              <select name="user[year]" class="form-control custom-select">
+                              <select name="user[year]" class="form-control custom-select" required>
                                 <option value="">Year</option>
                                 <option value="2000">2000</option>
                                 <option value="1999">1999</option>
@@ -389,11 +389,11 @@
                               <div class="form-label">Gender<span class="form-required">*</span></div>
                               <div class="custom-controls-stacked">
                                 <label class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" class="custom-control-input" name="gender" value="male" checked>
+                                  <input type="radio" class="custom-control-input" name="gender" value="male" checked required>
                                   <span class="custom-control-label">Male</span>
                                 </label>
                                 <label class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" class="custom-control-input" name="gender" value="female">
+                                  <input type="radio" class="custom-control-input" name="gender" value="female" required>
                                   <span class="custom-control-label">Female</span>
                                 </label>
                               </div>
@@ -402,7 +402,7 @@
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                               <label class="form-label">Highest Level of Education<span class="form-required">*</span></label>
-                              <select name="education" class="form-control custom-select">
+                              <select name="education" class="form-control custom-select" required>
                                 <option value="">Select</option>
                                 <option value="1">None</option>
                                 <option value="2">Quaranic</option>
@@ -417,7 +417,7 @@
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                               <label class="form-label">Family Size<span class="form-required">*</span></label>
-                              <input type="number" class="form-control">
+                              <input type="number" class="form-control" required>
                             </div>
                           </div>
                           <div class="col-lg-6 col-md-12">
@@ -428,7 +428,7 @@
                                   <input type="range" id="incomeRange" class="form-control custom-range" step="5" min="0" max="1000000">
                                 </div>
                                 <div class="col">
-                                  <input type="number" id="incomeBox" class="form-control" value="450000">
+                                  <input type="number" id="incomeBox" class="form-control" value="450000" required>
                                 </div>
                               </div>
                             </div>
@@ -449,7 +449,7 @@
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                               <label class="form-label">State<span class="form-required">*</span></label>
-                              <select name="state" class="form-control custom-select">
+                              <select name="state" class="form-control custom-select" required>
                                 <option value="">Select state</option>
                                 <option value="1">Kano</option>
                               </select>
@@ -458,7 +458,7 @@
                           <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                               <label class="form-label">Town<span class="form-required">*</span></label>
-                              <select name="town" class="form-control custom-select">
+                              <select name="town" class="form-control custom-select" required>
                                 <option value="">Select town or village</option>
                                 <option value="1">Ajingi</option>
                                 <option value="2">Albasu</option>
@@ -484,8 +484,8 @@
                         <h3>Field Information</h3>
                         <div class="form-group">
                           <label class="form-label">Location<span class="form-required">*</span></label>
-                          <input type="number" id="longitude" class="form-control" placeholder="Longitude">
-                          <input type="number" id="latitude" class="form-control mt-3" placeholder="Latitude">
+                          <input type="number" id="longitude" class="form-control" placeholder="Longitude" required>
+                          <input type="number" id="latitude" class="form-control mt-3" placeholder="Latitude" required>
                         </div>
                         <div class="mb-3">
                           <button type="button" id="farmLocation" class="btn btn-primary" onclick="getLocation();">Get Location</button>
@@ -534,7 +534,7 @@
                         <div class="form-group">
                           <label class="form-label">Total Land Area<span class="form-required">*</span></label>
                           <div class="input-group">
-                            <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                            <input type="number" class="form-control" aria-label="Text input with select dropdown" required>
                             <div class="input-group-append">
                               <select name="land[area]" class="form-control custom-select">
                                 <option value="1">Acre</option>
@@ -547,7 +547,7 @@
                         <div class="form-group">
                           <div class="form-label">Farm Pictures<span class="form-required">*</span></div>
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="farm-pictures-input" onchange="handleFiles(this.files);" multiple>
+                            <input type="file" class="custom-file-input" name="farm-pictures-input" onchange="handleFiles(this.files);" multiple required>
                             <label class="custom-file-label">Choose files</label>
                           </div>
                           <ul id="imagesPreview" class="d-flex flex-row flex-wrap justify-content-around image-wrapper"></ul>
@@ -593,7 +593,7 @@
                         </script>
                         <div class="form-group">
                           <label class="form-label">Planted Crop(s) (Comma separated list)<span class="form-required">*</span></label>
-                          <input type="text" class="form-control" name="crops" id="input-tags" value="Wheat">
+                          <input type="text" class="form-control" name="crops" id="input-tags" value="Wheat" required>
                         </div>
                         <script>
                           require(['jquery', 'selectize'], function ($, selectize) {
@@ -615,7 +615,7 @@
                             <div class="form-group">
                               <label class="form-label">Av. Annual Production Volume<span class="form-required">*</span></label>
                               <div class="input-group">
-                                <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                                <input type="number" class="form-control" aria-label="Text input with select dropdown" required>
                                 <div class="input-group-append">
                                   <select name="land[area]" class="form-control custom-select">
                                     <option value="1">Tonnes</option>
@@ -630,11 +630,11 @@
                               <div class="form-label">Major source of Farm labour<span class="form-required">*</span></div>
                               <div class="custom-controls-stacked">
                                 <label class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" class="custom-control-input" name="farm-labour" value="family" checked>
+                                  <input type="radio" class="custom-control-input" name="farm-labour" value="family" checked required>
                                   <span class="custom-control-label">Family</span>
                                 </label>
                                 <label class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" class="custom-control-input" name="farm-labour" value="hired_hands">
+                                  <input type="radio" class="custom-control-input" name="farm-labour" value="hired_hands" required>
                                   <span class="custom-control-label">Hired Hands</span>
                                 </label>
                               </div>

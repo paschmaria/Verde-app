@@ -1,7 +1,7 @@
 <?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
 ?>
@@ -89,7 +89,9 @@
                 </div>
                 <div class="dropdown">
                   <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-                    <span class="avatar avatar-blue">PT</span>
+                    <span class="avatar avatar-blue">
+                        PT
+                    </span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
                         <?php 
@@ -187,41 +189,36 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="card card-profile">
-                  <div class="card-header" style="background-image: url(demo/photos/eberhard-grossgasteiger-311213-500.jpg);"></div>
-                  <div class="card-body text-center">
-                    <img class="card-profile-img" src="demo/faces/male/16.jpg">
-                    <h3 class="mb-3">Peter Richards</h3>
-                    <p class="mb-4">
-                      Big belly rude boy, million dollar hustler. Unemployed.
-                    </p>
-                    <button class="btn btn-outline-primary btn-sm">
-                      <span class="fa fa-twitter"></span> Follow
-                    </button>
+                  <div class="card-header">
                   </div>
-                </div>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="media">
-                      <span class="avatar avatar-xxl mr-5" style="background-image: url(demo/faces/male/21.jpg)"></span>
-                      <div class="media-body">
-                        <h4 class="m-0">Juan Hernandez</h4>
-                        <p class="text-muted mb-0">Webdeveloper</p>
-                        <ul class="social-links list-inline mb-0 mt-2">
-                          <li class="list-inline-item">
-                            <a href="javascript:void(0)" title="Facebook" data-toggle="tooltip"><i class="fa fa-facebook"></i></a>
-                          </li>
-                          <li class="list-inline-item">
-                            <a href="javascript:void(0)" title="Twitter" data-toggle="tooltip"><i class="fa fa-twitter"></i></a>
-                          </li>
-                          <li class="list-inline-item">
-                            <a href="javascript:void(0)" title="1234567890" data-toggle="tooltip"><i class="fa fa-phone"></i></a>
-                          </li>
-                          <li class="list-inline-item">
-                            <a href="javascript:void(0)" title="@skypename" data-toggle="tooltip"><i class="fa fa-skype"></i></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                  <div class="card-body text-center">
+                    <img class="card-profile-img" src="./assets/images/user.png">
+                    <h3 class="mb-3">
+                        <?php
+                            if ($_SESSION['user']['firstname']) {
+                                echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname'];
+                            } else {
+                                echo "User";
+                            }
+                        ?>
+                    </h3>
+                    <p class="mb-4">
+                      <small class="d-block">
+                        @<?php
+                            echo $_SESSION['user']['username'];
+                        ?>
+                      </small>
+                      <span>
+                          <?php
+                            echo ucfirst($_SESSION['user']['user_type']);
+                          ?>
+                      </span>
+                    </p>
+                    <a href="mailto:<?php echo $_SESSION['user']['email'];?>" class="btn-sm btn-outline-primary btn">
+                        <?php
+                            echo $_SESSION['user']['email'];
+                        ?>
+                    </a>
                   </div>
                 </div>
                 <div class="card">
@@ -229,193 +226,325 @@
                     <h3 class="card-title">My Profile</h3>
                   </div>
                   <div class="card-body">
-                    <form>
-                      <div class="row">
-                        <div class="col-auto">
-                          <span class="avatar avatar-xl" style="background-image: url(demo/faces/female/9.jpg)"></span>
-                        </div>
-                        <div class="col">
-                          <div class="form-group">
-                            <label class="form-label">Email-Address</label>
-                            <input class="form-control" placeholder="your-email@domain.com"/>
-                          </div>
-                        </div>
+                     <div class="">
+                      <h5>About Me</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['bio']) {
+                                echo $_SESSION['user']['bio'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="">
+                      <h5>Phone number</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['phone']) {
+                                echo $_SESSION['user']['phone'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-sm-12">
+                        <h5>Date of Birth</h5>
+                        <p>
+                            <?php
+                                if ($_SESSION['user']['date_of_birth']) {
+                                    echo $_SESSION['user']['date_of_birth'];
+                                } else {
+                                    echo "N/A";
+                                }
+                            ?>
+                        </p>
                       </div>
-                      <div class="form-group">
-                        <label class="form-label">Bio</label>
-                        <textarea class="form-control" rows="5">Big belly rude boy, million dollar hustler. Unemployed.</textarea>
+                      <div class="col-md-6 col-sm-12">
+                        <h5>Gender</h5>
+                        <p>
+                            <?php
+                                if ($_SESSION['user']['gender']) {
+                                    echo $_SESSION['user']['gender'];
+                                } else {
+                                    echo "N/A";
+                                }
+                            ?>
+                        </p>
                       </div>
-                      <div class="form-group">
-                        <label class="form-label">Email-Address</label>
-                        <input class="form-control" placeholder="your-email@domain.com"/>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" value="password"/>
-                      </div>
-                      <div class="form-footer">
-                        <button class="btn btn-primary btn-block">Save</button>
-                      </div>
-                    </form>
+                    </div>
+                    <div class="">
+                      <h5>Highest Educational Level</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['education']) {
+                                echo $_SESSION['user']['education'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="">
+                      <h5>Degree - If available</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['degree']) {
+                                echo $_SESSION['user']['degree'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="">
+                      <h5>Address</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['address']) {
+                                echo $_SESSION['user']['address'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="">
+                      <h5>State of Residence</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['state']) {
+                                echo $_SESSION['user']['state'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
+                    <div class="">
+                      <h5>Local Government Area (LGA)</h5>
+                      <p>
+                        <?php
+                            if ($_SESSION['user']['lga']) {
+                                echo $_SESSION['user']['lga'];
+                            } else {
+                                echo "N/A";
+                            }
+                        ?>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-lg-8">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Message">
-                      <div class="input-group-append">
-                        <button type="button" class="btn btn-secondary">
-                          <i class="fe fe-camera"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <ul class="list-group card-list-group">
-                    <li class="list-group-item py-5">
-                      <div class="media">
-                        <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-                        <div class="media-body">
-                          <div class="media-heading">
-                            <small class="float-right text-muted">4 min</small>
-                            <h5>Peter Richards</h5>
-                          </div>
-                          <div>
-                            Aenean lacinia bibendum nulla sed consectetur. Vestibulum id ligula porta felis euismod semper. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras
-                            justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Cum sociis natoque penatibus et magnis dis parturient montes,
-                            nascetur ridiculus mus.
-                          </div>
-                          <ul class="media-list">
-                            <li class="media mt-4">
-                              <div class="media-object avatar mr-4" style="background-image: url(demo/faces/female/17.jpg)"></div>
-                              <div class="media-body">
-                                <strong>Debra Beck: </strong>
-                                Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                                auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
-                              </div>
-                            </li>
-                            <li class="media mt-4">
-                              <div class="media-object avatar mr-4" style="background-image: url(demo/faces/male/32.jpg)"></div>
-                              <div class="media-body">
-                                <strong>Jack Ruiz: </strong>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-                                amet risus.
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item py-5">
-                      <div class="media">
-                        <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-                        <div class="media-body">
-                          <div class="media-heading">
-                            <small class="float-right text-muted">12 min</small>
-                            <h5>Peter Richards</h5>
-                          </div>
-                          <div>
-                            Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis
-                            parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item py-5">
-                      <div class="media">
-                        <div class="media-object avatar avatar-md mr-4" style="background-image: url(demo/faces/male/16.jpg)"></div>
-                        <div class="media-body">
-                          <div class="media-heading">
-                            <small class="float-right text-muted">34 min</small>
-                            <h5>Peter Richards</h5>
-                          </div>
-                          <div>
-                            Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Aenean eu leo quam. Pellentesque ornare sem lacinia quam
-                            venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                          </div>
-                          <ul class="media-list">
-                            <li class="media mt-4">
-                              <div class="media-object avatar mr-4" style="background-image: url(demo/faces/male/26.jpg)"></div>
-                              <div class="media-body">
-                                <strong>Wayne Holland: </strong>
-                                Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                                auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
                 <form class="card">
                   <div class="card-body">
                     <h3 class="card-title">Edit Profile</h3>
                     <div class="row">
+                      <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">First Name<span class="form-required">*</span></label>
+                          <input type="text" class="form-control" placeholder="First Name" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">Last Name<span class="form-required">*</span></label>
+                          <input type="text" class="form-control" placeholder="Last Name" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                          <label class="form-label">Date of Birth<span class="form-required">*</span></label>
+                          <div class="row gutters-xs">
+                            <div class="col-5">
+                              <select name="user[month]" class="form-control custom-select" required>
+                                <option value="">Month</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                              </select>
+                            </div>
+                            <div class="col-3">
+                              <select name="user[day]" class="form-control custom-select" required>
+                                <option value="">Day</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                              </select>
+                            </div>
+                            <div class="col-4">
+                              <select name="user[year]" class="form-control custom-select" required>
+                                <option value="">Year</option>
+                                <option value="2000">2000</option>
+                                <option value="1999">1999</option>
+                                <option value="1998">1998</option>
+                                <option value="1997">1997</option>
+                                <option value="1996">1996</option>
+                                <option value="1995">1995</option>
+                                <option value="1994">1994</option>
+                                <option value="1993">1993</option>
+                                <option value="1992">1992</option>
+                                <option value="1991">1991</option>
+                                <option value="1990">1990</option>
+                                <option value="1989">1989</option>
+                                <option value="1988">1988</option>
+                                <option value="1987">1987</option>
+                                <option value="1986">1986</option>
+                                <option value="1985">1985</option>
+                                <option value="1984">1984</option>
+                                <option value="1983">1983</option>
+                                <option value="1982">1982</option>
+                                <option value="1981">1981</option>
+                                <option value="1980">1980</option>
+                                <option value="1979">1979</option>
+                                <option value="1978">1978</option>
+                                <option value="1977">1977</option>
+                                <option value="1976">1976</option>
+                                <option value="1975">1975</option>
+                                <option value="1974">1974</option>
+                                <option value="1973">1973</option>
+                                <option value="1972">1972</option>
+                                <option value="1971">1971</option>
+                                <option value="1970">1970</option>
+                                <option value="1969">1969</option>
+                                <option value="1968">1968</option>
+                                <option value="1967">1967</option>
+                                <option value="1966">1966</option>
+                                <option value="1965">1965</option>
+                                <option value="1964">1964</option>
+                                <option value="1963">1963</option>
+                                <option value="1962">1962</option>
+                                <option value="1961">1961</option>
+                                <option value="1960">1960</option>
+                                <option value="1959">1959</option>
+                                <option value="1958">1958</option>
+                                <option value="1957">1957</option>
+                                <option value="1956">1956</option>
+                                <option value="1955">1955</option>
+                                <option value="1954">1954</option>
+                                <option value="1953">1953</option>
+                                <option value="1952">1952</option>
+                                <option value="1951">1951</option>
+                                <option value="1950">1950</option>
+                                <option value="1949">1949</option>
+                                <option value="1948">1948</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="form-label">Company</label>
-                          <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                          <label class="form-label">Username</label>
+                          <input type="text" class="form-control" disabled="" placeholder="Username" value="<?php echo $_SESSION['user']['username'];?>">
                         </div>
                       </div>
                       <div class="col-sm-6 col-md-3">
                         <div class="form-group">
-                          <label class="form-label">Username</label>
-                          <input type="text" class="form-control" placeholder="Username" value="michael23">
+                          <label class="form-label">Phone Number<span class="form-required">*</span></label>
+                          <input type="number" class="form-control" placeholder="Phone Number" required>
                         </div>
                       </div>
                       <div class="col-sm-6 col-md-4">
                         <div class="form-group">
-                          <label class="form-label">Email address</label>
-                          <input type="email" class="form-control" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                          <label class="form-label">First Name</label>
-                          <input type="text" class="form-control" placeholder="Company" value="Chet">
-                        </div>
-                      </div>
-                      <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                          <label class="form-label">Last Name</label>
-                          <input type="text" class="form-control" placeholder="Last Name" value="Faker">
+                          <label class="form-label">Email address<span class="form-required">*</span></label>
+                          <input type="email" class="form-control" placeholder="Email" required>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="form-label">Address</label>
-                          <input type="text" class="form-control" placeholder="Dashboard Address" value="Melbourne, Australia">
+                          <label class="form-label">Address<span class="form-required">*</span></label>
+                          <input type="text" class="form-control" placeholder="Address" required>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-md-4">
+                      <div class="col-lg-6 col-md-12">
                         <div class="form-group">
-                          <label class="form-label">City</label>
-                          <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                          <label class="form-label">Highest Level of Education<span class="form-required">*</span></label>
+                          <select name="education" class="form-control custom-select" required>
+                            <option value="">Select</option>
+                            <option value="1">None</option>
+                            <option value="2">Quaranic</option>
+                            <option value="3">Primary</option>
+                            <option value="4">Secondary</option>
+                            <option value="5">Tertiary</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="col-sm-6 col-md-3">
+                      <div class="col-lg-6 col-md-12">
                         <div class="form-group">
-                          <label class="form-label">Postal Code</label>
-                          <input type="number" class="form-control" placeholder="ZIP Code">
+                          <label class="form-label">Degree - If available</label>
+                          <select name="education" class="form-control custom-select">
+                            <option value="">Select</option>
+                            <option value="1">None</option>
+                            <option value="2">Quaranic</option>
+                            <option value="3">Primary</option>
+                            <option value="4">Secondary</option>
+                            <option value="5">Tertiary</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="col-md-5">
+                      <div class="col-sm-6 col-md-6">
                         <div class="form-group">
-                          <label class="form-label">Country</label>
-                          <select class="form-control custom-select">
-                            <option value="">Germany</option>
+                          <label class="form-label">State of Residence<span class="form-required">*</span></label>
+                          <select name="state" class="form-control custom-select" required>
+                            <option value="">Select state</option>
+                            <option value="1">Kano</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="form-label">Local Government Area<span class="form-required">*</span></label>
+                          <select name="town" class="form-control custom-select" required>
+                            <option value="">Select LGA</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group mb-0">
                           <label class="form-label">About Me</label>
-                          <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Oh so, your weak rhyme
-You doubt I'll bother, reading into it
-I'll probably won't, left to my own devices
-But that's the difference in our opinions.</textarea>
+                          <textarea rows="5" class="form-control" placeholder="Brief description about you..."></textarea>
                         </div>
                       </div>
                     </div>
@@ -429,61 +558,11 @@ But that's the difference in our opinions.</textarea>
           </div>
         </div>
       </div>
-      <div class="footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="row">
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">First link</a></li>
-                    <li><a href="#">Second link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Third link</a></li>
-                    <li><a href="#">Fourth link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Fifth link</a></li>
-                    <li><a href="#">Sixth link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Other link</a></li>
-                    <li><a href="#">Last link</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mt-4 mt-lg-0">
-              Premium and Open Source dashboard template with responsive and high quality UI. For Free!
-            </div>
-          </div>
-        </div>
-      </div>
       <footer class="footer">
         <div class="container">
-          <div class="row align-items-center flex-row-reverse">
-            <div class="col-auto ml-lg-auto">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item"><a href="./docs/index.html">Documentation</a></li>
-                    <li class="list-inline-item"><a href="./faq.html">FAQ</a></li>
-                  </ul>
-                </div>
-                <div class="col-auto">
-                  <a href="https://github.com/tabler/tabler" class="btn btn-outline-primary btn-sm">Source code</a>
-                </div>
-              </div>
-            </div>
+          <div class="row align-items-center">
             <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-              Copyright © 2018 <a href=".">Tabler</a>. Theme by <a href="https://codecalm.net" target="_blank">codecalm.net</a> All rights reserved.
+              Copyright © 2018 <a href="../index.html" target="_blank" class="text-primary">Plurimus Technologies</a>. All rights reserved.
             </div>
           </div>
         </div>
