@@ -1,0 +1,1 @@
+web: gunicorn verde.wsgi --log-file -
