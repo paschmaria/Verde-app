@@ -1,7 +1,7 @@
 <?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
 ?>
@@ -149,7 +149,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -157,11 +157,10 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
-                      <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demography</a>
-                      <a href="./empty" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-overview" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-biodata" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">
@@ -222,7 +221,7 @@
                         <div class="row align-items-center">
                           <label class="col-sm-2">To:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers...">
+                            <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers..." required>
                           </div>
                         </div>
                       </div>
@@ -293,14 +292,17 @@
                         <div class="row align-items-center">
                           <label class="col-sm-2">From:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" required>
                           </div>
                         </div>
                       </div>
-                      <textarea rows="10" class="form-control"></textarea>
-                      <div class="btn-list mt-4 text-right">
-                        <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
-                        <button type="submit" class="btn btn-primary btn-space">Send message</button>
+                      <textarea rows="10" class="form-control" required></textarea>
+                      <div class="d-flex justify-content-center">
+                          <small class="mt-4 text-muted pl-2 w-25">4 min</small>
+                          <div class="btn-list mt-4 text-right">
+                            <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
+                            <button type="submit" class="btn btn-primary btn-space">Send message</button>
+                          </div>
                       </div>
                     </form>
                   </div>

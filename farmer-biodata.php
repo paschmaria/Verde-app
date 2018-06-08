@@ -1,10 +1,10 @@
-<!-- <?php 
+<?php 
   include('functions.php');
   if(!$_SESSION['user']){ 
-      header("Location: ./login.php"); 
+      header("Location: ./login"); 
       exit; 
   }
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -165,7 +165,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
                     <a href="./register-farmer" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -173,11 +173,10 @@
                   <li class="nav-item dropdown">
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./farmer-overview.html" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
-                      <!-- <a href="./empty" class="dropdown-item">Maps</a> -->
-                      <a href="./farmer-biodata.html" class="dropdown-item"><i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./farmer-demography.html" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
-                      <a href="./farmer-cropinfo.html" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-overview" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-biodata" class="dropdown-item active"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">
