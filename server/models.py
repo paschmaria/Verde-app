@@ -69,4 +69,4 @@ class Farmer(models.Model):
     extension_worker = models.ForeignKey(User, related_name='reg_farmers')
 
     def __str__(self):
-        return "{} {}"
+        return "{} {}".format(self.first_name, self.last_name)
