@@ -128,4 +128,5 @@ window.tabler = {
     'gray-dark-lightest': '#ebebec'
   }
 };
+
 require(['core']);
