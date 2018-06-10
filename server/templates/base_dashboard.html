@@ -17,20 +17,24 @@
     <title>Verde - Agricultural Extension and Analytics</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{% static 'assets/js/require.min.js' %}"></script>
+    <script  src="{% static 'assets/js/require.min.js' %}"></script>
     <script>
       setTimeout(hideURLbar, 0);
       function hideURLbar(){
         window.scrollTo(0,1);
       }
       requirejs.config({
-          baseUrl: '.'
+          baseUrl: "/static/"
       });
       
     </script>
     <!-- Dashboard Core -->
     <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet" />
-    <script src="{% static 'assets/js/dashboard.js' %}"></script>
+    
+    <script type="text/javascript" charset="utf-8" data-requirecontext="_" data-requiremodule="jquery" src="{% static 'assets/js/vendors/jquery-3.2.1.min.js' %}"></script> 
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+    
+    <!-- <script src="{% static 'assets/js/dashboard.js' %}"></script> -->
     <!-- c3.js Charts Plugin -->
     <link href="{% static 'assets/plugins/charts-c3/plugin.css' %}" rel="stylesheet" />
     <script src="{% static 'assets/plugins/charts-c3/plugin.js' %}"></script>
@@ -41,8 +45,7 @@
     <script src="{% static 'assets/plugins/input-mask/plugin.js' %}"></script>
     <!-- Skycons -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script> 
-    <script type="text/javascript" charset="utf-8" data-requirecontext="_" data-requiremodule="jquery" src="{% static 'assets/js/vendors/jquery-3.2.1.min.js' %}"></script> 
-    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+    
     <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="core" src="{% static 'assets/js/core.js' %}"></script>
     <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="d3" src="{% static 'assets/plugins/charts-c3/js/d3.v3.min.js' %}"></script>
     <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="c3" src="{% static 'assets/plugins/charts-c3/js/c3.min.js' %}"></script>

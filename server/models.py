@@ -36,20 +36,37 @@ class Farmer(models.Model):
         ('m', 'Male'),
         ('f', 'Female')
     )
-    
+
+    EDU_LEVELS = (
+        ('1', 'None'),
+        ('2', 'Quaranica'),
+        ('3', 'Primary'),
+        ('4', 'Secondary'),
+        ('5', 'Tertiary'),
+    )
+
     first_name = models.CharField(max_length=120, blank=True)
     last_name = models.CharField(max_length=120, blank=True)
     phone_number = models.CharField(max_length=120, blank=True)
     phone_number_2 = models.CharField(max_length=120, blank=True)
     email = models.EmailField()
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True)
+    #picture = models.FileField()
+
     gender = models.CharField(max_length=1, choices =GENDERS)
     state = models.CharField(max_length=120, blank=True)
     family_size = models.IntegerField()
-    annual_income = models.IntegerField()
-    max_edu_level = models.CharField(max_length=120, blank=True)
+    annual_income = models.IntegerField(blank=True, null=True)
+    max_edu_level = models.CharField(max_length=120, blank=True, choices=EDU_LEVELS)
     location = models.CharField(max_length=120, blank=True)
-    land_area = models.FloatField()
+    town = models.CharField(max_length=120, blank=True)
+    
+    land_area = models.FloatField(blank=True, null=True)
     planted_crops = models.CharField(max_length=120, blank=True)
     source_of_labour = models.CharField(max_length=120, blank=True)
+    annual_production_volume = models.CharField(max_length=120, blank=True)
+
     extension_worker = models.ForeignKey(User, related_name='reg_farmers')
+
+    def __str__(self):
+        return "{} {}"

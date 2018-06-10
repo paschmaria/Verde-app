@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from .forms import SignUpForm, RegFarmerForm
 # Create your views here.
 
 
@@ -29,10 +29,30 @@ def signup(request):
 
 @login_required
 def dashboard(request):
+    
     return render(request, 'dashboard.html')
 
 @login_required
 def register_farmer(request):
+    if request.method == 'POST':
+        print("post request came")
+        form = RegFarmerForm(request.POST)
+        
+
+        if form.is_valid():
+            farmer = form.save(commit = False)
+            farmer.extension_worker = request.user
+            print(farmer)
+            farmer.save()
+            return redirect('register-farmer')
+        
+        print(dir(form.errors))
+        return render(request, "register-farmer.html", {'form': form}) 
+
+    else:
+        form = RegFarmerForm()
+        return render(request, "register-farmer.html", {'form': form})
+    
     return render(request, "register-farmer.html")
 
 @login_required
