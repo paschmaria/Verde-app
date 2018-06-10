@@ -6,11 +6,11 @@ Setup instructions
   
     ` pip install virtualenv`
     
-    `python -m virtualenv venv`
+    `python3 -m virtualenv venv`
 
 - Activate your virtual environment and install the necessary packages
 
-    `source venv\Scripts\activate`
+    `. venv/bin/activate`
 
     `pip install -r requirements.txt`
 
