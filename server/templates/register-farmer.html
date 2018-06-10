@@ -262,7 +262,8 @@
                       <input  type="range" id="incomeRange" class="form-control custom-range" step="5" min="0" max="1000000">
                     </div>
                     <div class="col">
-                      <input name="annual_income" type="number" id="incomeBox" class="form-control" value="450000" required>
+                        {{ form.annual_income|attr:"class:form-control"|attr:"id:incomeBox"|attr:"value:450000"|attr:"required" }}
+                        <p class="error">{{ form.annual_income.errors }}</p>
                     </div>
                   </div>
                 </div>
@@ -371,9 +372,9 @@
                 <input name="land[value]" type="number" class="form-control" aria-label="Text input with select dropdown" required>
                 <div class="input-group-append">
                   <select name="land[unit]" class="form-control custom-select">
-                    <option value="1">Acre</option>
-                    <option value="2">Hectare</option>
-                    <option value="3">Square Metre</option>
+                    <option value="acre">Acre</option>
+                    <option value="hectare">Hectare</option>
+                    <option value="sq_metre">Square Metre</option>
                   </select>
                 </div>
               </div>
@@ -449,9 +450,9 @@
                 <div class="form-group">
                   <label class="form-label">Av. Annual Production Volume<span class="form-required">*</span></label>
                   <div class="input-group">
-                    <input type="number" class="form-control" aria-label="Text input with select dropdown" required>
+                    <input name="volume[size]" type="number" class="form-control" aria-label="Text input with select dropdown" required>
                     <div class="input-group-append">
-                      <select name="land[area]" class="form-control custom-select">
+                      <select name="volume[unit]" class="form-control custom-select">
                         <option value="1">Tonnes</option>
                         <option value="2">Kilogrammes</option>
                       </select>
