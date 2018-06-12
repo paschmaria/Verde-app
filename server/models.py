@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
+
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class Profile(models.Model):
@@ -31,6 +34,26 @@ def update_profile(sender, instance, created, **kwargs):
 
 
 
+class FarmerManager(models.Manager):
+    def get_queryset(self):
+        return super(EmployeeManager, self).get_queryset()
+
+    def gender_data(self):
+        no_of_females = self.get_queryset().filter(gender="f").count()
+        no_of_males = self.get_queryset().filter(gender="m").count()
+        return {"males_count": no_of_males, "females_count": no_of_females}
+    
+    def age_data(self):
+        """
+            x1, x2, x3 represent different age ranges
+            as at time of coding, x1 < 45, x2 = 45-60, x3>60
+        """
+        x1 = self.get_queryset().filter(age__lt = 45)
+        x2 = self.get_queryset().filter(age__gt = 45, age__lt=60)
+        x3 = self.get_queryset().filter(age__gt = 60)
+        pass
+
+
 class Farmer(models.Model):
     GENDERS = (
         ('m', 'Male'),
@@ -51,7 +74,8 @@ class Farmer(models.Model):
     phone_number_2 = models.CharField(max_length=120, blank=True)
     email = models.EmailField()
     birth_date = models.DateField(null=True)
-    #picture = models.FileField()
+    age = models.IntegerField(null=True, blank=True)
+    picture = CloudinaryField('image', null=True)
 
     gender = models.CharField(max_length=1, choices =GENDERS)
     state = models.CharField(max_length=120, blank=True)
@@ -64,9 +88,24 @@ class Farmer(models.Model):
     land_area = models.FloatField(blank=True, null=True)
     planted_crops = models.CharField(max_length=120, blank=True)
     source_of_labour = models.CharField(max_length=120, blank=True)
-    annual_production_volume = models.CharField(max_length=120, blank=True)
+    annual_production_volume = models.FloatField(blank=True, null=True)
 
     extension_worker = models.ForeignKey(User, related_name='reg_farmers')
 
+    objects = models.Manager()
+    active_objects = FarmerManager()
+
+    def save(self, *args, **kwargs):
+        if not self.age:
+            age = timezone.now().year - self.birth_date.year
+            self.age = age
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)
+
+
+class FarmPicture(models.Model):
+    picture = CloudinaryField()
+    farmer = models.ForeignKey('Farmer', related_name="farm_pics",on_delete=models.CASCADE)
+

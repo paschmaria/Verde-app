@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from .views import signup, dashboard, index, register_farmer, profile
+from .views import signup, dashboard, index, register_farmer, profile, farmers_demography
 
 
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^reports/$', register_farmer, name="reports"),
     url(r'^farmers/overview$', register_farmer, name="farmers-overview"),
     url(r'^farmers/bio-data$', register_farmer, name="farmers-bio-data"),
-    url(r'^farmers/demography$', register_farmer, name="farmers-demography"),
+    url(r'^farmers/demography$', farmers_demography, name="farmers-demography"),
     url(r'^farmers/crop-info$', register_farmer, name="farmers-crop-info"),    
     url(r'', index, name="landing"),
 ]
