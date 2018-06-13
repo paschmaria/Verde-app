@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
-
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'cloudinary',
     'server'
 ]
 
@@ -142,3 +143,15 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = "/login"
 LOGOUT_URL = "/logout"
+
+
+CLOUDINARY_CLOUD_NAME = 'teenoh'
+CLOUDINARY_API_KEY = '875542142573115'
+CLOUDINARY_API_SECRET = 'ojakclNde-7mCDP_otJHBBb_B0I'
+
+
+cloudinary.config(
+    cloud_name = CLOUDINARY_CLOUD_NAME,
+    api_key = CLOUDINARY_API_KEY,
+    api_secret = CLOUDINARY_API_SECRET
+)

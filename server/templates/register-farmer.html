@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-12">
       
-    <form  method="post" class="card">
+    <form  method="post" class="card" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="card-header">
         <h3 class="card-title">Register New Farmer</h3>
@@ -20,7 +20,7 @@
                   <div class="form-group">
                       {% for error in form.non_field_errors %}
                       <p class="error">{{ error }}</p>
-                    {% endfor %}
+                      {% endfor %}
                   </div>
                   
                   <div class="form-group">
@@ -48,7 +48,8 @@
                       <img src="{% static 'assets/images/image.png' %}" alt="" class="img-fluid camera">
                       <div id="picPreview" class="p-1" style="height: inherit;"></div>
                     </label>
-                    <input type="file" name="farmer-pic" id="farmer-pic-input" onchange="getPicture(this.files);" accept="image/*" required>
+                    {{ form.picture|attr:"id:farmer-pic-input"|attr:"onchange:getPicture(this.files);"|attr:"accept:image/*"|attr:"required" }}
+                    <p class="error">{{ form.picture.errors }}</p>
                   </div>
                 </div>
               </div>
@@ -103,7 +104,7 @@
               <label class="form-label">Date of birth<span class="form-required">*</span></label>
               <div class="row gutters-xs">
                 <div class="col-5">
-                  <select name="user[month]" class="form-control custom-select" required>
+                  <select name="birth_month" class="form-control custom-select" required>
                     <option value="">Month</option>
                     <option value="1">January</option>
                     <option value="2">February</option>
@@ -120,7 +121,7 @@
                   </select>
                 </div>
                 <div class="col-3">
-                  <select name="user[day]" class="form-control custom-select" required>
+                  <select name="birth_day" class="form-control custom-select" required>
                     <option value="">Day</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -156,7 +157,7 @@
                   </select>
                 </div>
                 <div class="col-4">
-                  <select name="user[year]" class="form-control custom-select" required>
+                  <select name="birth_year" class="form-control custom-select" required>
                     <option value="">Year</option>
                     <option value="2000">2000</option>
                     <option value="1999">1999</option>
@@ -280,18 +281,18 @@
               <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                   <label class="form-label">State<span class="form-required">*</span></label>
-                  <select name="state" class="form-control custom-select" required>
+                  <select name="state" id="state-select" onChange="onStateChange(this.value);" class="form-control custom-select" required>
                     <option value="">Select state</option>
-                    <option value="kano">Kano</option>
+                    <!-- <option value="kano">Kano</option> -->
                   </select>
                 </div>
               </div>
               <div class="col-lg-6 col-md-12">
                 <div class="form-group">
                   <label class="form-label">Town<span class="form-required">*</span></label>
-                  <select name="town" class="form-control custom-select" required>
+                  <select name="town" id="town-select"  class="form-control custom-select" required>
                     <option value="">Select town or village</option>
-                    <option value="Ajingi">Ajingi</option>
+                    <!-- <option value="Ajingi">Ajingi</option>
                     <option value="Albasu">Albasu</option>
                     <option value="Bagwai">Bagwai</option>
                     <option value="Bari">Bari</option>
@@ -305,24 +306,26 @@
                     <option value="Rano">Rano</option>
                     <option value="Rimin Gado">Rimin Gado</option>
                     <option value="Shanono">Shanono</option>
-                    <option value="Sumaila">Sumaila</option>
+                    <option value="Sumaila">Sumaila</option> -->
                   </select>
                 </div>
               </div>
+              <script src="{% static 'assets/js/lga_data.js'%}"></script>
+              <script src="{% static 'assets/js/lga.js'%}"></script>
             </div>
           </div>
           <div class="col-lg-6 col-md-6">
             <h3>Field Information</h3>
             <div class="form-group">
               <label class="form-label">Location<span class="form-required">*</span></label>
-              <input type="decimal" id="longitude" class="form-control" placeholder="Longitude" required>
-              <input type="decimal" id="latitude" class="form-control mt-3" placeholder="Latitude" required>
+              <input type="decimal" name="longitude" id="longitude" class="form-control" placeholder="Longitude" required>
+              <input type="decimal" name="latitude" id="latitude" class="form-control mt-3" placeholder="Latitude" required>
             </div>
             <div class="mb-3">
               <button type="button" id="farmLocation" class="btn btn-primary" onclick="getLocation();">Get Location</button>
               <span class="col-auto align-self-center">
                 <span class="form-help" data-toggle="popover" data-placement="top" data-content="<p>Click button to update data using Google's location service. <span class='text-danger'>Please make sure your device location is turned on.</span></p>
-                <!-- <p class='mb-0'><a href=''>What does this mean?</a></p> -->
+                 <p class='mb-0'><a href=''>What does this mean?</a></p> 
                 ">?</span>
               </span>
               <span id="error" class="text-danger"></span>
@@ -365,12 +368,12 @@
             <div class="form-group">
               <label class="form-label">Total Land Area<span class="form-required">*</span></label>
               <div class="input-group">
-                <input name="land[value]" type="number" class="form-control" aria-label="Text input with select dropdown" required>
+                <input name="land_value" type="number" class="form-control" aria-label="Text input with select dropdown" required>
                 <div class="input-group-append">
-                  <select name="land[unit]" class="form-control custom-select">
-                    <option value="acre">Acre</option>
-                    <option value="hectare">Hectare</option>
-                    <option value="sq_metre">Square Metre</option>
+                  <select name="land_unit" class="form-control custom-select">
+                    <option value="3">Acre</option>
+                    <option value="2">Hectare</option>
+                    <option value="1">Square Metre</option>
                   </select>
                 </div>
               </div>
@@ -378,7 +381,9 @@
             <div class="form-group">
               <div class="form-label">Farm Pictures<span class="form-required">*</span></div>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="farm-pictures-input" onchange="handleFiles(this.files);" multiple required>
+                
+                <input type="file" class="custom-file-input" name="farm_picture" onchange="handleFiles(this.files);" multiple required>
+                <!-- <p class="error">{{ image_form.farm_picture.errors }}</p> -->
                 <label class="custom-file-label">Choose files</label>
               </div>
               <ul id="imagesPreview" class="d-flex flex-row flex-wrap justify-content-around image-wrapper"></ul>
@@ -424,7 +429,9 @@
             </script>
             <div class="form-group">
               <label class="form-label">Planted Crop(s) (Comma separated list)<span class="form-required">*</span></label>
-              <input type="text" class="form-control" name="planted_crops" id="input-tags" value="Wheat" required>
+              {{ form.planted_crops|attr:"class:form-control"|attr:"id:input-tags"|attr:"value:Wheat"|attr:"required" }}
+              <p class="error">{{ form.planted_crops.errors }}</p>
+              <!-- <input type="text" class="form-control" name="planted_crops" id="input-tags" value="Wheat" required> -->
             </div>
             <script>
               require(['jquery', 'selectize'], function ($, selectize) {
@@ -446,11 +453,11 @@
                 <div class="form-group">
                   <label class="form-label">Av. Annual Production Volume<span class="form-required">*</span></label>
                   <div class="input-group">
-                    <input name="volume[size]" type="number" class="form-control" aria-label="Text input with select dropdown" required>
+                    <input name="volume_size" type="number" class="form-control" aria-label="Text input with select dropdown" required>
                     <div class="input-group-append">
-                      <select name="volume[unit]" class="form-control custom-select">
-                        <option value="1">Tonnes</option>
-                        <option value="2">Kilogrammes</option>
+                      <select name="volume_unit" class="form-control custom-select">
+                        <option value="2">Tonnes</option>
+                        <option value="1">Kilogrammes</option>
                       </select>
                     </div>
                   </div>
@@ -472,16 +479,6 @@
                 </div>
               </div>
             </div>
-            <!-- <script>
-              var list = document.getElementById("input-tags");
-              list.onchange = function(){
-                console.log(list.value);
-              }
-            </script> -->
-            <!-- <div class="form-group">
-              <label class="form-label">Planted Crop(s)</label>
-              <textarea class="form-control" name="crops" rows="4" placeholder="Comma separated list of farmer's crops..." style="margin-top: 0px; margin-bottom: 0px; height: 108px;"></textarea>
-            </div> -->
           </div>
         </div>
       </div>
