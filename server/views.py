@@ -11,7 +11,7 @@ import cloudinary.api
 import cloudinary.uploader
 
 from .forms import SignUpForm, RegFarmerForm
-from .models import FarmPicture
+from .models import FarmPicture, FarmerManager, Farmer
 # Create your views here.
 
 
@@ -140,8 +140,86 @@ def register_farmer(request):
 
 @login_required
 def farmers_demography(request):
-    return render(request, "farmer-demography.html")
+
+    house_data = Farmer.active_objects.house_data()
+    edu_data = Farmer.active_objects.edu_data()
+    age_data = Farmer.active_objects.age_data()
+    gender_data = Farmer.active_objects.gender_data()
+
+    return render(request, "farmer-demography.html", {
+        "house_data": house_data,
+        "edu_data": edu_data,
+        "age_data": age_data,
+        "gender_data": gender_data,
+    })
+
+@login_required
+def farmers_overview(request):
+    return render(request, 'farmer-overview.html')
+
+@login_required
+def soil_test(request):
+    return render(request,'soil-test.html')
+
+@login_required
+def nutrient(request):
+    return render(request,'nutrient.html')
+
+@login_required
+def resources(request):
+    return render(request,'resources.html')
+
+#=========================SMS VIEWS=========================
+@login_required
+def sms_view(request):
+    return render(request, 'sms.html')
+
+@login_required
+def sms_draft_view(request):
+    return render(request, 'sms-drafts.html')
+
+@login_required
+def sms_trash_view(request):
+    return render(request, 'sms-trash.html')
+
+@login_required
+def sms_reports_view(request):
+    return render(request, 'sms-reports.html')
+
+@login_required
+def sms_history_view(request):
+    return render(request, 'sms-history.html')
+
+#===================SMS VIEWS=====================
+
+#=========================VOICE VIEWS=========================
+@login_required
+def voice_view(request):
+    return render(request, 'voice.html')
+
+@login_required
+def voice_draft_view(request):
+    return render(request, 'voice-drafts.html')
+
+@login_required
+def voice_trash_view(request):
+    return render(request, 'voice-trash.html')
+
+@login_required
+def voice_reports_view(request):
+    return render(request, 'voice-reports.html')
+
+@login_required
+def voice_history_view(request):
+    return render(request, 'voice-history.html')
+
+#===================SMS VIEWS=====================
 
 @login_required
 def profile(request):
     return render(request, 'profile.html')
+
+
+@login_required
+def reports(request):
+    return render(request, 'reports.html')

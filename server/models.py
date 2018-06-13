@@ -14,6 +14,7 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
+    picture = CloudinaryField('image', null=True)
     address = models.TextField(blank=True)
     phone_number = models.CharField(max_length=120, blank=True)
     birth_date = models.DateField(blank=True, null=True)
@@ -36,22 +37,50 @@ def update_profile(sender, instance, created, **kwargs):
 
 class FarmerManager(models.Manager):
     def get_queryset(self):
-        return super(EmployeeManager, self).get_queryset()
+        return super(FarmerManager, self).get_queryset()
 
     def gender_data(self):
         no_of_females = self.get_queryset().filter(gender="f").count()
         no_of_males = self.get_queryset().filter(gender="m").count()
-        return {"males_count": no_of_males, "females_count": no_of_females}
+        return [no_of_females, no_of_males]
     
     def age_data(self):
         """
             x1, x2, x3 represent different age ranges
             as at time of coding, x1 < 45, x2 = 45-60, x3>60
         """
-        x1 = self.get_queryset().filter(age__lt = 45)
-        x2 = self.get_queryset().filter(age__gt = 45, age__lt=60)
-        x3 = self.get_queryset().filter(age__gt = 60)
-        pass
+        x1 = self.get_queryset().filter(age__lt = 45).count()
+        x2 = self.get_queryset().filter(age__gte = 45, age__lt=60).count()
+        x3 = self.get_queryset().filter(age__gte = 60).count()
+        
+        return [x1, x2, x3]
+
+    def edu_data(self):
+        data = self.get_queryset()
+        none = data.filter(max_edu_level='1').count()
+        quaranica = data.filter(max_edu_level='2').count()
+        primary = data.filter(max_edu_level='3').count()
+        secondary = data.filter(max_edu_level='4').count()
+        arabic = data.filter(max_edu_level='5').count()
+
+        return [none, quaranica, primary, secondary, arabic]
+
+    def house_data(self):
+        """
+            x1 = >10
+            x2 = 8-10
+            x3 = 5-7
+            x4 = 2-4
+            x5 = 1
+        """
+        data = self.get_queryset()
+        x1 = data.filter(family_size__gte = 10).count()
+        x2 = data.filter(family_size__lte = 10, family_size__gte= 8).count()
+        x3 = data.filter(family_size__lte = 7, family_size__gte= 5).count()
+        x4 = data.filter(family_size__lte = 4, family_size__gte= 2).count()
+        x5 = data.filter(family_size = 1).count()
+        return [x1, x2, x3, x4, x5]
+
 
 
 class Farmer(models.Model):

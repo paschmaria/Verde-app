@@ -281,6 +281,8 @@
       $(function () {
         setTimeout(() => {
           $('.dimmer').removeClass('active');
+          
+          
 
           var ctx = $('#genderChart')
           genderChart;
@@ -288,7 +290,8 @@
             type: 'pie',
             data: {
               datasets: [{
-                data: [620, 2480],
+                // data: [620, 2480],
+                data: {{ gender_data }},
                 backgroundColor: [
                   tabler.colors["teal-dark"],
                   tabler.colors["cyan-dark"]
@@ -312,7 +315,8 @@
               labels: ['<45 years', '45 - 60 years', '>60 years'],
               datasets: [{
                 label: "No of Farmers",
-                data: [500, 1500, 1100],
+                // data: [500, 1500, 1100],
+                data: {{ age_data }},
                 backgroundColor: [
                   tabler.colors["orange-dark"],
                   tabler.colors["purple-dark"],
@@ -391,11 +395,12 @@
           eduChart = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['None', 'Primary', 'Secondary',
+              labels: ['None', 'Quaranica', 'Primary', 'Secondary',
                 'Tertiary', 'Arabic'],
               datasets: [{
                 label: "No of Farmers",
-                data: [200, 400, 300, 900, 1300],
+                // data: [200, 300, 400, 300, 900, 1300],
+                data: {{ edu_data }},
                 backgroundColor: [
                   tabler.colors["orange-lighter"],
                   tabler.colors["purple-lighter"],
@@ -453,7 +458,8 @@
               labels: [">10", "8-10", "5-7", "2-4", "1"],
               datasets: [{
                 label: "No of Farmers",
-                data: [300, 500, 1000, 700, 300],
+                // data: [300, 500, 1000, 700, 300],
+                data: {{ house_data }},
                 backgroundColor: [
                   tabler.colors["blue-lighter"],
                   tabler.colors["indigo-lighter"],
