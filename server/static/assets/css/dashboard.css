@@ -18728,6 +18728,10 @@ svg {
   opacity: 0.6;
 }
 
+.error {
+  color: #cd201f;
+}
+
 @media (max-width: 320px) {
   .custom-switch-input:checked ~ .custom-switch-indicator:before {
     left: calc(0.2rem + 1px);
