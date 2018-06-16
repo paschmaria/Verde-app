@@ -35,7 +35,8 @@
             <h3 class="card-title">Make new Voice Call</h3>
             </div>
             <div class="card-body">
-            <form method="post" action="./voice_upload.php" enctype="multipart/form-data">
+            <form method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
                 <div class="form-group">
                 <div class="row align-items-center">
                     <label class="col-sm-2">To:</label>
@@ -54,11 +55,12 @@
                         valueField: 'phone',
                         labelField: 'name',
                         searchField: ['name', 'phone'],
-                        options: [
-                            {phone: '08106129023', name: 'Onuorah Paschal'},
-                            {phone: '09098762345', name: 'Nurudeen Dawodu'},
-                            {phone: '08056785432', name: 'Ismail Samson'}
-                        ],
+                        options: {{ phone_data|safe }},
+                        // options: [
+                        //     {phone: '08106129023', name: 'Onuorah Paschal'},
+                        //     {phone: '09098762345', name: 'Nurudeen Dawodu'},
+                        //     {phone: '08056785432', name: 'Ismail Samson'}
+                        // ],
                         render: {
                             item: function(item, escape) {
                                 return '<div>' +

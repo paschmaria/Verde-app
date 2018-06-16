@@ -34,12 +34,13 @@
             <h3 class="card-title">Compose new SMS</h3>
             </div>
             <div class="card-body">
-            <form action="">
+            <form method="post">
+                {% csrf_token %}
                 <div class="form-group">
                 <div class="row align-items-center">
                     <label class="col-sm-2">To:</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers..." required>
+                    <input name="recipients" type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers..." required>
                     </div>
                 </div>
                 </div>
@@ -53,11 +54,12 @@
                         valueField: 'phone',
                         labelField: 'name',
                         searchField: ['name', 'phone'],
-                        options: [
-                            {phone: '08129023456', name: 'Musa Ibrahim'},
-                            {phone: '09098762345', name: 'Nurudeen Dawodu'},
-                            {phone: '08056785432', name: 'Ismail Samson'}
-                        ],
+                        options: {{ phone_data|safe }}, 
+                        // options: [
+                        //     {phone: '+2348129023456', name: 'Musa Ibrahim'},
+                        //     {phone: '+2349098762345', name: 'Nurudeen Dawodu'},
+                        //     {phone: '+2348056785432', name: 'Ismail Samson'}
+                        // ],
                         render: {
                             item: function(item, escape) {
                                 return '<div>' +
@@ -110,11 +112,11 @@
                 <div class="row align-items-center">
                     <label class="col-sm-2">From:</label>
                     <div class="col-sm-10">
-                    <input type="text" class="form-control" required>
+                    <input name="from" type="text" class="form-control" required>
                     </div>
                 </div>
                 </div>
-                <textarea rows="10" class="form-control" required></textarea>
+                <textarea name="message" rows="10" class="form-control" required></textarea>
                 <div class="d-flex justify-content-center">
                     <small class="mt-4 text-muted pl-2 w-25">4 min</small>
                     <div class="btn-list mt-4 text-right">

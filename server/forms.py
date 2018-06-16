@@ -11,7 +11,19 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 class RegFarmerForm(ModelForm):
+
+    def clean_phone_number(self):
+        data = self.cleaned_data['phone_number']
+        #convert phone number to +234 format
+        data = '+234' + data[1:]
+        return data 
     
+    def clean_phone_number_2(self):
+        data = self.cleaned_data['phone_number_2']
+        #convert phone number to +234 format
+        data = '+234' + data[1:]
+        return data
+
     class Meta:
         model = Farmer
         fields = '__all__'

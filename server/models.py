@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.dispatch import receiver
 
 from cloudinary.models import CloudinaryField
 # Create your models here.
+    
 
 class Profile(models.Model):
     GENDERS = (
@@ -32,6 +34,32 @@ def update_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+
+class SMS(models.Model):
+    STATUS = (
+        ('delivered', 'Delivered'),
+        ('pending', 'Pending'),
+        ('failed', 'Failed'),
+        ('draft', 'Draft')
+    )
+    user = models.ForeignKey(User, related_name="messages",on_delete=models.CASCADE)
+    recipient = models.CharField(max_length=120, blank=True)
+    sender_id = models.CharField(max_length=120, blank=True)
+    status = models.CharField(max_length=100, choices=STATUS, blank=True)
+    message_id = models.CharField(max_length=120, blank=True)
+    cost = models.FloatField(blank=True)
+    message = models.TextField(blank=True)
+    sent_date = models.DateTimeField(auto_now=False,null=True)
+    # read = models.BooleanField(default=False) #by default messages are unread
+
+@receiver(post_save, sender=SMS)
+def update_message_cost(sender, instance, created, **kwargs):
+    if not instance.cost:
+        profile = Profile.objects.get(user=instance.user)
+        profile.message_cost += instance.cost
+        profile.save()
+
 
 
 
@@ -81,6 +109,16 @@ class FarmerManager(models.Manager):
         x5 = data.filter(family_size = 1).count()
         return [x1, x2, x3, x4, x5]
 
+    def phone_data(self, user):
+        data = self.get_queryset().filter(extension_worker=user)
+        phone_numbers = []
+        
+        for farmer in data:
+            phone_numbers.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'phone': farmer.phone_number})
+            if farmer.phone_number_2:
+                phone_numbers.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'phone': farmer.phone_number_2})
+        
+        return phone_numbers
 
 
 class Farmer(models.Model):
@@ -99,9 +137,9 @@ class Farmer(models.Model):
 
     first_name = models.CharField(max_length=120, blank=True)
     last_name = models.CharField(max_length=120, blank=True)
-    phone_number = models.CharField(max_length=120, blank=True)
-    phone_number_2 = models.CharField(max_length=120, blank=True)
-    email = models.EmailField()
+    phone_number = models.CharField(max_length=120, unique=True, blank=True)
+    phone_number_2 = models.CharField(max_length=120, unique=True, blank=True)
+    email = models.EmailField(unique=True,)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True, blank=True)
     picture = CloudinaryField('image', null=True)
@@ -118,6 +156,9 @@ class Farmer(models.Model):
     planted_crops = models.CharField(max_length=120, blank=True)
     source_of_labour = models.CharField(max_length=120, blank=True)
     annual_production_volume = models.FloatField(blank=True, null=True)
+
+    #for the messages
+    message_cost = models.FloatField(blank=True, default=0)
 
     extension_worker = models.ForeignKey(User, related_name='reg_farmers')
 
