@@ -15176,7 +15176,7 @@ a.tag-addon:hover {
   border-color: #817729;
   z-index: 2;
   color: #817729;
-  box-shadow: 0 0 0 2px rgba(70, 127, 207, 0.25);
+  box-shadow: 0 0 0 2px rgba(129, 119, 41, 0.25);
 }
 
 .selectgroup-pills {
@@ -15260,7 +15260,7 @@ a.tag-addon:hover {
 }
 
 .custom-switch-input:focus ~ .custom-switch-indicator {
-  box-shadow: 0 0 0 2px rgba(70, 127, 207, 0.25);
+  box-shadow: 0 0 0 2px rgba(129, 119, 41, 0.25);
   border-color: #817729;
 }
 
@@ -15295,7 +15295,7 @@ a.tag-addon:hover {
 
 .imagecheck-input:focus ~ .imagecheck-figure {
   border-color: #817729;
-  box-shadow: 0 0 0 2px rgba(70, 127, 207, 0.25);
+  box-shadow: 0 0 0 2px rgba(129, 119, 41, 0.25);
 }
 
 .imagecheck-input:checked ~ .imagecheck-figure {
@@ -15403,7 +15403,7 @@ a.tag-addon:hover {
 
 .colorinput-input:focus ~ .colorinput-color {
   border-color: #817729;
-  box-shadow: 0 0 0 2px rgba(70, 127, 207, 0.25);
+  box-shadow: 0 0 0 2px rgba(129, 119, 41, 0.25);
 }
 
 .timeline {
@@ -18726,6 +18726,10 @@ svg {
 }
 .mapsvg-region:hover {
   opacity: 0.6;
+}
+
+.error {
+  color: #cd201f;
 }
 
 @media (max-width: 320px) {
