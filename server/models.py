@@ -5,6 +5,8 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.dispatch import receiver
 
+from datetime import datetime
+
 from cloudinary.models import CloudinaryField
 # Create your models here.
     
@@ -93,6 +95,40 @@ class FarmerManager(models.Manager):
 
         return [none, quaranica, primary, secondary, arabic]
 
+    def land_data(self):
+        """
+            x ==> land area in hectares
+            y ==> number of farmers  that are in range x
+            r ==> % of farmers (i.e y / total_farmers ) 
+
+            x1 <= 700
+            0.7 < x2 <= 1400
+            1400 < x3 <= 3500
+            3500 < x4 <= 7000
+            7000 < x5 <= 14100
+        """
+        data = self.get_queryset()
+        total_farmers = data.count()
+        
+        
+
+        x1 = data.filter(land_area__lte = 700).count()
+        
+        x2 = data.filter(land_area__lte = 1400, land_area__gt= 700).count()
+        x3 = data.filter(land_area__lte = 3500, land_area__gt= 1400).count()
+        x4 = data.filter(land_area__lte = 7000, land_area__gt= 3500).count()
+        x5 = data.filter(land_area__lte = 14100, land_area__gt= 7000).count()
+
+        land_data_list = [
+                        {'x': 0.7, 'y': x1, 'r': float(x1)/total_farmers},
+                        {'x': 0.7, 'y': x2, 'r': float(x2)/total_farmers},
+                        {'x': 0.7, 'y': x3, 'r': float(x3)/total_farmers},
+                        {'x': 0.7, 'y': x4, 'r': float(x4)/total_farmers},
+                        {'x': 0.7, 'y': x5, 'r': float(x5)/total_farmers}, 
+                    ]
+
+        return land_data_list
+
     def house_data(self):
         """
             x1 = >10
@@ -167,7 +203,9 @@ class Farmer(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.age:
-            age = timezone.now().year - self.birth_date.year
+            birth_year = int(self.birth_date.split('-')[0])
+            print(birth_year ,type(birth_year))
+            age = timezone.now().year - birth_year
             self.age = age
         super().save(*args, **kwargs)
 

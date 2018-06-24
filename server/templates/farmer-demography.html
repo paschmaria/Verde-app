@@ -337,13 +337,14 @@
               datasets: [{
                 label: "% of Farm Land Area",
                 // x represents av. farm size, y represents no of farmers, and r is the radius of the circle whose diameter represents the percentage of farm land within this category
-                data: [
-                  { x: 0.7, y: 920, r: 25 },
-                  { x: 1.4, y: 620, r: 12 },
-                  { x: 3.5, y: 820, r: 10 },
-                  { x: 7.0, y: 420, r: 2.5 },
-                  { x: 14.1, y: 320, r: 0.5 }
-                ],
+                data: {{ land_data|safe }},
+                // data: [
+                //   { x: 0.7, y: 920, r: 25 },
+                //   { x: 1.4, y: 620, r: 12 },
+                //   { x: 3.5, y: 820, r: 10 },
+                //   { x: 7.0, y: 420, r: 2.5 },
+                //   { x: 14.1, y: 320, r: 0.5 }
+                // ],
                 backgroundColor: [
                   tabler.colors["orange-lighter"],
                   tabler.colors["purple-lighter"],

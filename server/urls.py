@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^voice-reports/$', voice_reports_view, name="voice-reports"),
     url(r'^voice-history/$', voice_history_view, name="voice-history"),
     url(r'^voice-trash/$', voice_trash_view, name="voice-trash"),
-    
+    url(r'^voice-reply/$', voice_reply, name="voice-reply"),
     
     url(r'^reports/$', reports, name="reports"),
     url(r'^farmers/overview$', farmers_overview, name="farmers-overview"),

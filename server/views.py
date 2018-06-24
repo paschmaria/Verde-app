@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import modelformset_factory
 from django.utils import timezone
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 import cloudinary
 import cloudinary.api
@@ -153,12 +154,14 @@ def farmers_demography(request):
     edu_data = Farmer.active_objects.edu_data()
     age_data = Farmer.active_objects.age_data()
     gender_data = Farmer.active_objects.gender_data()
+    land_data = Farmer.active_objects.land_data()
 
     return render(request, "farmer-demography.html", {
         "house_data": house_data,
         "edu_data": edu_data,
         "age_data": age_data,
         "gender_data": gender_data,
+        "land_data": land_data
     })
 
 @login_required
@@ -265,6 +268,36 @@ def voice_reports_view(request):
 @login_required
 def voice_history_view(request):
     return render(request, 'voice-history.html')
+
+
+#@login_required
+@csrf_exempt
+def voice_reply(request):
+    voice = africastalking.Voice
+
+
+
+    response = '<?xml version="1.0" encoding="UTF-8"?>'
+    response += '<Response>'
+    response += '<Say>Paschal is a boss</Say>'
+    response += '</Response>'
+
+    # response = '''
+    #         <?xml version="1.0" encoding="UTF-8"?>
+    #         <Response>
+    #         <Say>Good evening Boss</Say>
+    #         </Response>
+    #     '''
+
+    if request.method == 'GET':    
+        result = voice.call(source="+2348184372762", destination="+2347062390301")
+        print(result)
+
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(response, content_type='text/plain')
+    
+    return HttpResponse(status=200)
 
 #===================SMS VIEWS=====================
 
