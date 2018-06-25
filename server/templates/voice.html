@@ -56,11 +56,12 @@
                                         valueField: 'phone',
                                         labelField: 'name',
                                         searchField: ['name', 'phone'],
-                                        options: [
-                                            {phone: '08106129023', name: 'Onuorah Paschal'},
-                                            {phone: '09098762345', name: 'Nurudeen Dawodu'},
-                                            {phone: '08056785432', name: 'Ismail Samson'}
-                                        ],
+                                        options: {{ phone_data|safe }},
+                                        // options: [
+                                        //     {phone: '08106129023', name: 'Onuorah Paschal'},
+                                        //     {phone: '09098762345', name: 'Nurudeen Dawodu'},
+                                        //     {phone: '08056785432', name: 'Ismail Samson'}
+                                        // ],
                                         render: {
                                             item: function(item, escape) {
                                                 return '<div>' +

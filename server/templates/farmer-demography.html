@@ -284,18 +284,101 @@
           setTimeout(() => {
             $('.dimmer').removeClass('active');
 
-            var ctx = $('#genderChart')
-            genderChart;
-            genderChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                datasets: [{
-                  // data: [620, 2480],
-                  data: {{ gender_data }},
-                  backgroundColor: [
-                    tabler.colors["teal-dark"],
-                    tabler.colors["cyan-dark"]
-                  ]
+          var ctx = $('#genderChart')
+          genderChart;
+          genderChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              datasets: [{
+                // data: [620, 2480],
+                data: {{ gender_data }},
+                backgroundColor: [
+                  tabler.colors["teal-dark"],
+                  tabler.colors["cyan-dark"]
+                ]
+              }],
+              labels: [
+                'Females',
+                'Males'
+              ]
+            },
+            options: {
+              maintainAspectRatio: false,
+              responsive: true
+            }
+          });
+          var ctx = $('#ageChart'),
+            ageChart;
+          ageChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+              labels: ['<45 years', '45 - 60 years', '>60 years'],
+              datasets: [{
+                label: "No of Farmers",
+                // data: [500, 1500, 1100],
+                data: {{ age_data }},
+                backgroundColor: [
+                  tabler.colors["orange-dark"],
+                  tabler.colors["purple-dark"],
+                  tabler.colors["azure-dark"]
+                ]
+              }]
+            },
+            options: {
+              maintainAspectRatio: false,
+              responsive: true
+            }
+          });
+          var ctx = $('#landChart'),
+            landChart;
+          landChart = new Chart(ctx, {
+            type: 'bubble',
+            data: {
+              datasets: [{
+                label: "% of Farm Land Area",
+                // x represents av. farm size, y represents no of farmers, and r is the radius of the circle whose diameter represents the percentage of farm land within this category
+                data: {{ land_data|safe }},
+                // data: [
+                //   { x: 0.7, y: 920, r: 25 },
+                //   { x: 1.4, y: 620, r: 12 },
+                //   { x: 3.5, y: 820, r: 10 },
+                //   { x: 7.0, y: 420, r: 2.5 },
+                //   { x: 14.1, y: 320, r: 0.5 }
+                // ],
+                backgroundColor: [
+                  tabler.colors["orange-lighter"],
+                  tabler.colors["purple-lighter"],
+                  tabler.colors["azure-lighter"],
+                  tabler.colors["teal-lighter"],
+                  tabler.colors["cyan-lighter"]
+                ],
+                borderColor: [
+                  tabler.colors["orange-dark"],
+                  tabler.colors["purple-dark"],
+                  tabler.colors["azure-dark"],
+                  tabler.colors["teal-dark"],
+                  tabler.colors["cyan-dark"]
+                ],
+                hoverBackgroundColor: [
+                  tabler.colors["orange"],
+                  tabler.colors["purple"],
+                  tabler.colors["azure"],
+                  tabler.colors["teal"],
+                  tabler.colors["cyan"]
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  },
+                  scaleLabel: {
+                    display: true,
+                    labelString: "Number of Farmers"
+                  }
                 }],
                 labels: [
                   'Females',
@@ -303,89 +386,6 @@
                 ]
               },
               options: {
-                maintainAspectRatio: false,
-                responsive: true
-              }
-            });
-            var ctx = $('#ageChart'),
-              ageChart;
-            ageChart = new Chart(ctx, {
-              type: 'polarArea',
-              data: {
-                labels: ['<45 years', '45 - 60 years', '>60 years'],
-                datasets: [{
-                  label: "No of Farmers",
-                  // data: [500, 1500, 1100],
-                  data: {{ age_data }},
-                  backgroundColor: [
-                    tabler.colors["orange-dark"],
-                    tabler.colors["purple-dark"],
-                    tabler.colors["azure-dark"]
-                  ]
-                }]
-              },
-              options: {
-                maintainAspectRatio: false,
-                responsive: true
-              }
-            });
-            var ctx = $('#landChart'),
-              landChart;
-            landChart = new Chart(ctx, {
-              type: 'bubble',
-              data: {
-                datasets: [{
-                  label: "% of Farm Land Area",
-                  // x represents av. farm size, y represents no of farmers, and r is the radius of the circle whose diameter represents the percentage of farm land within this category
-                  data: [
-                    { x: 0.7, y: 920, r: 25 },
-                    { x: 1.4, y: 620, r: 12 },
-                    { x: 3.5, y: 820, r: 10 },
-                    { x: 7.0, y: 420, r: 2.5 },
-                    { x: 14.1, y: 320, r: 0.5 }
-                  ],
-                  backgroundColor: [
-                    tabler.colors["orange-lighter"],
-                    tabler.colors["purple-lighter"],
-                    tabler.colors["azure-lighter"],
-                    tabler.colors["teal-lighter"],
-                    tabler.colors["cyan-lighter"]
-                  ],
-                  borderColor: [
-                    tabler.colors["orange-dark"],
-                    tabler.colors["purple-dark"],
-                    tabler.colors["azure-dark"],
-                    tabler.colors["teal-dark"],
-                    tabler.colors["cyan-dark"]
-                  ],
-                  hoverBackgroundColor: [
-                    tabler.colors["orange"],
-                    tabler.colors["purple"],
-                    tabler.colors["azure"],
-                    tabler.colors["teal"],
-                    tabler.colors["cyan"]
-                  ],
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                scales: {
-                  yAxes: [{
-                    ticks: {
-                      beginAtZero: true
-                    },
-                    scaleLabel: {
-                      display: true,
-                      labelString: "Number of Farmers"
-                    }
-                  }],
-                  xAxes: [{
-                    scaleLabel: {
-                      display: true,
-                      labelString: "Av. Land Holdings"
-                    }
-                  }]
-                },
                 maintainAspectRatio: false,
                 responsive: true
               }

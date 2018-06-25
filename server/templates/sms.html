@@ -36,7 +36,8 @@
                         <h3 class="card-title">Compose new SMS</h3>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <div class="row align-items-center">
                                     <label class="col-sm-2">To:</label>
@@ -49,35 +50,36 @@
                                 require(['jquery', 'selectize'], function ($, selectize) {
                                     var REGEX_PHONE = '([0-9]{11}(?: |\-)|(?:\+|00)[0-9]{13}(?: |\-)|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4}))';
 
-                                    $('#recipients').selectize({
-                                        persist: false,
-                                        maxItems: null,
-                                        valueField: 'phone',
-                                        labelField: 'name',
-                                        searchField: ['name', 'phone'],
-                                        options: [
-                                            {phone: '08129023456', name: 'Musa Ibrahim'},
-                                            {phone: '09098762345', name: 'Nurudeen Dawodu'},
-                                            {phone: '08056785432', name: 'Ismail Samson'}
-                                        ],
-                                        render: {
-                                            item: function(item, escape) {
-                                                return '<div>' +
-                                                    (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
-                                                    (item.phone ? '<span class="phone">' + escape(item.phone) + '</span>' : '') +
-                                                '</div>';
-                                            },
-                                            option: function(item, escape) {
-                                                var label = item.name;
-                                                var caption = item.name ? item.phone : null;
-                                                return '<div>' +
-                                                    '<span class="label">' + escape(label) + '</span>' +
-                                                    (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
-                                                '</div>';
-                                            }
+                                $('#recipients').selectize({
+                                    persist: false,
+                                    maxItems: null,
+                                    valueField: 'phone',
+                                    labelField: 'name',
+                                    searchField: ['name', 'phone'],
+                                    options: {{ phone_data|safe }}, 
+                                    // options: [
+                                    //     {phone: '+2348129023456', name: 'Musa Ibrahim'},
+                                    //     {phone: '+2349098762345', name: 'Nurudeen Dawodu'},
+                                    //     {phone: '+2348056785432', name: 'Ismail Samson'}
+                                    // ],
+                                    render: {
+                                        item: function(item, escape) {
+                                            return '<div>' +
+                                                (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
+                                                (item.phone ? '<span class="phone">' + escape(item.phone) + '</span>' : '') +
+                                            '</div>';
                                         },
-                                        createFilter: function(input) {
-                                            var match, regex;
+                                        option: function(item, escape) {
+                                            var label = item.name;
+                                            var caption = item.name ? item.phone : null;
+                                            return '<div>' +
+                                                '<span class="label">' + escape(label) + '</span>' +
+                                                (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                                            '</div>';
+                                        }
+                                    },
+                                    createFilter: function(input) {
+                                        var match, regex;
 
                                             // phone
                                             regex = new RegExp('^' + REGEX_PHONE + '$', 'i');

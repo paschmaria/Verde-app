@@ -4,15 +4,24 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import modelformset_factory
+from django.utils import timezone
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
 
+import africastalking
+
 from .forms import SignUpForm, RegFarmerForm
-from .models import FarmPicture, FarmerManager, Farmer
+from .models import FarmPicture, FarmerManager, Farmer, SMS
+
 # Create your views here.
+
+username="sandbox"
+api_key="df87d659362b259c8e8b7ac1f814f352817bf3278f5306da6d98028672e8fbc9"
+africastalking.initialize(username, api_key)
 
 
 def index(request):
@@ -145,12 +154,14 @@ def farmers_demography(request):
     edu_data = Farmer.active_objects.edu_data()
     age_data = Farmer.active_objects.age_data()
     gender_data = Farmer.active_objects.gender_data()
+    land_data = Farmer.active_objects.land_data()
 
     return render(request, "farmer-demography.html", {
         "house_data": house_data,
         "edu_data": edu_data,
         "age_data": age_data,
         "gender_data": gender_data,
+        "land_data": land_data
     })
 
 @login_required
@@ -172,7 +183,50 @@ def resources(request):
 #=========================SMS VIEWS=========================
 @login_required
 def sms_view(request):
-    return render(request, 'sms.html')
+
+    phone_data = Farmer.active_objects.phone_data(user=request.user)
+
+    if request.method == 'POST':
+        print(request.POST)
+        recipients = request.POST['recipients'].split(',')
+        message = request.POST['message']
+        sender_id = request.POST['from']
+
+        sms = africastalking.SMS
+
+        print(list(recipients))
+        response = sms.send(message, recipients)
+
+        recipients_response = response['SMSMessageData']['Recipients']
+
+        '''
+            Once sms has been sent, create a new instance of SMS model
+            with the data
+        '''
+
+        print(recipients_response)
+
+        for data in recipients_response:
+            status = data['status']
+            sent_date = timezone.now()
+            if status == "Success":
+                cost = float(data['cost'].split(' ')[1]) #cost is in format "NGN 2.20" this converts it to float 2.2
+                receiver = data['number']
+                message_id = data['messageId']
+                
+
+                SMS.objects.create(cost=cost, recipient=receiver, status="delivered", message_id=message_id, 
+                            message=message,sent_date = send_date, user=request.user)
+                continue
+
+            SMS.objects.create(cost=cost, recipient=receiver, status="failed", message_id=message_id, 
+                            message=message,sent_date = sent_date, user=request.user)
+
+        print(response)        
+
+        
+
+    return render(request, 'sms.html', {'phone_data': phone_data})
 
 @login_required
 def sms_draft_view(request):
@@ -195,7 +249,9 @@ def sms_history_view(request):
 #=========================VOICE VIEWS=========================
 @login_required
 def voice_view(request):
-    return render(request, 'voice.html')
+    phone_data = Farmer.active_objects.phone_data(user=request.user)
+
+    return render(request, 'voice.html', {'phone_data': phone_data})
 
 @login_required
 def voice_draft_view(request):
@@ -212,6 +268,36 @@ def voice_reports_view(request):
 @login_required
 def voice_history_view(request):
     return render(request, 'voice-history.html')
+
+
+#@login_required
+@csrf_exempt
+def voice_reply(request):
+    voice = africastalking.Voice
+
+
+
+    response = '<?xml version="1.0" encoding="UTF-8"?>'
+    response += '<Response>'
+    response += '<Say>Paschal is a boss</Say>'
+    response += '</Response>'
+
+    # response = '''
+    #         <?xml version="1.0" encoding="UTF-8"?>
+    #         <Response>
+    #         <Say>Good evening Boss</Say>
+    #         </Response>
+    #     '''
+
+    if request.method == 'GET':    
+        result = voice.call(source="+2348184372762", destination="+2347062390301")
+        print(result)
+
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(response, content_type='text/plain')
+    
+    return HttpResponse(status=200)
 
 #===================SMS VIEWS=====================
 
