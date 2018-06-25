@@ -223,3 +223,7 @@ def profile(request):
 @login_required
 def reports(request):
     return render(request, 'reports.html')
+
+@login_required
+def market_log(request):
+    return render(request, 'market-log.html')

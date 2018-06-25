@@ -40,13 +40,7 @@
     <!-- Input Mask Plugin -->
     <script src="{% static 'assets/plugins/input-mask/plugin.js' %}"></script>
     <!-- Skycons -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script> 
-    
-    <!-- <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="{% static 'assets/js/vendors/jquery-3.2.1.min.js' %}"></script> 
-    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
-    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="core" src="{% static 'assets/js/core.js' %}"></script>
-    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="d3" src="{% static 'assets/plugins/charts-c3/js/d3.v3.min.js' %}"></script> -->
-
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js'></script>
   </head>
   <body class="">
     <div class="page">
@@ -92,11 +86,10 @@
                     <span class="avatar avatar-blue">PT</span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
-                        {{user.username}}  
+                        {{user.username.capitalize}}  
                       </span>
                       <small class="text-muted d-block mt-1">
                         Agent
-                        <!-- <?php echo ucfirst($_SESSION['user']['user_type']); ?> -->
                       </small>
                     </span>
                   </a>
@@ -144,7 +137,7 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="{% url 'dashboard' %}" class="nav-link active"><i class="fe fe-home"></i> Home</a>
+                    <a href="{% url 'dashboard' %}" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
                     <a href="{% url 'register-farmer' %}" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
@@ -173,17 +166,16 @@
                   <li class="nav-item dropdown">
                     <a href="{% url 'reports' %}" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
+                  <li class="nav-item dropdown">
+                    <a href="{% url 'market-log' %}" class="nav-link"><i class="fe fe-book"></i> Market Log</a>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-        <div class="my-3 my-md-5">
-          <div class="container">
-            {% block body %}
-            {% endblock %}
-          </div>
-        </div>
+        {% block body %}
+        {% endblock %}
       </div>
       <footer class="footer">
         <div class="container">

@@ -1,491 +1,478 @@
 {% extends 'base_dashboard.html' %}
-{% load staticfiles %}
+<!-- {% load staticfiles %} -->
 {% load widget_tweaks %}
 
 {% block body %}
-<div class="row">
-  <div class="col-12">
-      
-    <form  method="post" class="card" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="card-header">
-        <h3 class="card-title">Register New Farmer</h3>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <h3>Farmer Information</h3>
-              <div class="row gutters-md">
-                <div class="col-lg-7 col-md-6 order-last order-sm-first">
-                  <div class="form-group">
-                      {% for error in form.non_field_errors %}
-                      <p class="error">{{ error }}</p>
-                      {% endfor %}
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="form-label">First name<span class="form-required">*</span></label>
-                    {{ form.first_name|attr:"class:form-control"|attr:"required" }}
-                    <p class="error">{{ form.first_name.errors }}</p>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Last name<span class="form-required">*</span></label>
-                    {{ form.last_name|attr:"class:form-control"|attr:"required" }}
-                    <p class="error">{{ form.last_name.errors }}</p>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Primary Phone Number<span class="form-required">*</span></label>
-                    {{ form.phone_number|attr:"class:form-control"|attr:"type:tel"|attr:"required" }}
-                    <p class="error">{{ form.phone_number.errors }}</p>
-                  </div>
-                </div>
-                <div class="col-lg-5 col-md-6 order-first order-sm-last m-h mb-4">
-                  <div class="text-center pb-1">
-                    <span>Click to add or change picture</span>
-                  </div>
-                  <div class="form-group m-0" style="height: calc(100% - 26px);">
-                    <label for="farmer-pic-input" id="farmer-pic-wrapper" class="m-0">
-                      <img src="{% static 'assets/images/image.png' %}" alt="" class="img-fluid camera">
-                      <div id="picPreview" class="p-1" style="height: inherit;"></div>
-                    </label>
-                    {{ form.picture|attr:"id:farmer-pic-input"|attr:"onchange:getPicture(this.files);"|attr:"accept:image/*"|attr:"required" }}
-                    <p class="error">{{ form.picture.errors }}</p>
-                  </div>
-                </div>
-              </div>
-            <script>
-              function getPicture(files) {
-                 var camera = document.querySelector(".camera"),
-                    preview = document.querySelector("#picPreview"),
-                   imgInput = document.querySelector("#farmer-pic-input");
-                var file = files[0];
-                
-                // if (!file.type.startsWith('image/')){ continue }
-                var img = document.createElement("img"),
-                    div = document.createElement("div");
-                  
-                function createImage() {      
-                  img.classList.add("farmer-pic", "img-fluid");
-                  img.file = file;
-                  div.style.height = "inherit";
-                  div.appendChild(img);
-                  preview.appendChild(div);
-                  
-                  var reader = new FileReader();
-                  reader.onload = (function(myImg) {
-                    return function(e) {
-                      myImg.src = e.target.result;
-                    }; 
-                  })(img);
-                  reader.readAsDataURL(file);
-                }
-                var that = preview.childNodes[0];
-                if (preview.childNodes.length === 0) {
-                  createImage();
-                  camera.style.display = "none";
-                } else {
-                  preview.removeChild(that);
-                  createImage();
-                  camera.style.display = "none";
-                }
-              }
-            </script>
-            <div class="form-group">
-              <label class="form-label">Secondary Phone Number</label>
-              {{ form.phone_number_2|attr:"class:form-control"|attr:"type:tel" }}
-              <p class="error">{{ form.phone_number_2.errors }}</p>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email Address</label>
-              {{ form.email|attr:"class:form-control" }}
-              <p class="error">{{ form.email.errors }}</p>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Date of birth<span class="form-required">*</span></label>
-              <div class="row gutters-xs">
-                <div class="col-5">
-                  <select name="birth_month" class="form-control custom-select" required>
-                    <option value="">Month</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option selected="selected" value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                </div>
-                <div class="col-3">
-                  <select name="birth_day" class="form-control custom-select" required>
-                    <option value="">Day</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option selected="selected" value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
-                    <option value="24">24</option>
-                    <option value="25">25</option>
-                    <option value="26">26</option>
-                    <option value="27">27</option>
-                    <option value="28">28</option>
-                    <option value="29">29</option>
-                    <option value="30">30</option>
-                    <option value="31">31</option>
-                  </select>
-                </div>
-                <div class="col-4">
-                  <select name="birth_year" class="form-control custom-select" required>
-                    <option value="">Year</option>
-                    <option value="2000">2000</option>
-                    <option value="1999">1999</option>
-                    <option value="1998">1998</option>
-                    <option value="1997">1997</option>
-                    <option value="1996">1996</option>
-                    <option value="1995">1995</option>
-                    <option value="1994">1994</option>
-                    <option selected="selected" value="1993">1993</option>
-                    <option value="1992">1992</option>
-                    <option value="1991">1991</option>
-                    <option value="1990">1990</option>
-                    <option value="1989">1989</option>
-                    <option value="1988">1988</option>
-                    <option value="1987">1987</option>
-                    <option value="1986">1986</option>
-                    <option value="1985">1985</option>
-                    <option value="1984">1984</option>
-                    <option value="1983">1983</option>
-                    <option value="1982">1982</option>
-                    <option value="1981">1981</option>
-                    <option value="1980">1980</option>
-                    <option value="1979">1979</option>
-                    <option value="1978">1978</option>
-                    <option value="1977">1977</option>
-                    <option value="1976">1976</option>
-                    <option value="1975">1975</option>
-                    <option value="1974">1974</option>
-                    <option value="1973">1973</option>
-                    <option value="1972">1972</option>
-                    <option value="1971">1971</option>
-                    <option value="1970">1970</option>
-                    <option value="1969">1969</option>
-                    <option value="1968">1968</option>
-                    <option value="1967">1967</option>
-                    <option value="1966">1966</option>
-                    <option value="1965">1965</option>
-                    <option value="1964">1964</option>
-                    <option value="1963">1963</option>
-                    <option value="1962">1962</option>
-                    <option value="1961">1961</option>
-                    <option value="1960">1960</option>
-                    <option value="1959">1959</option>
-                    <option value="1958">1958</option>
-                    <option value="1957">1957</option>
-                    <option value="1956">1956</option>
-                    <option value="1955">1955</option>
-                    <option value="1954">1954</option>
-                    <option value="1953">1953</option>
-                    <option value="1952">1952</option>
-                    <option value="1951">1951</option>
-                    <option value="1950">1950</option>
-                    <option value="1949">1949</option>
-                    <option value="1948">1948</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <div class="form-label">Gender<span class="form-required">*</span></div>
-                  <div class="custom-controls-stacked">
-                    <label class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="gender" value="m" checked required>
-                      <span class="custom-control-label">Male</span>
-                    </label>
-                    <label class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="gender" value="f" required>
-                      <span class="custom-control-label">Female</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <label class="form-label">Highest Level of Education<span class="form-required">*</span></label>
-                  {{ form.max_edu_level|attr:"class:form-control custom-select"|attr:"required" }} 
-                  <p class="error">{{ form.max_edu_level.errors }}</p>
-                  <script>
-                    document.getElementsByName("max_edu_level")[0].options[0].innerText = "Select"
-                  </script>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <label class="form-label">Family Size<span class="form-required">*</span></label>
-                  {{ form.family_size|attr:"class:form-control"|attr:"required" }}
-                  <p class="error">{{ form.family_size.errors }}</p>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <label class="form-label">Annual Income Range (₦)<span class="form-required">*</span></label>
-                  <div class="row">
-                    <div class="col">
-                      <input  type="range" id="incomeRange" class="form-control custom-range" step="5" min="0" max="1000000">
-                    </div>
-                    <div class="col">
-                        {{ form.annual_income|attr:"class:form-control"|attr:"id:incomeBox"|attr:"value:450000"|attr:"required" }}
-                        <p class="error">{{ form.annual_income.errors }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <script>
-              var slider = document.getElementById("incomeRange");
-              var output = document.getElementById("incomeBox");
-              output.value = slider.value;
-              slider.oninput = function() {
-                output.value = this.value;
-              }
-              output.oninput = function() {
-                slider.value = this.value;
-              }
-            </script>
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <label class="form-label">State<span class="form-required">*</span></label>
-                  <select name="state" id="state-select" onChange="onStateChange(this.value);" class="form-control custom-select" required>
-                    <option value="">Select state</option>
-                    <!-- <option value="kano">Kano</option> -->
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <div class="form-group">
-                  <label class="form-label">Town<span class="form-required">*</span></label>
-                  <select name="town" id="town-select"  class="form-control custom-select" required>
-                    <option value="">Select town or village</option>
-                    <!-- <option value="Ajingi">Ajingi</option>
-                    <option value="Albasu">Albasu</option>
-                    <option value="Bagwai">Bagwai</option>
-                    <option value="Bari">Bari</option>
-                    <option value="Dala">Dala</option>
-                    <option value="Dambatta">Dambatta</option>
-                    <option value="Garko">Garko</option>
-                    <option value="Gaya">Gaya</option>
-                    <option value="Kabo">Kabo</option>
-                    <option value="Kano">Kano</option>
-                    <option value="Madobi">Madobi</option>
-                    <option value="Rano">Rano</option>
-                    <option value="Rimin Gado">Rimin Gado</option>
-                    <option value="Shanono">Shanono</option>
-                    <option value="Sumaila">Sumaila</option> -->
-                  </select>
-                </div>
-              </div>
-              <script src="{% static 'assets/js/lga_data.js'%}"></script>
-              <script src="{% static 'assets/js/lga.js'%}"></script>
-            </div>
+<div class="my-3 my-md-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+          
+        <form  method="post" class="card" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="card-header">
+            <h3 class="card-title">Register New Farmer</h3>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <h3>Field Information</h3>
-            <div class="form-group">
-              <label class="form-label">Location<span class="form-required">*</span></label>
-              <input type="decimal" name="longitude" id="longitude" class="form-control" placeholder="Longitude" required>
-              <input type="decimal" name="latitude" id="latitude" class="form-control mt-3" placeholder="Latitude" required>
-            </div>
-            <div class="mb-3">
-              <button type="button" id="farmLocation" class="btn btn-primary" onclick="getLocation();">Get Location</button>
-              <span class="col-auto align-self-center">
-                <span class="form-help" data-toggle="popover" data-placement="top" data-content="<p>Click button to update data using Google's location service. <span class='text-danger'>Please make sure your device location is turned on.</span></p>
-                 <p class='mb-0'><a href=''>What does this mean?</a></p> 
-                ">?</span>
-              </span>
-              <span id="error" class="text-danger"></span>
-            </div>
-            <script>
-              function getLocation() {
-                var long = document.getElementById("longitude"),
-                     lat = document.getElementById("latitude"),
-                     err = document.getElementById("error"),
-                     loc = document.getElementById("farmLocation");
-                
-                loc.innerHTML = "Locating…";
-
-                if (!navigator.geolocation){
-                  err.innerHTML = "Your browser does not support geolocation!";
-                  loc.innerHTML = "Get Location";
-                  return;
-                }
-
-                function success(position) {
-                  lat.value  = position.coords.latitude;
-                  long.value = position.coords.longitude;
-
-                  // var img = new Image();
-                  // img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-                  err.innerHTML = "";
-                  loc.innerHTML = "Get Location";
-                }
-
-                function error() {
-                  err.innerHTML = "Unable to retrieve your location, kindly turn on device location.";
-                  loc.innerHTML = "Get Location";
-                  console.log('Error occurred. Error code: ' + error.code);
-                  return;
-                }
-                
-                navigator.geolocation.getCurrentPosition(success, error);
-              }
-            </script>
-            <div class="form-group">
-              <label class="form-label">Total Land Area<span class="form-required">*</span></label>
-              <div class="input-group">
-                <input name="land_value" type="number" class="form-control" aria-label="Text input with select dropdown" required>
-                <div class="input-group-append">
-                  <select name="land_unit" class="form-control custom-select">
-                    <option value="3">Acre</option>
-                    <option value="2">Hectare</option>
-                    <option value="1">Square Metre</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-label">Farm Pictures<span class="form-required">*</span></div>
-              <div class="custom-file">
-                
-                <input type="file" class="custom-file-input" name="farm_picture" onchange="handleFiles(this.files);" multiple required>
-                <!-- <p class="error">{{ image_form.farm_picture.errors }}</p> -->
-                <label class="custom-file-label">Choose files</label>
-              </div>
-              <ul id="imagesPreview" class="d-flex flex-row flex-wrap justify-content-around image-wrapper"></ul>
-            </div>
-            <script>
-              function handleFiles(files) {
-                var preview = document.querySelector("#imagesPreview");
-                for (var i = 0; i < files.length; i++) {
-                  var file = files[i];
-                  
-                  if (!file.type.startsWith('image/')){ continue }
-                  
-                  var img = document.createElement("img"),
-                    close = document.createElement("span"),
-                       li = document.createElement("li");
-                        
-                  img.classList.add("farm-picture", "img-fluid", "p-1");
-                  img.file = file;
-                  close.classList.add("close");
-                  li.appendChild(img);
-                  li.appendChild(close);
-                  preview.appendChild(li);
-                  
-                  var reader = new FileReader();
-                  reader.onload = (function(myImg) {
-                    return function(e) {
-                      myImg.src = e.target.result;
-                    }; 
-                  })(img);
-                  reader.readAsDataURL(file);
-                  preview.classList.add("border", "p-1");
-                  var that;
-                  close.onclick = function(e) {
-                    // console.log(e);
-                    that = this.parentElement;
-                    e.path[2].removeChild(that);
-                    if (e.path[2].childElementCount === 0) {
-                      preview.classList.remove("border", "p-1");
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <h3>Farmer Information</h3>
+                  <div class="row gutters-md">
+                    <div class="col-lg-7 col-md-6 order-last order-sm-first">
+                      <div class="form-group">
+                          {% for error in form.non_field_errors %}
+                          <p class="error">{{ error }}</p>
+                          {% endfor %}
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="form-label">First name<span class="form-required">*</span></label>
+                        {{ form.first_name|attr:"class:form-control"|attr:"required" }}
+                        <p class="error">{{ form.first_name.errors }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Last name<span class="form-required">*</span></label>
+                        {{ form.last_name|attr:"class:form-control"|attr:"required" }}
+                        <p class="error">{{ form.last_name.errors }}</p>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Primary Phone Number<span class="form-required">*</span></label>
+                        {{ form.phone_number|attr:"class:form-control"|attr:"type:tel"|attr:"required" }}
+                        <p class="error">{{ form.phone_number.errors }}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 order-first order-sm-last m-h mb-4">
+                      <div class="text-center pb-1">
+                        <span>Click to add or change picture</span>
+                      </div>
+                      <div class="form-group m-0" style="height: calc(100% - 26px);">
+                        <label for="farmer-pic-input" id="farmer-pic-wrapper" class="m-0">
+                          <img src="{% static 'assets/images/image.png' %}" alt="" class="img-fluid camera">
+                          <div id="picPreview" class="p-1" style="height: inherit;"></div>
+                        </label>
+                        {{ form.picture|attr:"id:farmer-pic-input"|attr:"onchange:getPicture(this.files);"|attr:"accept:image/*"|attr:"required" }}
+                        <p class="error">{{ form.picture.errors }}</p>
+                      </div>
+                    </div>
+                  </div>
+                <script>
+                  function getPicture(files) {
+                    var camera = document.querySelector(".camera"),
+                        preview = document.querySelector("#picPreview"),
+                      imgInput = document.querySelector("#farmer-pic-input");
+                    var file = files[0];
+                    
+                    // if (!file.type.startsWith('image/')){ continue }
+                    var img = document.createElement("img"),
+                        div = document.createElement("div");
+                      
+                    function createImage() {      
+                      img.classList.add("farmer-pic", "img-fluid");
+                      img.file = file;
+                      div.style.height = "inherit";
+                      div.appendChild(img);
+                      preview.appendChild(div);
+                      
+                      var reader = new FileReader();
+                      reader.onload = (function(myImg) {
+                        return function(e) {
+                          myImg.src = e.target.result;
+                        }; 
+                      })(img);
+                      reader.readAsDataURL(file);
+                    }
+                    var that = preview.childNodes[0];
+                    if (preview.childNodes.length === 0) {
+                      createImage();
+                      camera.style.display = "none";
+                    } else {
+                      preview.removeChild(that);
+                      createImage();
+                      camera.style.display = "none";
                     }
                   }
-                }
-              }
-            </script>
-            <div class="form-group">
-              <label class="form-label">Planted Crop(s) (Comma separated list)<span class="form-required">*</span></label>
-              {{ form.planted_crops|attr:"class:form-control"|attr:"id:input-tags"|attr:"value:Wheat"|attr:"required" }}
-              <p class="error">{{ form.planted_crops.errors }}</p>
-              <!-- <input type="text" class="form-control" name="planted_crops" id="input-tags" value="Wheat" required> -->
-            </div>
-            <script>
-              require(['jquery', 'selectize'], function ($, selectize) {
-                $('#input-tags').selectize({
-                    plugins: ['remove_button'],
-                    delimiter: ',',
-                    persist: false,
-                    create: function (input) {
-                        return {
-                            value: input,
-                            text: input
-                        }
-                    }
-                });
-              });
-            </script>
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
+                </script>
                 <div class="form-group">
-                  <label class="form-label">Av. Annual Production Volume<span class="form-required">*</span></label>
-                  <div class="input-group">
-                    <input name="volume_size" type="number" class="form-control" aria-label="Text input with select dropdown" required>
-                    <div class="input-group-append">
-                      <select name="volume_unit" class="form-control custom-select">
-                        <option value="2">Tonnes</option>
-                        <option value="1">Kilogrammes</option>
+                  <label class="form-label">Secondary Phone Number</label>
+                  {{ form.phone_number_2|attr:"class:form-control"|attr:"type:tel" }}
+                  <p class="error">{{ form.phone_number_2.errors }}</p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email Address</label>
+                  {{ form.email|attr:"class:form-control" }}
+                  <p class="error">{{ form.email.errors }}</p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Date of birth<span class="form-required">*</span></label>
+                  <div class="row gutters-xs">
+                    <div class="col-5">
+                      <select name="birth_month" class="form-control custom-select" required>
+                        <option value="">Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option selected="selected" value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <select name="birth_day" class="form-control custom-select" required>
+                        <option value="">Day</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option selected="selected" value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <select name="birth_year" class="form-control custom-select" required>
+                        <option value="">Year</option>
+                        <option value="2000">2000</option>
+                        <option value="1999">1999</option>
+                        <option value="1998">1998</option>
+                        <option value="1997">1997</option>
+                        <option value="1996">1996</option>
+                        <option value="1995">1995</option>
+                        <option value="1994">1994</option>
+                        <option selected="selected" value="1993">1993</option>
+                        <option value="1992">1992</option>
+                        <option value="1991">1991</option>
+                        <option value="1990">1990</option>
+                        <option value="1989">1989</option>
+                        <option value="1988">1988</option>
+                        <option value="1987">1987</option>
+                        <option value="1986">1986</option>
+                        <option value="1985">1985</option>
+                        <option value="1984">1984</option>
+                        <option value="1983">1983</option>
+                        <option value="1982">1982</option>
+                        <option value="1981">1981</option>
+                        <option value="1980">1980</option>
+                        <option value="1979">1979</option>
+                        <option value="1978">1978</option>
+                        <option value="1977">1977</option>
+                        <option value="1976">1976</option>
+                        <option value="1975">1975</option>
+                        <option value="1974">1974</option>
+                        <option value="1973">1973</option>
+                        <option value="1972">1972</option>
+                        <option value="1971">1971</option>
+                        <option value="1970">1970</option>
+                        <option value="1969">1969</option>
+                        <option value="1968">1968</option>
+                        <option value="1967">1967</option>
+                        <option value="1966">1966</option>
+                        <option value="1965">1965</option>
+                        <option value="1964">1964</option>
+                        <option value="1963">1963</option>
+                        <option value="1962">1962</option>
+                        <option value="1961">1961</option>
+                        <option value="1960">1960</option>
+                        <option value="1959">1959</option>
+                        <option value="1958">1958</option>
+                        <option value="1957">1957</option>
+                        <option value="1956">1956</option>
+                        <option value="1955">1955</option>
+                        <option value="1954">1954</option>
+                        <option value="1953">1953</option>
+                        <option value="1952">1952</option>
+                        <option value="1951">1951</option>
+                        <option value="1950">1950</option>
+                        <option value="1949">1949</option>
+                        <option value="1948">1948</option>
                       </select>
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class="form-label">Gender<span class="form-required">*</span></div>
+                      <div class="custom-controls-stacked">
+                        <label class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" class="custom-control-input" name="gender" value="m" checked required>
+                          <span class="custom-control-label">Male</span>
+                        </label>
+                        <label class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" class="custom-control-input" name="gender" value="f" required>
+                          <span class="custom-control-label">Female</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Highest Level of Education<span class="form-required">*</span></label>
+                      {{ form.max_edu_level|attr:"class:form-control custom-select"|attr:"required" }} 
+                      <p class="error">{{ form.max_edu_level.errors }}</p>
+                      <script>
+                        document.getElementsByName("max_edu_level")[0].options[0].innerText = "Select"
+                      </script>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Family Size<span class="form-required">*</span></label>
+                      {{ form.family_size|attr:"class:form-control"|attr:"required" }}
+                      <p class="error">{{ form.family_size.errors }}</p>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Annual Income Range (₦)<span class="form-required">*</span></label>
+                      <div class="row">
+                        <div class="col">
+                          <input  type="range" id="incomeRange" class="form-control custom-range" step="5" min="0" max="1000000">
+                        </div>
+                        <div class="col">
+                            {{ form.annual_income|attr:"class:form-control"|attr:"id:incomeBox"|attr:"value:450000"|attr:"required" }}
+                            <p class="error">{{ form.annual_income.errors }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  var slider = document.getElementById("incomeRange");
+                  var output = document.getElementById("incomeBox");
+                  output.value = slider.value;
+                  slider.oninput = function() {
+                    output.value = this.value;
+                  }
+                  output.oninput = function() {
+                    slider.value = this.value;
+                  }
+                </script>
+                <div class="row">
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">State<span class="form-required">*</span></label>
+                      <select name="state" id="state-select" onChange="onStateChange(this.value);" class="form-control custom-select" required>
+                        <option value="">Select state</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Town<span class="form-required">*</span></label>
+                      <select name="town" id="town-select"  class="form-control custom-select" required>
+                        <option value="">Select town or village</option>
+                      </select>
+                    </div>
+                  </div>
+                  <script src="{% static 'assets/js/lga_data.js'%}"></script>
+                  <script src="{% static 'assets/js/lga.js'%}"></script>
+                </div>
               </div>
-              <div class="col-lg-6 col-md-12">
+              <div class="col-lg-6 col-md-6">
+                <h3>Field Information</h3>
                 <div class="form-group">
-                  <div class="form-label">Major source of Farm labour<span class="form-required">*</span></div>
-                  <div class="custom-controls-stacked">
-                    <label class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="source_of_labour" value="family" checked required>
-                      <span class="custom-control-label">Family</span>
-                    </label>
-                    <label class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" class="custom-control-input" name="source_of_labour" value="hired_hands" required>
-                      <span class="custom-control-label">Hired Hands</span>
-                    </label>
+                  <label class="form-label">Location<span class="form-required">*</span></label>
+                  <input type="decimal" name="longitude" id="longitude" class="form-control" placeholder="Longitude" required>
+                  <input type="decimal" name="latitude" id="latitude" class="form-control mt-3" placeholder="Latitude" required>
+                </div>
+                <div class="mb-3">
+                  <button type="button" id="farmLocation" class="btn btn-primary" onclick="getLocation();">Get Location</button>
+                  <span class="col-auto align-self-center">
+                    <span class="form-help" data-toggle="popover" data-placement="top" data-content="<p>Click button to update data using Google's location service. <span class='text-danger'>Please make sure your device location is turned on.</span></p>
+                    <p class='mb-0'><a href=''>What does this mean?</a></p> 
+                    ">?</span>
+                  </span>
+                  <span id="error" class="text-danger"></span>
+                </div>
+                <script>
+                  function getLocation() {
+                    var long = document.getElementById("longitude"),
+                        lat = document.getElementById("latitude"),
+                        err = document.getElementById("error"),
+                        loc = document.getElementById("farmLocation");
+                    
+                    loc.innerHTML = "Locating…";
+
+                    if (!navigator.geolocation){
+                      err.innerHTML = "Your browser does not support geolocation!";
+                      loc.innerHTML = "Get Location";
+                      return;
+                    }
+
+                    function success(position) {
+                      lat.value  = position.coords.latitude;
+                      long.value = position.coords.longitude;
+
+                      // var img = new Image();
+                      // img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
+                      err.innerHTML = "";
+                      loc.innerHTML = "Get Location";
+                    }
+
+                    function error() {
+                      err.innerHTML = "Unable to retrieve your location, kindly turn on device location.";
+                      loc.innerHTML = "Get Location";
+                      console.log('Error occurred. Error code: ' + error.code);
+                      return;
+                    }
+                    
+                    navigator.geolocation.getCurrentPosition(success, error);
+                  }
+                </script>
+                <div class="form-group">
+                  <label class="form-label">Total Land Area<span class="form-required">*</span></label>
+                  <div class="input-group">
+                    <input name="land_value" type="number" class="form-control" aria-label="Text input with select dropdown" required>
+                    <div class="input-group-append">
+                      <select name="land_unit" class="form-control custom-select">
+                        <option value="3">Acre</option>
+                        <option value="2">Hectare</option>
+                        <option value="1">Square Metre</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">Farm Pictures<span class="form-required">*</span></div>
+                  <div class="custom-file">
+                    
+                    <input type="file" class="custom-file-input" name="farm_picture" onchange="handleFiles(this.files);" accept="image/*" multiple required>
+                    <!-- <p class="error">{{ image_form.farm_picture.errors }}</p> -->
+                    <label class="custom-file-label">Choose files</label>
+                  </div>
+                  <ul id="imagesPreview" class="d-flex flex-row flex-wrap justify-content-around image-wrapper"></ul>
+                </div>
+                <script>
+                  function handleFiles(files) {
+                    var preview = document.querySelector("#imagesPreview");
+                    for (var i = 0; i < files.length; i++) {
+                      var file = files[i];
+                      
+                      // if (!file.type.startsWith('image/')){ continue }
+                      
+                      var img = document.createElement("img"),
+                        close = document.createElement("span"),
+                          li = document.createElement("li");
+                            
+                      img.classList.add("farm-picture", "img-fluid", "p-1");
+                      img.file = file;
+                      close.classList.add("close");
+                      li.appendChild(img);
+                      li.appendChild(close);
+                      preview.appendChild(li);
+                      
+                      var reader = new FileReader();
+                      reader.onload = (function(myImg) {
+                        return function(e) {
+                          myImg.src = e.target.result;
+                        }; 
+                      })(img);
+                      reader.readAsDataURL(file);
+                      preview.classList.add("border", "p-1");
+                      var that;
+                      close.onclick = function(e) {
+                        that = this.parentElement;
+                        e.path[2].removeChild(that);
+                        if (e.path[2].childElementCount === 0) {
+                          preview.classList.remove("border", "p-1");
+                        }
+                      }
+                    }
+                  }
+                </script>
+                <div class="form-group">
+                  <label class="form-label">Planted Crop(s) (Comma separated list)<span class="form-required">*</span></label>
+                  {{ form.planted_crops|attr:"class:form-control"|attr:"id:input-tags"|attr:"value:Wheat"|attr:"required" }}
+                  <p class="error">{{ form.planted_crops.errors }}</p>
+                  <!-- <input type="text" class="form-control" name="planted_crops" id="input-tags" value="Wheat" required> -->
+                </div>
+                <script>
+                  require(['jquery', 'selectize'], function ($, selectize) {
+                    $('#input-tags').selectize({
+                        plugins: ['remove_button'],
+                        delimiter: ',',
+                        persist: false,
+                        create: function (input) {
+                            return {
+                                value: input,
+                                text: input
+                            }
+                        }
+                    });
+                  });
+                </script>
+                <div class="row">
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">Av. Annual Production Volume<span class="form-required">*</span></label>
+                      <div class="input-group">
+                        <input name="volume_size" type="number" class="form-control" aria-label="Text input with select dropdown" required>
+                        <div class="input-group-append">
+                          <select name="volume_unit" class="form-control custom-select">
+                            <option value="2">Tonnes</option>
+                            <option value="1">Kilogrammes</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-12">
+                    <div class="form-group">
+                      <div class="form-label">Major source of Farm labour<span class="form-required">*</span></div>
+                      <div class="custom-controls-stacked">
+                        <label class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" class="custom-control-input" name="source_of_labour" value="family" checked required>
+                          <span class="custom-control-label">Family</span>
+                        </label>
+                        <label class="custom-control custom-radio custom-control-inline">
+                          <input type="radio" class="custom-control-input" name="source_of_labour" value="hired_hands" required>
+                          <span class="custom-control-label">Hired Hands</span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="card-footer text-right">
+            <input type="submit" value="Register" class="btn btn-primary" />
+          </div>
+        </form>
       </div>
-      <div class="card-footer text-right">
-        <input type="submit" value="Register" class="btn btn-primary" />
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 {% endblock %}

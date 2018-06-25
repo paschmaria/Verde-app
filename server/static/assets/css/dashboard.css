@@ -18724,6 +18724,7 @@ svg {
 .mapsvg-region {
   transition: opacity 0.5s ease-in-out;
 }
+
 .mapsvg-region:hover {
   opacity: 0.6;
 }
