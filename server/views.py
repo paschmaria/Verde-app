@@ -170,6 +170,7 @@ def farmers_overview(request):
 
 @login_required
 def soil_test(request):
+    
     return render(request,'soil-test.html')
 
 @login_required
@@ -179,6 +180,7 @@ def nutrient(request):
 @login_required
 def resources(request):
     return render(request,'resources.html')
+
 
 #=========================SMS VIEWS=========================
 @login_required

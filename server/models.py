@@ -120,11 +120,11 @@ class FarmerManager(models.Manager):
         x5 = data.filter(land_area__lte = 14100, land_area__gt= 7000).count()
 
         land_data_list = [
-                        {'x': 0.7, 'y': x1, 'r': float(x1)/total_farmers},
-                        {'x': 0.7, 'y': x2, 'r': float(x2)/total_farmers},
-                        {'x': 0.7, 'y': x3, 'r': float(x3)/total_farmers},
-                        {'x': 0.7, 'y': x4, 'r': float(x4)/total_farmers},
-                        {'x': 0.7, 'y': x5, 'r': float(x5)/total_farmers}, 
+                        {'x': 0.7, 'y': x1, 'r': float(x1)/total_farmers if total_farmers else 0},
+                        {'x': 0.7, 'y': x2, 'r': float(x2)/total_farmers if total_farmers else 0},
+                        {'x': 0.7, 'y': x3, 'r': float(x3)/total_farmers if total_farmers else 0},
+                        {'x': 0.7, 'y': x4, 'r': float(x4)/total_farmers if total_farmers else 0},
+                        {'x': 0.7, 'y': x5, 'r': float(x5)/total_farmers if total_farmers else 0}, 
                     ]
 
         return land_data_list
@@ -216,4 +216,27 @@ class Farmer(models.Model):
 class FarmPicture(models.Model):
     picture = CloudinaryField()
     farmer = models.ForeignKey('Farmer', related_name="farm_pics",on_delete=models.CASCADE)
+
+class SoilRecommend(models.Model):
+    FERTILITY_CLASSES = (
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+    )
+
+    NUTRIENTS = (
+        ('nitrogen', 'Nitrogen'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+    )
+
+    crop = models.CharField(max_length=120, blank=True)
+    fertility_class = models.CharField(max_length=120, choices=FERTILITY_CLASSES, blank=True)
+    nutrient = models.CharField(max_length=120, choices = NUTRIENTS)
+    zone = models.CharField(max_length=120, blank=True)
+    
+class FertilizerRate(models.Model):
+    name = models.CharField(max_length=120, blank=True)
+    rate = models.CharField(max_length=120, blank=True)
+    recommendation = models.ForeignKey(SoilRecommend, related_name="nutrient_rates", on_delete=models.CASCADE)
 
