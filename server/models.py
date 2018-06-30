@@ -218,25 +218,25 @@ class FarmPicture(models.Model):
     farmer = models.ForeignKey('Farmer', related_name="farm_pics",on_delete=models.CASCADE)
 
 class SoilRecommend(models.Model):
-    FERTILITY_CLASSES = (
-        ('low', 'Low'),
-        ('medium', 'Medium'),
-        ('high', 'High'),
-    )
+    # FERTILITY_CLASSES = (
+    #     ('Low', 'Low'),
+    #     ('Medium', 'Medium'),
+    #     ('High', 'High'),
+    # )
 
-    NUTRIENTS = (
-        ('nitrogen', 'Nitrogen'),
-        ('medium', 'Medium'),
-        ('high', 'High'),
-    )
+    # NUTRIENTS = (
+    #     ('Nitrogen', 'Nitrogen'),
+    #     ('Phosphorus', 'Phosphorus'),
+    #     ('Potassium', 'Potassium'),
+    # )
 
     crop = models.CharField(max_length=120, blank=True)
-    fertility_class = models.CharField(max_length=120, choices=FERTILITY_CLASSES, blank=True)
-    nutrient = models.CharField(max_length=120, choices = NUTRIENTS)
-    zone = models.CharField(max_length=120, blank=True)
+    fertility_class = models.CharField(max_length=120, blank=True)
+    nutrient = models.CharField(max_length=120, blank=True)
+    nutrient_rate = models.CharField(max_length=120, blank=True)
+    zone = models.CharField(max_length=200, blank=True)
+    fertilizer_rate = models.TextField(blank=True)
+    application = models.TextField(blank=True)
+
     
-class FertilizerRate(models.Model):
-    name = models.CharField(max_length=120, blank=True)
-    rate = models.CharField(max_length=120, blank=True)
-    recommendation = models.ForeignKey(SoilRecommend, related_name="nutrient_rates", on_delete=models.CASCADE)
 

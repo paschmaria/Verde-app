@@ -16,7 +16,7 @@ import africastalking
 
 from .forms import SignUpForm, RegFarmerForm
 from .models import FarmPicture, FarmerManager, Farmer, SMS
-
+from .responses2db import update_recommendations
 # Create your views here.
 
 username="sandbox"
@@ -171,6 +171,7 @@ def farmers_overview(request):
 @login_required
 def soil_test(request):
     
+    
     return render(request,'soil-test.html')
 
 @login_required
@@ -315,3 +316,9 @@ def reports(request):
 @login_required
 def market_log(request):
     return render(request, 'market-log.html')
+
+@login_required
+def update_recommends(request):
+    update_recommendations()
+    return render(request, 'reports.html')
+

@@ -27,6 +27,9 @@ urlpatterns = [
     url(r'^voice-trash/$', voice_trash_view, name="voice-trash"),
     url(r'^voice-reply/$', voice_reply, name="voice-reply"),
     
+    url(r'^update-recommends/$', update_recommends, name="update-recommends"),
+
+
     url(r'^reports/$', reports, name="reports"),
     url(r'^market-log/$', market_log, name="market-log"),
     url(r'^farmers/overview$', farmers_overview, name="farmers-overview"),
@@ -35,4 +38,6 @@ urlpatterns = [
         name="farmers-demography"),
     url(r'^farmers/crop-info$', farmers_overview, name="farmers-crop-info"),
     url(r'', index, name="landing"),
+
+
 ]

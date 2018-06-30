@@ -27,3 +27,19 @@ Setup instructions
     `python manage.py runserver`
 
 - Head over to `localhost:8000`
+
+
+Populate Soil Recommendations
+-----------------------------
+
+- make sure you've setup migrations and update your db for SoilRecommend model
+
+    `python manage.py makemigrations`
+
+    `python manage.py migrate`
+
+- Start Django server
+    `python manage.py runserver`
+
+- Head over to /update-recommends , your db will be updated accordingly
+
