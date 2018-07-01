@@ -364,11 +364,6 @@
             <script>
               require(['chart', 'jquery'], function(Chart, $){
                 $(function () {
-                //   setTimeout(() => {
-                //     $('.dimmer').removeClass('active');
-
-                    
-                //   }, 5000);
                     function displayData(age, edu, land, house, gender) {
                         var ctx = $('#genderChart')
                           genderChart,
@@ -423,8 +418,23 @@
                         });
                         var ctx = $('#landChart'),
                             landChart;
-                            
-                        console.log(land);
+                        var occurrence = function (array) {
+                          "use strict";
+                          var result = {};
+                          if (array instanceof Array) { // Check if input is array.
+                              array.forEach(function (v, i) {
+                                  if (!result[v]) { // Initial object property creation.
+                                      result[v] = [i]; // Create an array for that property.
+                                  } else { // Same occurrences found.
+                                      result[v].push(i); // Fill the array.
+                                  }
+                              });
+                          }
+                          console.log(result);
+                          // return result;
+                        };
+                        occurrence(land)
+                        // console.log(land);
                         landChart = new Chart(ctx, {
                           type: 'bubble',
                           data: {
