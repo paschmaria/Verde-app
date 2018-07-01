@@ -90,7 +90,7 @@
                 <div class="dropdown">
                   <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                     <span class="avatar avatar-blue">
-                      <!-- <?php
+                      <?php
                         $firstname = $_SESSION['user']['firstname'];
                         $lastname = $_SESSION['user']['lastname'];
 
@@ -104,20 +104,20 @@
                         } else if ($_SESSION['user']['user_type'] === 'agent') {
                           echo "A";
                         }
-                      ?> -->
+                      ?>
                     </span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
-                        <!-- <?php 
+                        <?php 
                           if ($_SESSION['user']['firstname']) {
                             echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname'];
                           } else {
                             echo ucfirst($_SESSION['user']['username']);
                           }
-                        ?>   -->
+                        ?>
                       </span>
                       <small class="text-muted d-block mt-1">
-                        <!-- <?php echo ucfirst($_SESSION['user']['user_type']); ?> -->
+                        <?php echo ucfirst($_SESSION['user']['user_type']); ?>
                       </small>
                     </span>
                   </a>
@@ -205,20 +205,134 @@
                     <h3 class="page-title mb-5">PDF Reports</h3>
                     <div>
                       <div class="list-group list-group-transparent mb-0">
-                        <a href="./market-report.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <a href="./market-report" class="list-group-item list-group-item-action d-flex align-items-center active">
                           <span class="icon mr-3"><i class="fe fe-book"></i></span>Market Report
                         </a>
                       </div>
                       <div class="mt-6 mb-6">
-                        <a href="./reports" class="btn btn-secondary btn-block">Generate PDF Reports</a>
+                        <a href="./soil-test" class="btn btn-secondary btn-block">Generate PDF Reports</a>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-9">
-                      <div class="card">
-                          <div class="card-head"></div>
-                          <div class="card-body"></div>
-                      </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Market Report for:</h3>
+                            <div class="card-options">
+                                <select id="stateToggle" name="location" class="form-control custom-select">
+                                <option value="">Location</option>
+                                <option data-location="{&quot;longitude&quot;:&quot;2.5284488&quot;, &quot;latitude&quot;:&quot;11.6827587&quot;}" value="1">Kebbi</option>
+                                <option data-location="{&quot;longitude&quot;:&quot;6.3327384&quot;, &quot;latitude&quot;:&quot;10.2546175&quot;}" value="2">Kaduna</option>
+                                <option selected="selected" data-location="{&quot;longitude&quot;:&quot;8.4708578&quot;, &quot;latitude&quot;:&quot;11.9978786&quot;}" value="3">Kano</option>
+                                <option data-location="{&quot;longitude&quot;:&quot;8.2489528&quot;, &quot;latitude&quot;:&quot;11.9910136&quot;}" value="4">Jigawa</option>
+                                <option data-location="{&quot;longitude&quot;:&quot;10.8600634&quot;, &quot;latitude&quot;:&quot;11.8592838&quot;}" value="5">Borno</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <div class="dimmer active">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
+                                    <table class="table card-table table-vcenter text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Agent's First Name</th>
+                                                <th>Agent's Last Name</th>
+                                                <th>Market Name</th>
+                                                <th>Market Location (LGA)</th>
+                                                <th>Market Opening Time</th>
+                                                <th>Market Closing Time</th>
+                                                <th>Product Price per Bag (₦)</th>
+                                                <th>Product Price per Tonne (₦)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="results"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            require(['jquery'], function($){
+                                $(document).ready(function(){
+                                     // Create the XHR object.
+                                    function createCORSRequest(method, url) {
+                                      var xhr = new XMLHttpRequest();
+                                      if ("withCredentials" in xhr) {
+                                        // XHR for Chrome/Firefox/Opera/Safari.
+                                        xhr.open(method, url, true);
+                                      } else if (typeof XDomainRequest != "undefined") {
+                                        // XDomainRequest for IE.
+                                        xhr = new XDomainRequest();
+                                        xhr.open(method, url);
+                                      } else {
+                                        // CORS not supported.
+                                        xhr = null;
+                                      }
+                                      return xhr;
+                                    }
+                                     // ID of the Google Spreadsheet
+                                    var spreadsheetID = "14RMyHz606jqFZ3K1kuaMV83uxNgK2jdRcy76cuzjQj0";
+                                    
+                                    var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/values?alt=json";
+                                     
+                                    function makeCorsRequest() {
+                                      var xhr = createCORSRequest('GET', url);
+                                      if (!xhr) {
+                                        alert('CORS not supported');
+                                        return;
+                                      }
+                                    
+                                      // Response handlers.
+                                      xhr.onreadystatechange = function() {
+                                        if (this.readyState === 4) {
+                                            if (this.status === 200) {
+                                                var data = JSON.parse(this.responseText);
+                                                var entry = data.feed.entry;
+                                                console.log(entry);
+                                                $(entry).each(function(){
+                                                    $(".dimmer").removeClass("active")
+                                                $('.results').prepend(`
+                                                    <tr>
+                                                        <td>
+                                                            ${this.gsx$agentsfirstname.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$agentslastname.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$marketname.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$marketlocationlga.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$marketopeningtime.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$marketclosingtime.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$productpriceperbag.$t}
+                                                        </td>
+                                                        <td>
+                                                            ${this.gsx$productpricepertonne.$t}
+                                                        </td>
+                                                    </tr>
+                                                `);
+                                              });
+                                            } else {
+                                                console.log("Unable to retrieve data");
+                                            }
+                                        }
+                                      };
+                                    
+                                      xhr.send();
+                                    }
+                                    makeCorsRequest();
+                                })
+                            })    
+                        </script>
+                    </div>
                   </div>
                 </div>
             </div>

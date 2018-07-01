@@ -1,5 +1,6 @@
 <?php 
   include('functions.php');
+  include('telephony.php');
   if(!$_SESSION['user']){ 
       header("Location: ./login"); 
       exit; 
@@ -216,12 +217,12 @@
                     <h3 class="card-title">Compose new SMS</h3>
                   </div>
                   <div class="card-body">
-                    <form action="">
+                    <form action="sms.php" method="POST">
                       <div class="form-group">
                         <div class="row align-items-center">
                           <label class="col-sm-2">To:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="recipients" placeholder="Comma separated phone numbers..." required>
+                            <input type="text" class="form-control" id="recipients" name="recipients" placeholder="Comma separated phone numbers..." required>
                           </div>
                         </div>
                       </div>
@@ -236,8 +237,8 @@
                               labelField: 'name',
                               searchField: ['name', 'phone'],
                               options: [
-                                  {phone: '08129023456', name: 'Musa Ibrahim'},
-                                  {phone: '09098762345', name: 'Nurudeen Dawodu'},
+                                  {phone: '08106129023', name: 'Musa Ibrahim'},
+                                  {phone: '08067213613', name: 'Nurudeen Dawodu'},
                                   {phone: '08056785432', name: 'Ismail Samson'}
                               ],
                               render: {
@@ -292,13 +293,13 @@
                         <div class="row align-items-center">
                           <label class="col-sm-2">From:</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" required>
+                            <input type="text" class="form-control" name="sender" required>
                           </div>
                         </div>
                       </div>
-                      <textarea rows="10" class="form-control" required></textarea>
-                      <div class="d-flex justify-content-center">
-                          <small class="mt-4 text-muted pl-2 w-25">4 min</small>
+                      <textarea rows="10" class="form-control" name="sms" rows="7" maxlength="160" placeholder="Maximum number of characters is 160..." required></textarea>
+                      <div class="">
+                          <!--<small class="mt-4 text-muted pl-2 w-25">4 min</small>-->
                           <div class="btn-list mt-4 text-right">
                             <button type="button" class="btn btn-secondary btn-space">Save as Draft</button>
                             <button type="submit" class="btn btn-primary btn-space">Send message</button>
