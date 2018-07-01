@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Farmer, FarmPicture
+from .models import Farmer, FarmPicture, SoilTestData
 
 class SignUpForm(UserCreationForm):
     
@@ -29,7 +29,11 @@ class RegFarmerForm(ModelForm):
         fields = '__all__'
         exclude = ('birth_date', 'extension_worker', 'land_area', 'annual_production_volume')
         
-# class FarmPicturesForm(forms.ModelForm):
-#     class Meta:
-#         model = FarmPicture
-#         fields = ('farm_picture', )
+
+class SoilTestForm(ModelForm):
+    class Meta:
+        model = SoilTestData
+        fields = '__all__'
+        exclude = ('sample_size', 'location', 'last_fertilizer_app', 'farm_size', )
+
+        

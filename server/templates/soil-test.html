@@ -1,7 +1,4 @@
-{% extends 'base_dashboard.html' %}
-{% load staticfiles %}
-
-{% block body %}
+{% extends 'base_dashboard.html' %} {% load staticfiles %} {% block body %}
 <div class="my-3 my-md-5">
   <div class="container">
     <div class="row">
@@ -10,10 +7,14 @@
         <div>
           <div class="list-group list-group-transparent mb-0">
             <a href="{% url 'nutrient' %}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <span class="icon mr-3"><i class="fe fe-file-text"></i></span>Nutrient Management Guide
+              <span class="icon mr-3">
+                <i class="fe fe-file-text"></i>
+              </span>Nutrient Management Guide
             </a>
             <a href="{% url 'resources' %}" class="list-group-item list-group-item-action d-flex align-items-center">
-              <span class="icon mr-3"><i class="fe fe-book"></i></span>Crop/Soil Management Resources
+              <span class="icon mr-3">
+                <i class="fe fe-book"></i>
+              </span>Crop/Soil Management Resources
             </a>
           </div>
           <div class="mt-6 mb-6">
@@ -23,6 +24,7 @@
       </div>
       <div class="col-md-9">
         <form action="" method="post" class="card">
+          {% csrf_token %}
           <div class="card-header">
             <h3 class="card-title">Soil Test/Analysis</h3>
           </div>
@@ -31,53 +33,82 @@
               <div class="col-lg-6 col-md-6">
                 <h3>Farm Information</h3>
                 <div class="form-group">
-                  <label class="form-label">Farmer Name<span class="form-required">*</span></label>
+                  <label class="form-label">Farmer Name
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="row gutters-xs">
-                    <div class="col-6">
-                      <input type="text" class="form-control" placeholder="First name">
-                    </div>
-                    <div class="col-6">
-                      <input type="text" class="form-control" placeholder="Last name">
+                    <div class="col-12">
+                      <input type="text" id="name" name="farmer" class="form-control">
                     </div>
                   </div>
+
+                  <script>
+                    require(['jquery', 'selectize'], function ($, selectize) {
+
+                      $('#name').selectize({
+                        maxItems: 1,
+                        valueField: 'id',
+                        labelField: 'name',
+                        searchField: ['name'],
+                        options: {{ farmers_names| safe }},
+                      // options: [
+                      //     {phone: '+2348129023456', name: 'Musa Ibrahim'},
+                      //     {phone: '+2349098762345', name: 'Nurudeen Dawodu'},
+                      //     {phone: '+2348056785432', name: 'Ismail Samson'}
+                      // ],
+                      render: {
+                        item: function (item, escape) {
+                          console.log(item, escape)
+                          return '<div>' +
+                            (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
+                            // (item.phone ? '<span class="phone">' + escape(item.phone) + '</span>' : '') +
+                            '</div>';
+                        },
+                        option: function (item, escape) {
+                          console.log(item, escape)
+                          var label = item.name;
+                          //var caption = item.name ? item.id : null;
+                          return '<div>' +
+                            '<span class="label">' + escape(label) + '</span>' +
+                            //(caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                            '</div>';
+                        }
+                      },
+                        
+                      });
+                    })
+                  </script>
+
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Farm Location<span class="form-required">*</span></label>
+                  <label class="form-label">Farm Location
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="row gutters-xs">
                     <div class="col-6">
-                      <select name="location[state]" class="form-control custom-select">
-                        <option value="">State</option>
-                        <option value="1">Kano</option>
+                      <select name="state" id="state-select" onChange="onStateChange(this.value);" class="form-control custom-select" required>
+                        <option value="">Select state</option>
                       </select>
+
                     </div>
                     <div class="col-6">
-                      <select name="location[town]" class="form-control custom-select">
+                      <select name="town" id="town-select" class="form-control custom-select" required>
                         <option value="">Select town or village</option>
-                        <option value="1">Ajingi</option>
-                        <option value="2">Albasu</option>
-                        <option value="3">Bagwai</option>
-                        <option value="4">Bari</option>
-                        <option value="5">Dala</option>
-                        <option value="6">Dambatta</option>
-                        <option value="7">Garko</option>
-                        <option value="8">Gaya</option>
-                        <option value="9">Kabo</option>
-                        <option value="10">Kano</option>
-                        <option value="11">Madobi</option>
-                        <option value="12">Rano</option>
-                        <option value="13">Rimin Gado</option>
-                        <option value="14">Shanono</option>
-                        <option value="15">Sumaila</option>
                       </select>
                     </div>
                   </div>
+                  <script src="{% static 'assets/js/lga_data.js'%}"></script>
+                  <script src="{% static 'assets/js/lga.js'%}"></script>
+
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Farm Size<span class="form-required">*</span></label>
+                  <label class="form-label">Farm Size
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="input-group">
-                    <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                    <input type="number" name="land_value" class="form-control" aria-label="Text input with select dropdown">
                     <div class="input-group-append">
-                      <select name="land[area]" class="form-control custom-select">
+                      <select name="land_unit" class="form-control custom-select">
                         <option value="1">Acre</option>
                         <option value="2">Hectare</option>
                         <option value="3">Square Metre</option>
@@ -86,10 +117,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Date of last Fertilizer application<span class="form-required">*</span></label>
+                  <label class="form-label">Date of last Fertilizer application
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="row gutters-xs">
                     <div class="col-5">
-                      <select name="fertilizer[month]" class="form-control custom-select">
+                      <select name="fertilizer_month" class="form-control custom-select">
                         <option value="">Month</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -106,7 +139,7 @@
                       </select>
                     </div>
                     <div class="col-3">
-                      <select name="fertilizer[day]" class="form-control custom-select">
+                      <select name="fertilizer_day" class="form-control custom-select">
                         <option value="">Day</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -142,7 +175,7 @@
                       </select>
                     </div>
                     <div class="col-4">
-                      <select name="fertilizer[year]" class="form-control custom-select">
+                      <select name="fertilizer_year" class="form-control custom-select">
                         <option value="">Year</option>
                         <option value="2018">2018</option>
                         <option value="2017">2017</option>
@@ -152,30 +185,34 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Type of Soil Tillage<span class="form-required">*</span></label>
-                  <select name="tillage" class="form-control custom-select">
+                  <label class="form-label">Type of Soil Tillage
+                    <span class="form-required">*</span>
+                  </label>
+                  <select name="soil_tillage" class="form-control custom-select">
                     <option value="">Choose type</option>
-                    <option value="1">Conventional Tillage</option>
-                    <option value="2">Conservation Tillage</option>
-                    <option value="3">No-till</option>
+                    <option value="conventional">Conventional Tillage</option>
+                    <option value="conservation">Conservation Tillage</option>
+                    <option value="no-till">No-till</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Planted Crop(s)<span class="form-required">*</span></label>
-                  <input type="text" class="form-control" name="crops" id="input-tags" value="Wheat">
+                  <label class="form-label">Planted Crop(s)
+                    <span class="form-required">*</span>
+                  </label>
+                  <input type="text" class="form-control" name="planted_crops" id="input-tags" value="Wheat">
                 </div>
                 <script>
                   require(['jquery', 'selectize'], function ($, selectize) {
                     $('#input-tags').selectize({
-                        plugins: ['remove_button'],
-                        delimiter: ',',
-                        persist: false,
-                        create: function (input) {
-                            return {
-                                value: input,
-                                text: input
-                            }
+                      plugins: ['remove_button'],
+                      delimiter: ',',
+                      persist: false,
+                      create: function (input) {
+                        return {
+                          value: input,
+                          text: input
                         }
+                      }
                     });
                   });
                 </script>
@@ -186,16 +223,18 @@
                   <div class="col-lg-6 col-md-12">
                     <div class="form-group">
                       <label class="form-label">Amt. of Samples Collected</label>
-                      <input type="number" class="form-control">
+                      <input type="number" name="sample_amount" class="form-control">
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Av. Sample Size<span class="form-required">*</span></label>
+                      <label class="form-label">Av. Sample Size
+                        <span class="form-required">*</span>
+                      </label>
                       <div class="input-group">
-                        <input type="number" class="form-control" aria-label="Text input with select dropdown">
+                        <input type="number" step="0.01" name="sample_size" class="form-control" aria-label="Text input with select dropdown">
                         <div class="input-group-append">
-                          <select name="sample_size" class="form-control custom-select">
+                          <select name="sample_unit" class="form-control custom-select">
                             <option value="1">mg</option>
                             <option value="2">g</option>
                             <option value="3">kg</option>
@@ -206,55 +245,61 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Sampled Soil Depth (inches)<span class="form-required">*</span></label>
+                  <label class="form-label">Sampled Soil Depth (inches)
+                    <span class="form-required">*</span>
+                  </label>
                   <div>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="0_2">
+                      <input type="checkbox" class="custom-control-input" name="soil_depth" value="0_2">
                       <span class="custom-control-label">0-2</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="2_4">
+                      <input type="checkbox" class="custom-control-input" name="soil_depth" value="2_4">
                       <span class="custom-control-label">2-4</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="4_6">
+                      <input type="checkbox" class="custom-control-input" name="soil_depth" value="4_6">
                       <span class="custom-control-label">4-6</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="6_8">
+                      <input type="checkbox" class="custom-control-input" name="soil_depth" value="6_8">
                       <span class="custom-control-label">6-8</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Sampled Soil Types<span class="form-required">*</span></label>
+                  <label class="form-label">Sampled Soil Types
+                    <span class="form-required">*</span>
+                  </label>
                   <div>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="sandy">
+                      <input type="checkbox" class="custom-control-input" name="soil_type" value="sandy">
                       <span class="custom-control-label">Sandy Soil</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="loamy">
+                      <input type="checkbox" class="custom-control-input" name="soil_type" value="loamy">
                       <span class="custom-control-label">Loamy Soil</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="laterite">
+                      <input type="checkbox" class="custom-control-input" name="soil_type" value="laterite">
                       <span class="custom-control-label">Laterite Soil</span>
                     </label>
                     <label class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" name="" value="alluvial">
+                      <input type="checkbox" class="custom-control-input" name="soil_type" value="alluvial">
                       <span class="custom-control-label">Alluvial Soil</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Soil pH<span class="form-required">*</span></label>
+                  <label class="form-label">Soil pH
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="row">
                     <div class="col">
                       <input type="range" id="pHRange" class="form-control custom-range" step="1" min="0" max="14">
                     </div>
                     <div class="col">
-                      <input type="number" id="pHBox" class="form-control" value="14">
+                      <input type="number" name="soil_ph" id="pHBox" class="form-control" value="14">
                     </div>
                   </div>
                 </div>
@@ -262,115 +307,130 @@
                   var slider = document.getElementById("pHRange");
                   var output = document.getElementById("pHBox");
                   output.value = slider.value;
-                  slider.oninput = function() {
+                  slider.oninput = function () {
                     output.value = this.value;
                   }
-                  output.oninput = function() {
+                  output.oninput = function () {
                     slider.value = this.value;
                   }
                 </script>
                 <h3>Soil Nutrient Element Ratings</h3>
                 <div class="form-group">
-                  <label class="form-label">Nitrogen (g/kg)<span class="form-required">*</span></label>
+                  <label class="form-label">Nitrogen (g/kg)
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="selectgroup w-100">
                     <label class="selectgroup-item">
-                      <input type="radio" name="nitrogen" class="selectgroup-input" checked="">
-                      <span class="selectgroup-button"><0.5</span>
+                      <input type="radio" name="nitrogen" value="lowest" class="selectgroup-input" checked="">
+                      <span class="selectgroup-button">
+                        <0.5</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="nitrogen" class="selectgroup-input">
+                      <input type="radio" name="nitrogen" value="low" class="selectgroup-input">
                       <span class="selectgroup-button">0.6 - 1.5</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="nitrogen" class="selectgroup-input">
+                      <input type="radio" name="nitrogen" value="medium" class="selectgroup-input">
                       <span class="selectgroup-button">1.5 - 2.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="nitrogen" class="selectgroup-input">
+                      <input type="radio" name="nitrogen" value="high" class="selectgroup-input">
                       <span class="selectgroup-button">>2.0</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Phosphorus (Bray-1-P) (mg/kg)<span class="form-required">*</span></label>
+                  <label class="form-label">Phosphorus (Bray-1-P) (mg/kg)
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="selectgroup w-100">
                     <label class="selectgroup-item">
-                      <input type="radio" name="phosphorus" class="selectgroup-input" checked="">
-                      <span class="selectgroup-button"><3.0</span>
+                      <input type="radio" name="phosphorus" value="lowest" class="selectgroup-input" checked="">
+                      <span class="selectgroup-button">
+                        <3.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="phosphorus" class="selectgroup-input">
+                      <input type="radio" name="phosphorus" value="low" class="selectgroup-input">
                       <span class="selectgroup-button">3.0 - 7.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="phosphorus" class="selectgroup-input">
+                      <input type="radio" name="phosphorus" value="medium" class="selectgroup-input">
                       <span class="selectgroup-button">8.0 - 20</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="phosphorus" class="selectgroup-input">
+                      <input type="radio" name="phosphorus" value="high" class="selectgroup-input">
                       <span class="selectgroup-button">>20</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Potassium (Exc. K) (cmol/kg)<span class="form-required">*</span></label>
+                  <label class="form-label">Potassium (Exc. K) (cmol/kg)
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="selectgroup w-100">
                     <label class="selectgroup-item">
-                      <input type="radio" name="potassium" class="selectgroup-input" checked="">
-                      <span class="selectgroup-button"><0.2</span>
+                      <input type="radio" name="potassium" value="lowest" class="selectgroup-input" checked="">
+                      <span class="selectgroup-button">
+                        <0.2</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="potassium" class="selectgroup-input">
+                      <input type="radio" name="potassium" value="low" class="selectgroup-input">
                       <span class="selectgroup-button">0.21 - 0.3</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="potassium" class="selectgroup-input">
+                      <input type="radio" name="potassium" value="medium" class="selectgroup-input">
                       <span class="selectgroup-button">0.31 - 0.6</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="potassium" class="selectgroup-input">
+                      <input type="radio" name="potassium" value="high" class="selectgroup-input">
                       <span class="selectgroup-button">>0.6</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Organic Carbon (g/kg)<span class="form-required">*</span></label>
+                  <label class="form-label">Organic Carbon (g/kg)
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="selectgroup w-100">
                     <label class="selectgroup-item">
-                      <input type="radio" name="carbon" class="selectgroup-input" checked="">
-                      <span class="selectgroup-button"><4.0</span>
+                      <input type="radio" name="carbon" value="lowest" class="selectgroup-input" checked="">
+                      <span class="selectgroup-button">
+                        <4.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="carbon" class="selectgroup-input">
+                      <input type="radio" name="carbon" value="low" class="selectgroup-input">
                       <span class="selectgroup-button">4.0 - 10</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="carbon" class="selectgroup-input">
+                      <input type="radio" name="carbon" value="medium" class="selectgroup-input">
                       <span class="selectgroup-button">10 - 14</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="carbon" class="selectgroup-input">
+                      <input type="radio" name="carbon" value="high" class="selectgroup-input">
                       <span class="selectgroup-button">>14</span>
                     </label>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Zinc (DPTA) (mg/kg)<span class="form-required">*</span></label>
+                  <label class="form-label">Zinc (DPTA) (mg/kg)
+                    <span class="form-required">*</span>
+                  </label>
                   <div class="selectgroup w-100">
                     <label class="selectgroup-item">
-                      <input type="radio" name="zinc" class="selectgroup-input" checked="">
+                      <input type="radio" name="zinc" value="lowest" class="selectgroup-input" checked="">
                       <span class="selectgroup-button">0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="zinc" class="selectgroup-input">
-                      <span class="selectgroup-button"><1.0</span>
+                      <input type="radio" name="zinc" value="low" class="selectgroup-input">
+                      <span class="selectgroup-button">
+                        <1.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="zinc" class="selectgroup-input">
+                      <input type="radio" name="zinc" value="medium" class="selectgroup-input">
                       <span class="selectgroup-button">1.0 - 5.0</span>
                     </label>
                     <label class="selectgroup-item">
-                      <input type="radio" name="zinc" class="selectgroup-input">
+                      <input type="radio" name="zinc" value="high" class="selectgroup-input">
                       <span class="selectgroup-button">>5.0</span>
                     </label>
                   </div>
@@ -387,4 +447,3 @@
   </div>
 </div>
 {% endblock %}
-          

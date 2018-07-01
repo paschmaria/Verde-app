@@ -156,6 +156,15 @@ class FarmerManager(models.Manager):
         
         return phone_numbers
 
+    def names_data(self, user):
+        data = self.get_queryset().filter(extension_worker=user)
+        farmers_names = []
+        
+        for farmer in data:
+            farmers_names.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'id': farmer.id})
+        
+        return farmers_names
+
 
 class Farmer(models.Model):
     GENDERS = (
@@ -238,5 +247,52 @@ class SoilRecommend(models.Model):
     fertilizer_rate = models.TextField(blank=True)
     application = models.TextField(blank=True)
 
+class FarmInfo(models.Model):
+    """
+        farm_size unit => sq_meters 
+    """
+    TILLAGE_OPTIONS = (
+        ('conventional', 'Conventional Tillage'),
+        ('conservation', 'Conservation Tillage'),
+        ('no-till', 'No Tillage'),
+    )
+
+    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    location = models.CharField(max_length=120, blank=True)
+    farm_size = models.FloatField(blank=True)
+    last_fertilizer_app = models.DateField(auto_now=False, auto_now_add=False)
+    soil_tillage = models.CharField(max_length=120, choices=TILLAGE_OPTIONS)
+    planted_crops = models.TextField()
+
+    class Meta:
+        abstract = True
+
+class SoilTestData(FarmInfo):
+    """
+        sample_size default unit is grams
+    """
     
+    SOIL_TYPES = (
+        ('sandy', 'Sandy Soil'),
+        ('loamy', 'Loamy Soil'),
+        ('laterite', 'Laterite Soil'),
+        ('alluvial', 'Alluvial Soil'),
+    )
+
+    SOIL_DEPTHS = (
+        ('0_2', '0-2'),
+        ('2_4', '2-4'),
+        ('4_6', '4-6'),
+        ('6_8', '6-8'),
+    )
+
+    sample_amount = models.IntegerField()
+    sample_size = models.FloatField()
+    soil_depth = models.CharField(max_length=4, choices=SOIL_DEPTHS)
+    soil_type = models.CharField(max_length=120, blank=True, choices=SOIL_TYPES)
+    soil_ph = models.FloatField()
+    nutrient_ratings = models.TextField(blank=True)
+
+    
+
 
