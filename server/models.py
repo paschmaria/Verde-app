@@ -12,6 +12,9 @@ from cloudinary.models import CloudinaryField
     
 
 class Profile(models.Model):
+    """
+        Profile of Extension Agent
+    """
     GENDERS = (
         ('m', 'Male'),
         ('f', 'Female')
@@ -39,6 +42,9 @@ def update_profile(sender, instance, created, **kwargs):
 
 
 class SMS(models.Model):
+    """
+        Model for sms data gotten when sms is sent
+    """
     STATUS = (
         ('delivered', 'Delivered'),
         ('pending', 'Pending'),
@@ -57,6 +63,9 @@ class SMS(models.Model):
 
 @receiver(post_save, sender=SMS)
 def update_message_cost(sender, instance, created, **kwargs):
+    """
+        Update message cost, once cost has come
+    """
     if not instance.cost:
         profile = Profile.objects.get(user=instance.user)
         profile.message_cost += instance.cost
@@ -167,6 +176,9 @@ class FarmerManager(models.Manager):
 
 
 class Farmer(models.Model):
+    """
+        
+    """
     GENDERS = (
         ('m', 'Male'),
         ('f', 'Female')
@@ -280,18 +292,20 @@ class SoilTestData(FarmInfo):
     )
 
     SOIL_DEPTHS = (
-        ('0_2', '0-2'),
-        ('2_4', '2-4'),
-        ('4_6', '4-6'),
-        ('6_8', '6-8'),
+        ('0_15', '0-15'),
+        ('15.1_30', '15.1-30'),
+        ('30.1_45', '30.1-45'),
+        ('_45', '>45'),
     )
 
     sample_amount = models.IntegerField()
     sample_size = models.FloatField()
-    soil_depth = models.CharField(max_length=4, choices=SOIL_DEPTHS)
+    soil_depth = models.CharField(max_length=10, choices=SOIL_DEPTHS)
     soil_type = models.CharField(max_length=120, blank=True, choices=SOIL_TYPES)
     soil_ph = models.FloatField()
     nutrient_ratings = models.TextField(blank=True)
+    zone = models.CharField(max_length=200, blank=True)
+    recommendation = models.TextField(blank=True)
 
     
 

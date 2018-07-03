@@ -10,6 +10,7 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+
 class RegFarmerForm(ModelForm):
 
     def clean_phone_number(self):
@@ -34,6 +35,6 @@ class SoilTestForm(ModelForm):
     class Meta:
         model = SoilTestData
         fields = '__all__'
-        exclude = ('sample_size', 'location', 'last_fertilizer_app', 'farm_size', )
+        exclude = ('sample_size', 'location', 'last_fertilizer_app', 'farm_size', 'recommendation')
 
         

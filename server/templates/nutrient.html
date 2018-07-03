@@ -51,6 +51,37 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <!-- <script>
+                                                require(['jquery', 'selectize'], function ($, selectize) {
+                            
+                                                  $('#select-farmer').selectize({
+                                                    maxItems: 1,
+                                                    valueField: 'id',
+                                                    labelField: 'name',
+                                                    searchField: ['name'],
+                                                    //options: {{ phone_data| safe }},
+                                                  render: {
+                                                    item: function (item, escape) {
+                                                      console.log(item, escape)
+                                                      return '<div>' +
+                                                        (item.name ? '<span class="name">' + escape(item.name) + '</span>' : '') +
+                                                        // (item.phone ? '<span class="phone">' + escape(item.phone) + '</span>' : '') +
+                                                        '</div>';
+                                                    },
+                                                    option: function (item, escape) {
+                                                      console.log(item, escape)
+                                                      var label = item.name;
+                                                      //var caption = item.name ? item.id : null;
+                                                      return '<div>' +
+                                                        '<span class="label">' + escape(label) + '</span>' +
+                                                        //(caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                                                        '</div>';
+                                                    }
+                                                  },
+                                                    
+                                                  });
+                                                })
+                                              </script> -->
                                         <div class="col-lg-4 col-md-12 mt-2 d-flex justify-content-end align-items-center">
                                             <button type="submit" class="btn btn-primary">Get Recommendations</button>
                                         </div>

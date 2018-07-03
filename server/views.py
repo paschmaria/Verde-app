@@ -204,20 +204,22 @@ def soil_test(request):
 
     if request.method == 'POST':
         print("post request came")
-        print(request.FILES)
+        #print(request.FILES)
         print(request.POST)
 
         nutrient_ratings = {
-            "nitrogen": request.FILES.get('nitrogen', ""),
-            "carbon": request.FILES.get('carbon', ""),
-            "potassium": request.FILES.get('potassium', ""),
-            "phosphorus": request.FILES.get('phosphorus', ""),
-            "zinc": request.FILES.get('zinc', ""),
+            "nitrogen": request.POST.get('nitrogen', ""),
+            "carbon": request.POST.get('carbon', ""),
+            "potassium": request.POST.get('potassium', ""),
+            "phosphorus": request.POST.get('phosphorus', ""),
+            "zinc": request.POST.get('zinc', ""),
         }
 
+        print("zone => ", request.POST.get('zone', ' 0'))
+
         sample_size = calc_sample_size(
-            request.FILES.get('sample_size', 0),
-            request.FILES.get('sample_unit', '2'))
+            float(request.POST.get('sample_size', 0)),
+            float(request.POST.get('sample_unit', '2')))
 
         land_value = request.POST.get('land_value')
         land_unit = request.POST.get('land_unit')
@@ -243,10 +245,10 @@ def soil_test(request):
             soil_test.save()
 
             # print(soil_test)
-            # print(soil_test.farmer)
+            # print(soil_test.zone)
 
         else:
-            # print("errors ==> ", form.errors)
+            print("errors ==> ", form.errors)
             return render(request, 'soil-test.html', {
                 "form": form,
                 "farmers_names": farmers_names
