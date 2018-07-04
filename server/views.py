@@ -17,6 +17,7 @@ import africastalking
 from .forms import SignUpForm, RegFarmerForm, SoilTestForm
 from .models import FarmPicture, FarmerManager, Farmer, SMS
 from .responses2db import update_recommendations
+from .utils import getRecommends
 # Create your views here.
 
 username = "sandbox"
@@ -265,6 +266,21 @@ def soil_test(request):
 @login_required
 def nutrient(request):
     farmers_names = Farmer.active_objects.names_data(user=request.user)
+
+    if request.method == 'POST':
+        if request.POST.get('farmer_id'):
+            farmer = Farmer.objects.filter(id=request.POST.get('farmer_id'))
+            
+            if not farmer:
+                return
+
+            soil_tests = farmer[0].soil_tests.all()
+
+            recommends = [getRecommends(test) for test in soil_tests]
+            from pprint import pprint
+            pprint(recommends)
+
+        return render(request, 'nutrient.html', {'farmers_names': farmers_names, 'recommends': recommends})    
 
     return render(request, 'nutrient.html', {'farmers_names': farmers_names})
 

@@ -351,45 +351,6 @@ class SoilTestData(FarmInfo):
                                  self.created)
 
 
-def getRecommends(soil_test, recommends):
-    """
-        soil test nutrients include nitrogen, phosphorus, zinc, potassium, carbon
-    """
-
-    zones = soil_test.zone.split(',')
-    crops = soil_test.planted_crops.split(',')
-    nutrients = ast.literal_eval(soil_test.nutrient)
-    response = {}
-
-    for crop in crops:
-
-        for zone in zones:
-
-            zone_response = {}
-
-            nutrient_response = {
-            "nitrogen": {"application": "", "fertilizer_rates": ""},
-            "phosphorus": {"application": "", "fertilizer_rates": ""},
-            "zinc": {"application": "", "fertilizer_rates": ""},
-            "potassium": {"application": "", "fertilizer_rates": ""},
-            "carbon": {"application": "", "fertilizer_rates": ""}
-            }
-    
-            for nutrient in ["nitrogen", "phosphorus", "zinc", "potassium", "carbon"]:
-                fertility_class = "low" if nutrients[nutrient] == "lowest" else nutrients[nutrient]
-                soil_recommends = SoilRecommend.objects.filter(crop=crop, nutrient=nutrient, fertility_class=fertility_class, zone__contains=zone)
-                
-                if not soil_recommends:
-                    continue
-                
-                fertilizer_rates = ast.literal_eval(soil_recommends.fertilizer_rate)
-                nutrient_response[nutrient]["application"] = soil_recommends.application
-                nutrient_response[nutrient]["fertilizer_rates"] = fertilizer_rates
-            
-            zone_response[zone] = nutrient_response
-
-        
-        response[crop] = nutrient_response
 
 
         
