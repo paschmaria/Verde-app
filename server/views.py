@@ -58,7 +58,7 @@ def calc_sample_size(value, unit):
         2 => g  ==> stored in grams
         3 => kg
     """
-    if not int(value):
+    if not float(value):
         return 0
 
     if unit == "1":
@@ -219,7 +219,9 @@ def soil_test(request):
 
         sample_size = calc_sample_size(
             float(request.POST.get('sample_size', 0)),
-            float(request.POST.get('sample_unit', '2')))
+            request.POST.get('sample_unit', '2'))
+
+        print(sample_size)
 
         land_value = request.POST.get('land_value')
         land_unit = request.POST.get('land_unit')
@@ -262,7 +264,9 @@ def soil_test(request):
 
 @login_required
 def nutrient(request):
-    return render(request, 'nutrient.html')
+    farmers_names = Farmer.active_objects.names_data(user=request.user)
+
+    return render(request, 'nutrient.html', {'farmers_names': farmers_names})
 
 
 @login_required

@@ -6,33 +6,34 @@ from django.utils import timezone
 from django.dispatch import receiver
 
 from datetime import datetime
+import ast
 
 from cloudinary.models import CloudinaryField
+
 # Create your models here.
-    
+
 
 class Profile(models.Model):
     """
         Profile of Extension Agent
     """
-    GENDERS = (
-        ('m', 'Male'),
-        ('f', 'Female')
-    )
-    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    GENDERS = (('m', 'Male'), ('f', 'Female'))
+    user = models.OneToOneField(
+        User, related_name="profile", on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     picture = CloudinaryField('image', null=True)
     address = models.TextField(blank=True)
     phone_number = models.CharField(max_length=120, blank=True)
     birth_date = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=1, blank=True, choices =GENDERS)
-    max_edu_level =models.CharField(max_length=120, blank=True)
+    gender = models.CharField(max_length=1, blank=True, choices=GENDERS)
+    max_edu_level = models.CharField(max_length=120, blank=True)
     residence_state = models.CharField(max_length=120, blank=True)
     lga = models.CharField(max_length=120, blank=True)
     degree = models.CharField(max_length=120, blank=True)
 
     def __str__(self):
         return "{}'s profile".format(self.user.username)
+
 
 @receiver(post_save, sender=User)
 def update_profile(sender, instance, created, **kwargs):
@@ -45,21 +46,19 @@ class SMS(models.Model):
     """
         Model for sms data gotten when sms is sent
     """
-    STATUS = (
-        ('delivered', 'Delivered'),
-        ('pending', 'Pending'),
-        ('failed', 'Failed'),
-        ('draft', 'Draft')
-    )
-    user = models.ForeignKey(User, related_name="messages",on_delete=models.CASCADE)
+    STATUS = (('delivered', 'Delivered'), ('pending', 'Pending'),
+              ('failed', 'Failed'), ('draft', 'Draft'))
+    user = models.ForeignKey(
+        User, related_name="messages", on_delete=models.CASCADE)
     recipient = models.CharField(max_length=120, blank=True)
     sender_id = models.CharField(max_length=120, blank=True)
     status = models.CharField(max_length=100, choices=STATUS, blank=True)
     message_id = models.CharField(max_length=120, blank=True)
     cost = models.FloatField(blank=True)
     message = models.TextField(blank=True)
-    sent_date = models.DateTimeField(auto_now=False,null=True)
+    sent_date = models.DateTimeField(auto_now=False, null=True)
     # read = models.BooleanField(default=False) #by default messages are unread
+
 
 @receiver(post_save, sender=SMS)
 def update_message_cost(sender, instance, created, **kwargs):
@@ -72,8 +71,6 @@ def update_message_cost(sender, instance, created, **kwargs):
         profile.save()
 
 
-
-
 class FarmerManager(models.Manager):
     def get_queryset(self):
         return super(FarmerManager, self).get_queryset()
@@ -82,16 +79,16 @@ class FarmerManager(models.Manager):
         no_of_females = self.get_queryset().filter(gender="f").count()
         no_of_males = self.get_queryset().filter(gender="m").count()
         return [no_of_females, no_of_males]
-    
+
     def age_data(self):
         """
             x1, x2, x3 represent different age ranges
             as at time of coding, x1 < 45, x2 = 45-60, x3>60
         """
-        x1 = self.get_queryset().filter(age__lt = 45).count()
-        x2 = self.get_queryset().filter(age__gte = 45, age__lt=60).count()
-        x3 = self.get_queryset().filter(age__gte = 60).count()
-        
+        x1 = self.get_queryset().filter(age__lt=45).count()
+        x2 = self.get_queryset().filter(age__gte=45, age__lt=60).count()
+        x3 = self.get_queryset().filter(age__gte=60).count()
+
         return [x1, x2, x3]
 
     def edu_data(self):
@@ -118,23 +115,41 @@ class FarmerManager(models.Manager):
         """
         data = self.get_queryset()
         total_farmers = data.count()
-        
-        
 
-        x1 = data.filter(land_area__lte = 700).count()
-        
-        x2 = data.filter(land_area__lte = 1400, land_area__gt= 700).count()
-        x3 = data.filter(land_area__lte = 3500, land_area__gt= 1400).count()
-        x4 = data.filter(land_area__lte = 7000, land_area__gt= 3500).count()
-        x5 = data.filter(land_area__lte = 14100, land_area__gt= 7000).count()
+        x1 = data.filter(land_area__lte=700).count()
+
+        x2 = data.filter(land_area__lte=1400, land_area__gt=700).count()
+        x3 = data.filter(land_area__lte=3500, land_area__gt=1400).count()
+        x4 = data.filter(land_area__lte=7000, land_area__gt=3500).count()
+        x5 = data.filter(land_area__lte=14100, land_area__gt=7000).count()
 
         land_data_list = [
-                        {'x': 0.7, 'y': x1, 'r': float(x1)/total_farmers if total_farmers else 0},
-                        {'x': 0.7, 'y': x2, 'r': float(x2)/total_farmers if total_farmers else 0},
-                        {'x': 0.7, 'y': x3, 'r': float(x3)/total_farmers if total_farmers else 0},
-                        {'x': 0.7, 'y': x4, 'r': float(x4)/total_farmers if total_farmers else 0},
-                        {'x': 0.7, 'y': x5, 'r': float(x5)/total_farmers if total_farmers else 0}, 
-                    ]
+            {
+                'x': 0.7,
+                'y': x1,
+                'r': float(x1) / total_farmers if total_farmers else 0
+            },
+            {
+                'x': 0.7,
+                'y': x2,
+                'r': float(x2) / total_farmers if total_farmers else 0
+            },
+            {
+                'x': 0.7,
+                'y': x3,
+                'r': float(x3) / total_farmers if total_farmers else 0
+            },
+            {
+                'x': 0.7,
+                'y': x4,
+                'r': float(x4) / total_farmers if total_farmers else 0
+            },
+            {
+                'x': 0.7,
+                'y': x5,
+                'r': float(x5) / total_farmers if total_farmers else 0
+            },
+        ]
 
         return land_data_list
 
@@ -147,31 +162,46 @@ class FarmerManager(models.Manager):
             x5 = 1
         """
         data = self.get_queryset()
-        x1 = data.filter(family_size__gte = 10).count()
-        x2 = data.filter(family_size__lte = 10, family_size__gte= 8).count()
-        x3 = data.filter(family_size__lte = 7, family_size__gte= 5).count()
-        x4 = data.filter(family_size__lte = 4, family_size__gte= 2).count()
-        x5 = data.filter(family_size = 1).count()
+        x1 = data.filter(family_size__gte=10).count()
+        x2 = data.filter(family_size__lte=10, family_size__gte=8).count()
+        x3 = data.filter(family_size__lte=7, family_size__gte=5).count()
+        x4 = data.filter(family_size__lte=4, family_size__gte=2).count()
+        x5 = data.filter(family_size=1).count()
         return [x1, x2, x3, x4, x5]
 
     def phone_data(self, user):
         data = self.get_queryset().filter(extension_worker=user)
         phone_numbers = []
-        
+
         for farmer in data:
-            phone_numbers.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'phone': farmer.phone_number})
+            phone_numbers.append({
+                'name':
+                "{} {}".format(farmer.first_name, farmer.last_name),
+                'phone':
+                farmer.phone_number
+            })
             if farmer.phone_number_2:
-                phone_numbers.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'phone': farmer.phone_number_2})
-        
+                phone_numbers.append({
+                    'name':
+                    "{} {}".format(farmer.first_name, farmer.last_name),
+                    'phone':
+                    farmer.phone_number_2
+                })
+
         return phone_numbers
 
     def names_data(self, user):
         data = self.get_queryset().filter(extension_worker=user)
         farmers_names = []
-        
+
         for farmer in data:
-            farmers_names.append({'name': "{} {}".format(farmer.first_name, farmer.last_name), 'id': farmer.id})
-        
+            farmers_names.append({
+                'name':
+                "{} {}".format(farmer.first_name, farmer.last_name),
+                'id':
+                farmer.id
+            })
+
         return farmers_names
 
 
@@ -179,10 +209,7 @@ class Farmer(models.Model):
     """
         
     """
-    GENDERS = (
-        ('m', 'Male'),
-        ('f', 'Female')
-    )
+    GENDERS = (('m', 'Male'), ('f', 'Female'))
 
     EDU_LEVELS = (
         ('1', 'None'),
@@ -196,19 +223,20 @@ class Farmer(models.Model):
     last_name = models.CharField(max_length=120, blank=True)
     phone_number = models.CharField(max_length=120, unique=True, blank=True)
     phone_number_2 = models.CharField(max_length=120, unique=True, blank=True)
-    email = models.EmailField(unique=True,)
+    email = models.EmailField(unique=True, )
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True, blank=True)
     picture = CloudinaryField('image', null=True)
 
-    gender = models.CharField(max_length=1, choices =GENDERS)
+    gender = models.CharField(max_length=1, choices=GENDERS)
     state = models.CharField(max_length=120, blank=True)
     family_size = models.IntegerField()
     annual_income = models.IntegerField(blank=True, null=True)
-    max_edu_level = models.CharField(max_length=120, blank=True, choices=EDU_LEVELS)
+    max_edu_level = models.CharField(
+        max_length=120, blank=True, choices=EDU_LEVELS)
     location = models.CharField(max_length=120, blank=True)
     town = models.CharField(max_length=120, blank=True)
-    
+
     land_area = models.FloatField(blank=True, null=True)
     planted_crops = models.CharField(max_length=120, blank=True)
     source_of_labour = models.CharField(max_length=120, blank=True)
@@ -225,7 +253,7 @@ class Farmer(models.Model):
     def save(self, *args, **kwargs):
         if not self.age:
             birth_year = int(self.birth_date.split('-')[0])
-            print(birth_year ,type(birth_year))
+            print(birth_year, type(birth_year))
             age = timezone.now().year - birth_year
             self.age = age
         super().save(*args, **kwargs)
@@ -236,7 +264,9 @@ class Farmer(models.Model):
 
 class FarmPicture(models.Model):
     picture = CloudinaryField()
-    farmer = models.ForeignKey('Farmer', related_name="farm_pics",on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        'Farmer', related_name="farm_pics", on_delete=models.CASCADE)
+
 
 class SoilRecommend(models.Model):
     # FERTILITY_CLASSES = (
@@ -259,6 +289,11 @@ class SoilRecommend(models.Model):
     fertilizer_rate = models.TextField(blank=True)
     application = models.TextField(blank=True)
 
+    def __str__(self):
+        return "{} - {} - {} - {} ".format(self.crop, self.fertility_class,
+                                           self.nutrient, self.zone)
+
+
 class FarmInfo(models.Model):
     """
         farm_size unit => sq_meters 
@@ -269,7 +304,8 @@ class FarmInfo(models.Model):
         ('no-till', 'No Tillage'),
     )
 
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    farmer = models.ForeignKey(
+        Farmer, related_name="soil_tests", on_delete=models.CASCADE)
     location = models.CharField(max_length=120, blank=True)
     farm_size = models.FloatField(blank=True)
     last_fertilizer_app = models.DateField(auto_now=False, auto_now_add=False)
@@ -279,11 +315,12 @@ class FarmInfo(models.Model):
     class Meta:
         abstract = True
 
+
 class SoilTestData(FarmInfo):
     """
         sample_size default unit is grams
     """
-    
+
     SOIL_TYPES = (
         ('sandy', 'Sandy Soil'),
         ('loamy', 'Loamy Soil'),
@@ -301,12 +338,60 @@ class SoilTestData(FarmInfo):
     sample_amount = models.IntegerField()
     sample_size = models.FloatField()
     soil_depth = models.CharField(max_length=10, choices=SOIL_DEPTHS)
-    soil_type = models.CharField(max_length=120, blank=True, choices=SOIL_TYPES)
+    soil_type = models.CharField(
+        max_length=120, blank=True, choices=SOIL_TYPES)
     soil_ph = models.FloatField()
     nutrient_ratings = models.TextField(blank=True)
     zone = models.CharField(max_length=200, blank=True)
     recommendation = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return "{}_{}-{}".format(self.farmer.first_name, self.farmer.last_name,
+                                 self.created)
+
+
+def getRecommends(soil_test, recommends):
+    """
+        soil test nutrients include nitrogen, phosphorus, zinc, potassium, carbon
+    """
+
+    zones = soil_test.zone.split(',')
+    crops = soil_test.planted_crops.split(',')
+    nutrients = ast.literal_eval(soil_test.nutrient)
+    response = {}
+
+    for crop in crops:
+
+        for zone in zones:
+
+            zone_response = {}
+
+            nutrient_response = {
+            "nitrogen": {"application": "", "fertilizer_rates": ""},
+            "phosphorus": {"application": "", "fertilizer_rates": ""},
+            "zinc": {"application": "", "fertilizer_rates": ""},
+            "potassium": {"application": "", "fertilizer_rates": ""},
+            "carbon": {"application": "", "fertilizer_rates": ""}
+            }
     
+            for nutrient in ["nitrogen", "phosphorus", "zinc", "potassium", "carbon"]:
+                fertility_class = "low" if nutrients[nutrient] == "lowest" else nutrients[nutrient]
+                soil_recommends = SoilRecommend.objects.filter(crop=crop, nutrient=nutrient, fertility_class=fertility_class, zone__contains=zone)
+                
+                if not soil_recommends:
+                    continue
+                
+                fertilizer_rates = ast.literal_eval(soil_recommends.fertilizer_rate)
+                nutrient_response[nutrient]["application"] = soil_recommends.application
+                nutrient_response[nutrient]["fertilizer_rates"] = fertilizer_rates
+            
+            zone_response[zone] = nutrient_response
+
+        
+        response[crop] = nutrient_response
 
 
+        
+
+                    

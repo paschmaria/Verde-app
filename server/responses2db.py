@@ -2,7 +2,7 @@ import csv
 from .models import SoilRecommend
 
 def update_recommendations():
-    with open('recommendation.csv') as csvfile:
+    with open(r'server/recommendation.csv') as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
             crop, fertility_class, nutrient = row[1], row[3], row[4]
