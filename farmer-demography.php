@@ -202,12 +202,12 @@
           <div class="container">
             <div class="page-header">
               <h1 class="page-title">Farmer Demographics</h1>
-              <div style="display: flex;align-items: center;justify-content: center;align-content: center;margin-top: 0.5em;">
+              <!-- <div style="display: flex;align-items: center;justify-content: center;align-content: center;margin-top: 0.5em;">
                 <span style="width: 100%;margin-right: 0.5em;">Data for: </span>
                 <select id="cropToggle" name="crop" class="form-control custom-select">
                   <option data-crop='wheat' value="1">Wheat</option>
                 </select>
-              </div>
+              </div> -->
             </div>
             <div class="row row-card row-deck">
               <div class="col-xl-4 col-md-6">

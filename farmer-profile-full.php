@@ -8,7 +8,6 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -16,12 +15,12 @@
     <meta http-equiv="Content-Language" content="en" />
     <meta name="msapplication-TileColor" content="#2d89ef">
     <meta name="theme-color" content="#817729">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
-    <link rel="icon" href="assets/images/favico.ico" type="image/x-icon" />
+    <link rel="icon" href="assets/images/favico.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favico.ico" />
     <title>Verde - Agricultural Extension and Analytics</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,13 +28,13 @@
     <script src="./assets/js/require.min.js"></script>
     <script>
       setTimeout(hideURLbar, 0);
-
-      function hideURLbar() {
-        window.scrollTo(0, 1);
+      function hideURLbar(){
+        window.scrollTo(0,1);
       }
       requirejs.config({
-        baseUrl: '.'
+          baseUrl: '.'
       });
+      
     </script>
     <!-- Dashboard Core -->
     <link href="./assets/css/dashboard.css" rel="stylesheet" />
@@ -49,7 +48,6 @@
     <!-- Input Mask Plugin -->
     <script src="./assets/plugins/input-mask/plugin.js"></script>
   </head>
-
   <body class="">
     <div class="page">
       <div class="page-main">
@@ -69,17 +67,13 @@
                     <a href="#" class="dropdown-item d-flex">
                       <!-- <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/male/41.jpg)"></span> -->
                       <div>
-                        <p>New farmer signed on -
-                          <strong>Musa Abdullahi</strong>
-                        </p>
+                        <p>New farmer signed on - <strong>Musa Abdullahi</strong></p>
                         <div class="small text-muted">10 minutes ago</div>
                       </div>
                     </a>
                     <a href="#" class="dropdown-item d-flex">
                       <div>
-                        <p>50 messages sent to farmers in
-                          <strong>Kano State</strong>
-                        </p>
+                        <p>50 messages sent to farmers in <strong>Kano State</strong></p>
                         <div class="small text-muted">1 hour ago</div>
                       </div>
                     </a>
@@ -135,9 +129,7 @@
                       <i class="dropdown-icon fe fe-settings"></i> Settings
                     </a>
                     <a class="dropdown-item" href="#">
-                      <span class="float-right">
-                        <span class="badge badge-primary">6</span>
-                      </span>
+                      <span class="float-right"><span class="badge badge-primary">6</span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
                     <!-- <a class="dropdown-item" href="#">
@@ -173,45 +165,33 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./dashboard" class="nav-link">
-                      <i class="fe fe-home"></i> Dashboard</a>
+                    <a href="./dashboard" class="nav-link"><i class="fe fe-home"></i> Dashboard</a>
                   </li>
                   <li class="nav-item">
-                    <a href="./register-farmer" class="nav-link">
-                      <i class="fe fe-user-plus"></i> Register A Farmer</a>
+                    <a href="./register-farmer" class="nav-link"><i class="fe fe-user-plus"></i> Register A Farmer</a>
                   </li>
                   <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
-                      <i class="fe fe-users"></i> Farmers</a>
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-users"></i> Farmers</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./farmer-overview" class="dropdown-item">
-                        <i class="fe fe-box"></i> Overview</a>
-                      <a href="./farmer-biodata" class="dropdown-item active">
-                        <i class="fe fe-file-text"></i> Bio-data</a>
-                      <a href="./farmer-demography" class="dropdown-item">
-                        <i class="fe fe-bar-chart-2"></i> Demographics</a>
-                      <a href="./farmer-cropinfo" class="dropdown-item">
-                        <i class="fe fe-activity"></i> Crop Information</a>
+                      <a href="./farmer-overview" class="dropdown-item"><i class="fe fe-box"></i> Overview</a>
+                      <a href="./farmer-biodata" class="dropdown-item active"><i class="fe fe-file-text"></i> Bio-data</a>
+                      <a href="./farmer-demography" class="dropdown-item"><i class="fe fe-bar-chart-2"></i> Demographics</a>
+                      <a href="./farmer-cropinfo" class="dropdown-item"><i class="fe fe-activity"></i> Crop Information</a>
                     </div>
                   </li>
                   <li class="nav-item">
-                    <a href="./soil-test" class="nav-link">
-                      <i class="fe fe-layers"></i> Soil Analysis/Recommendations</a>
+                    <a href="./soil-test" class="nav-link"><i class="fe fe-layers"></i> Soil Analysis/Recommendations</a>
                   </li>
                   <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown">
-                      <i class="fe fe-send"></i> Push</a>
+                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-send"></i> Push</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
-                      <a href="./sms" class="dropdown-item">
-                        <i class="fe fe-message-square"></i> SMS</a>
+                      <a href="./sms" class="dropdown-item"><i class="fe fe-message-square"></i> SMS</a>
                       <!-- <a href="./charts" class="dropdown-item">Charts</a> -->
-                      <a href="./voice" class="dropdown-item">
-                        <i class="fe fe-phone-outgoing"></i> Voice Calls</a>
+                      <a href="./voice" class="dropdown-item"><i class="fe fe-phone-outgoing"></i> Voice Calls</a>
                     </div>
                   </li>
                   <li class="nav-item dropdown">
-                    <a href="./reports" class="nav-link">
-                      <i class="fe fe-file-text"></i> Reports</a>
+                    <a href="./reports" class="nav-link"><i class="fe fe-file-text"></i> Reports</a>
                   </li>
                 </ul>
               </div>
@@ -220,55 +200,60 @@
         </div>
         <div class="my-3 my-md-5">
           <div class="container">
-            <div class="page-header" style="flex-direction: row;">
-              <h1 class="page-title">Farmers' Biodata</h1>
-              <div class="page-subtitle">1 - 20 of 20 farmers</div>
-              <div class="page-options d-flex">
-                <select class="form-control custom-select w-auto">
-                  <option value="asc">Newest</option>
-                  <option value="desc">Oldest</option>
-                </select>
-                <div class="input-icon ml-2">
-                  <span class="input-icon-addon">
-                    <i class="fe fe-search"></i>
-                  </span>
-                  <input type="text" class="form-control w-10" placeholder="Search farmers">
-                </div>
+            <div class="page-header">
+              <div class="page-header">
+                <h1 class="page-title">Farmer's Profile</h1>
               </div>
             </div>
-            <div class="card">
-              <div class="table-responsive">
-                <div class="dimmer active">
-                  <div class="loader"></div>
-                  <div class="dimmer-content">
-                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-                      <thead>
-                        <tr>
-                          <th class="text-center w-1">
-                            <i class="fe fe-image"></i>
-                          </th>
-                          <th>Farmer Name</th>
-                          <th>State</th>
-                          <th>LGA</th>
-                          <th>Town/Village</th>
-                          <th class="text-center">Land Size (ha)</th>
-                          <th>Phone Number(s)</th>
-                          <th class="text-center">Age</th>
-                          <th class="text-center">
-                            <i class="icon-settings"></i>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="results"></tbody>
-                    </table>
+            <div class="row row-cards">
+              <div class="col-lg-3">
+                <div class="row">
+                  <div class="col-md-6 col-lg-12">
+                    <div class="card">
+                      <div class="card-body username_pic"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <div class="card">
+                  <div class="card-header"></div>
+                  <div class="card-body">
+                    <div id="carousel-indicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carousel-indicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-indicators" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-indicators" data-slide-to="2" class=""></li>
+                        <li data-target="#carousel-indicators" data-slide-to="3" class=""></li>
+                        <li data-target="#carousel-indicators" data-slide-to="4" class=""></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img class="d-block w-100" alt="" src="./demo/photos/aneta-ivanova-776-1500.jpg" data-holder-rendered="true">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" alt="" src="./demo/photos/anthony-intraversato-257182-1500.jpg" data-holder-rendered="true">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" alt="" src="./demo/photos/artem-sapegin-229391-1500.jpg" data-holder-rendered="true">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" alt="" src="./demo/photos/bobby-burch-145906-1500.jpg" data-holder-rendered="true">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" alt="" src="./demo/photos/casey-horner-339165-1500.jpg" data-holder-rendered="true">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="profile-details-full"></div>
                   </div>
                 </div>
               </div>
               <script>
-                require(['jquery'], function ($) {
-                  $(document).ready(function () {
-                    // Create the XHR object.
-                    function createCORSRequest(method, url) {
+                require(["jquery"], function ($) {
+                  $(function () {
+                     // Create the XHR object.
+                     function createCORSRequest(method, url) {
                       var xhr = new XMLHttpRequest();
                       if ("withCredentials" in xhr) {
                         // XHR for Chrome/Firefox/Opera/Safari.
@@ -288,7 +273,7 @@
 
                     var url =
                       `https://spreadsheets.google.com/feeds/list/${spreadsheetID}/1/public/values?alt=json`;
-
+                    
                     // Get picture
                     function getPic(url) {
                       var picId = (url.match(/[-\w]{25,}/))[0];
@@ -329,12 +314,6 @@
                       }
                     }
 
-                    // Navigate to Farmer profile page
-                    function navigateTo(url) {
-                      var userId = (url.match(/[0-9a-zA-Z]{5}$/)[0]);
-                      return userId;
-                    }
-
                     // Make CORS Request
                     function makeCorsRequest() {
                       var xhr = createCORSRequest('GET', url);
@@ -342,6 +321,9 @@
                         alert('CORS not supported');
                         return;
                       }
+                      
+                      var userId = window.location.search.substring(1);
+                      // console.log(userId);
 
                       // Response handlers.
                       xhr.onreadystatechange = function () {
@@ -350,66 +332,106 @@
                             var data = JSON.parse(this.responseText);
                             var entry = data.feed.entry;
                             // console.log(entry);
-                            $(entry).each(function () {
-                              $(".dimmer").removeClass("active");
-                              
-                              $('.results').prepend(`
-                                <tr>
-                                  <td class="text-center">
-                                    <div class="avatar d-block" style="background-image: url(${getPic(this.gsx$pictureoffarmer.$t)})">
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <p class="m-0">${this.gsx$firstname.$t} ${this.gsx$lastname.$t}</p>
-                                    <div class="small text-muted">
-                                      Registered: ${DOR(this.title.$t)}
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div>${this.gsx$state.$t}</div>
-                                  </td>
-                                  <td>
-                                    <div>${this.gsx$localgovernmentarealga.$t}</div>
-                                  </td>
-                                  <td>
-                                    <div>${this.gsx$townorvillage.$t}</div>
-                                  </td>
-                                  <td>
-                                    <div class="clearfix">
-                                      <div class="float-left">
-                                        <strong>${ath(this.gsx$totallandareaacres.$t)}</strong>
-                                      </div>
-                                      <div class="float-right">
-                                        <small class="text-muted">10%</small>
-                                      </div>
-                                    </div>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar bg-yellow" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>  
-                                  </td>
-                                  <td>
-                                      0${this.gsx$primaryphonenumber.$t}${sph(this.gsx$secondaryphonenumberifavailable.$t)}
-                                  </td>
-                                  <td class="text-center">
-                                    <div class="mx-auto chart-circle chart-circle-xs" data-value="${DOB(this.gsx$dateofbirth.$t)/100}" data-thickness="3" data-color="blue"><canvas width="40" height="40"></canvas>
-                                      <div class="chart-circle-value">${DOB(this.gsx$dateofbirth.$t)}</div>
-                                    </div>
-                                  </td>
-                                  <td class="text-center">
-                                    <div class="item-action dropdown">
-                                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-                                      <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="" id="navigator" class="dropdown-item"><i class="dropdown-icon fe fe-eye"></i> View Full Profile </a>
-                                      </div>
-                                    </div>
-                                  </td>
-                                </tr>
-                              `);
+                            var userDetails = entry.find( results => results.id.$t === `https://spreadsheets.google.com/feeds/list/1aZ8aYMpnsVpB6E0iOS5v_eX6sCloxLYlIvyJJoscurA/1/public/values/${userId}`);
+                            console.log(userDetails);
 
-                              var userUrl = this.id.$t;
-                              var a = document.getElementById('navigator');
-                              a.href = `./farmer-profile-full.html?${navigateTo(userUrl)}`;
-                            });
+                            $(".username_pic").prepend(`
+                              <div class="mb-4 text-center">
+                                <img src="${getPic(userDetails.gsx$pictureoffarmer.$t)}" alt="${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}" class="img-fluid">
+                              </div>
+                              <h4 class="card-title text-center">${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}</h4>
+                              <div class="card-subtitle text-muted text-center">
+                                Registered on: ${DOR(userDetails.title.$t)}
+                              </div>
+                              <div class="mt-5 d-flex align-items-center">
+                                <div class="ml-auto">
+                                  <a href="javascript:void(0)" class="btn btn-primary disabled"><i class="fe fe-message-square"></i> Send SMS</a>
+                                </div>
+                              </div>
+                            `);
+
+                            $(".profile-details-full").prepend(`
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Phone Number(s)</label>
+                                    <div class="form-control-plaintext">0${userDetails.gsx$primaryphonenumber.$t}${sph(userDetails.gsx$secondaryphonenumberifavailable.$t)}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Email Address (if available)</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$emailaddress.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Gender</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$gender.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Annual Farm Income (₦)</label>
+                                    <div class="form-control-plaintext">${(userDetails.gsx$annualincomerange.$t)*100000}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Age</label>
+                                    <div class="form-control-plaintext">${DOB(userDetails.gsx$dateofbirth.$t)}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Family Size</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$familysize.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Highest Level of Education</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$highestlevelofeducation.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3">
+                                  <div class="form-group">
+                                    <label class="form-label">Land Size (ha)</label>
+                                    <div class="form-control-plaintext">${ath(userDetails.gsx$totallandareaacres.$t)}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-3 col-md-4">
+                                  <div class="form-group">
+                                    <label class="form-label">State</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$state.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4">
+                                  <div class="form-group">
+                                    <label class="form-label">Local Government Area</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$localgovernmentarealga.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    <label class="form-label">Town/Village</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$townorvillage.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">Planted Crops</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$plantedcrops.$t}</div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">Source of Farm Labour</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$sourceoffarmlabour.$t}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            `);
                           } else {
                             console.log("Unable to retrieve data");
                           }
@@ -418,6 +440,7 @@
                       xhr.send();
                     }
                     makeCorsRequest();
+
                   })
                 })
               </script>
@@ -429,13 +452,11 @@
         <div class="container">
           <div class="row align-items-center">
             <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-              Copyright © 2018
-              <a href="../index.html" target="_blank" class="text-primary">Plurimus Technologies</a>. All rights reserved.
+              Copyright © 2018 <a href="../index.html" target="_blank" class="text-primary">Plurimus Technologies</a>. All rights reserved.
             </div>
           </div>
         </div>
       </footer>
     </div>
   </body>
-
 </html>

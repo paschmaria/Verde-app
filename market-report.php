@@ -233,7 +233,7 @@
                             <div class="dimmer active">
                                 <div class="loader"></div>
                                 <div class="dimmer-content">
-                                    <table class="table card-table table-vcenter text-nowrap">
+                                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                                         <thead>
                                             <tr>
                                                 <th>Agent's First Name</th>
