@@ -121,33 +121,33 @@ class FarmerManager(models.Manager):
         x2 = data.filter(land_area__lte=1400, land_area__gt=700).count()
         x3 = data.filter(land_area__lte=3500, land_area__gt=1400).count()
         x4 = data.filter(land_area__lte=7000, land_area__gt=3500).count()
-        x5 = data.filter(land_area__lte=14100, land_area__gt=7000).count()
+        x5 = data.filter(land_area__gt=7000).count()
 
         land_data_list = [
             {
                 'x': 0.7,
                 'y': x1,
-                'r': float(x1) / total_farmers if total_farmers else 0
+                'r': float(x1) * 100 / total_farmers if total_farmers else 0
             },
             {
                 'x': 0.7,
                 'y': x2,
-                'r': float(x2) / total_farmers if total_farmers else 0
+                'r': float(x2) * 100 / total_farmers if total_farmers else 0
             },
             {
                 'x': 0.7,
                 'y': x3,
-                'r': float(x3) / total_farmers if total_farmers else 0
+                'r': float(x3) * 100 / total_farmers if total_farmers else 0
             },
             {
                 'x': 0.7,
                 'y': x4,
-                'r': float(x4) / total_farmers if total_farmers else 0
+                'r': float(x4) * 100 / total_farmers if total_farmers else 0
             },
             {
                 'x': 0.7,
                 'y': x5,
-                'r': float(x5) / total_farmers if total_farmers else 0
+                'r': float(x5) * 100 / total_farmers if total_farmers else 0
             },
         ]
 
