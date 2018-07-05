@@ -86,7 +86,13 @@
                             <div class="col-md-12">
                                 <div class="recommendation">
                                     <!-- Recomendations are displayed here -->
-                                    This is a soil recommendation...
+                                    {% if recommends %} 
+                                        {% for recommendation in recommends %}
+                                            <p>{{ recommendation }}</p>
+                                            {% empty %}
+                                            No recommendations was found
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <div class="text-right">
                                     <button type="button" id="recBtn" class="btn btn-primary">Send to Farmer</button>
