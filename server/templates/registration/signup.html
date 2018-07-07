@@ -13,9 +13,15 @@
       {% csrf_token %}
       <div class="card-body p-6">
         <div class="card-title">Create new account</div>
+        
+        <!-- {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %} -->
+
         <div class="form-group">
           <label class="form-label">Username</label>
           <input type="text" class="form-control" name="username" placeholder="What do we call you?" required>
+          <p>{{ form.username.errors }}</p>
         </div>
         <div class="form-group">
           <label class="form-label">Email address</label>
@@ -24,10 +30,12 @@
         <div class="form-group">
           <label class="form-label">Password</label>
           <input type="password" class="form-control" name="password1" placeholder="Password" required>
+          <p>{{ form.password1.errors }}</p>
         </div>
         <div class="form-group">
           <label class="form-label">Confirm Password</label>
           <input type="password" class="form-control" name="password2" placeholder="Confirm password" required>
+          <p>{{ form.password2.errors }}</p>
         </div>
         <div class="form-group">
           <label class="custom-control custom-checkbox">
@@ -37,10 +45,7 @@
             </span>
           </label>
         </div>
-        {% for error in field.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-
+        
         <div class="form-footer">
           <button type="submit" class="btn btn-primary btn-block" name="register">Register</button>
         </div>
