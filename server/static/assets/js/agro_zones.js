@@ -27,7 +27,7 @@ let zones_data = [
       name: "Derived Savannah",
       id: 2,
       states: [
-        { name: "Abuja", id: 1 },
+        { name: "FCT", id: 1 },
         { name: "Adamawa", id: 2 },
         { name: "Anambra", id: 3 },
         { name: "Benue", id: 4 },
@@ -73,7 +73,7 @@ let zones_data = [
       name: "Southern Guinea Savannah",
       id: 4,
       states: [
-        { name: "Abuja", id: 1 },
+        { name: "FCT", id: 1 },
         { name: "Adamawa", id: 2 },
         { name: "Bauchi", id: 3 },
         { name: "Borno", id: 4 },
