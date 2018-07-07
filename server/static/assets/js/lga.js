@@ -37,10 +37,17 @@ function updateZone(state) {
 
   for (let zone of zones) {
     //format of state is => Adamawa State, split removes the state part
-    console.log(state.split(" ")[0]);
-    console.log();
+    let state = state_select.value.split(" ")
+    
+    if (state.length > 2){
+      state = state[0] + " " + state[1]
+      console.log("state is " , state)
+    }else{
+      state = state[0]
+    }
 
-    if (Object.values(zone)[0].indexOf(state.split(" ")[0]) != -1) {
+    if (Object.values(zone)[0].indexOf(state) != -1) {
+      console.log("it got here")
       eco_zone = eco_zone
         ? `${eco_zone}, ${Object.keys(zone)[0]}`
         : `${Object.keys(zone)[0]}`;
