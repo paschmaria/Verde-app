@@ -322,10 +322,18 @@ class SoilTestData(FarmInfo):
     """
 
     SOIL_TYPES = (
-        ('sandy', 'Sandy Soil'),
-        ('loamy', 'Loamy Soil'),
-        ('laterite', 'Laterite Soil'),
-        ('alluvial', 'Alluvial Soil'),
+        ('clay', 'Clay Soil'),
+        ('sand', 'Sandy Soil'),
+        ('loam', 'Loamy Soil'),
+        ('silt', 'Silt'),
+        ('sandy_clay', 'Sandy Clay'),
+        ('silty_clay', 'Silty Clay'),
+        ('clay_loam', 'Clay Loam'),
+        ('loamy_sand', 'Loamy Sand'),
+        ('sandy_loam', 'Sandy Loam'),
+        ('silt_loam', 'Silt Loam'),
+        ('silt_clay_loam', 'Silt Clay Loam'),
+        ('sandy_clay_loam', 'Sandy Clay Loam')
     )
 
     SOIL_DEPTHS = (
