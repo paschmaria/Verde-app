@@ -65,7 +65,6 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <a href="#" class="dropdown-item d-flex">
-                      <!-- <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/male/41.jpg)"></span> -->
                       <div>
                         <p>New farmer signed on - <strong>Musa Abdullahi</strong></p>
                         <div class="small text-muted">10 minutes ago</div>
@@ -90,7 +89,7 @@
                 <div class="dropdown">
                   <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                     <span class="avatar avatar-blue">
-                      <!-- <?php
+                      <?php
                         $firstname = $_SESSION['user']['firstname'];
                         $lastname = $_SESSION['user']['lastname'];
 
@@ -104,7 +103,7 @@
                         } else if ($_SESSION['user']['user_type'] === 'agent') {
                           echo "A";
                         }
-                      ?> -->
+                      ?>
                     </span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
@@ -417,37 +416,45 @@
                           }
                         });
                         var ctx = $('#landChart'),
-                            landChart;
-                        var occurrence = function (array) {
+                            landChart,
+                            landObj,
+                            landObjData = [];
+
+                        function occurrence(array) {
                           "use strict";
                           var result = {};
-                          if (array instanceof Array) { // Check if input is array.
-                              array.forEach(function (v, i) {
-                                  if (!result[v]) { // Initial object property creation.
-                                      result[v] = [i]; // Create an array for that property.
-                                  } else { // Same occurrences found.
-                                      result[v].push(i); // Fill the array.
-                                  }
-                              });
+                          if (array instanceof Array) {
+                            array.forEach(function (v, i) {
+                              if (!result[v]) {
+                                  result[v] = [i];
+                              } else {
+                                  result[v].push(i);
+                              }
+                            });
                           }
-                          console.log(result);
-                          // return result;
+                          return result;
                         };
-                        occurrence(land)
-                        // console.log(land);
+                        
+                        landObj = occurrence(land);
+
+                        for (var k in landObj) {
+                          if (landObj.hasOwnProperty(k)) {
+                            landObjData.push({
+                              x: parseFloat(k),
+                              y: landObj[k].length,
+                              r: (landObj[k].length/land.length)*50
+                            })
+                          }
+                        }
+                        
+                        // console.log(landObjData);
                         landChart = new Chart(ctx, {
                           type: 'bubble',
                           data: {
                             datasets: [{
                               label: "% of Farm Land Area",
                               // x represents av. farm size, y represents no of farmers, and r is the radius of the circle whose diameter represents the percentage of farm land within this category
-                              data: [
-                                {x: 0.7,y: 920,r: 50},
-                                {x: 1.4,y: 620,r: 24},
-                                {x: 3.5,y: 820,r: 20},
-                                {x: 7.0,y: 420,r: 5},
-                                {x: 14.1,y: 320,r: 1}
-                              ],
+                              data: landObjData,
                               backgroundColor: [
                                 tabler.colors["orange-lighter"],
                                 tabler.colors["purple-lighter"],
@@ -641,7 +648,24 @@
                     var spreadsheetID = "1aZ8aYMpnsVpB6E0iOS5v_eX6sCloxLYlIvyJJoscurA";
                     
                     var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/values?alt=json";
-                     
+                    
+                    // Get date of birth
+                    function DOB(dob) {
+                      var today = new Date();
+                      var currentYear = today.getFullYear();
+                      var birthDate = new Date(dob);
+                      var birthYear = birthDate.getFullYear();
+                      var age = currentYear - birthYear;
+                      return age;
+                    }
+                    
+                    // Farm size - acres to hectares converter
+                    function ath(a_size) {
+                      var h_size = parseFloat(Math.round(0.4 * a_size));
+                      return h_size;
+                    }
+                    
+                    // Make CORS Request
                     function makeCorsRequest() {
                       var xhr = createCORSRequest('GET', url);
                       if (!xhr) {
@@ -652,42 +676,33 @@
                       // Response handlers.
                       xhr.onreadystatechange = function() {
                         if (this.readyState === 4) {
-                            if (this.status === 200) {
-                                var data = JSON.parse(this.responseText),
-                                   entry = data.feed.entry,
-                                  ageArr = [],
-                                  eduArr = [],
-                                 landArr = [],
-                                houseArr = [],
-                               genderArr = [];
-                               
-                               function DOB(dob) {
-                                   var today = new Date();
-                                   var currentYear = today.getFullYear();
-                                   var birthDate = new Date(dob);
-                                   var birthYear = birthDate.getFullYear();
-                                   var age = currentYear - birthYear;
-                                   return age;
-                               }
-                                // console.log(entry);
-                                $(entry).each(function(){
-                                    console.log(entry);
-                                    var age = DOB(this.gsx$dateofbirth.$t);
-                                    var edu = this.gsx$highestlevelofeducation.$t;
-                                    var land = this.gsx$totallandareaacres.$t;
-                                    var house = this.gsx$familysize.$t;
-                                    var gender = this.gsx$gender.$t;
-                                    ageArr.push(age);
-                                    eduArr.push(edu);
-                                    landArr.push(land)
-                                    houseArr.push(house);
-                                    genderArr.push(gender);
-                                });
-                                $(".dimmer").removeClass("active");
-                                displayData(ageArr, eduArr, landArr, houseArr, genderArr);
-                            } else {
-                                console.log("Unable to retrieve data");
-                            }
+                          if (this.status === 200) {
+                            var data = JSON.parse(this.responseText),
+                                entry = data.feed.entry,
+                              ageArr = [],
+                              eduArr = [],
+                              landArr = [],
+                            houseArr = [],
+                            genderArr = [];
+                            
+                            console.log(entry);
+                            $(entry).each(function(){
+                              var age = DOB(this.gsx$dateofbirth.$t);
+                              var edu = this.gsx$highestlevelofeducation.$t;
+                              var land = ath(this.gsx$totallandareaacres.$t);
+                              var house = this.gsx$familysize.$t;
+                              var gender = this.gsx$gender.$t;
+                              ageArr.push(age);
+                              eduArr.push(edu);
+                              landArr.push(land)
+                              houseArr.push(house);
+                              genderArr.push(gender);
+                            });
+                            $(".dimmer").removeClass("active");
+                            displayData(ageArr, eduArr, landArr, houseArr, genderArr);
+                          } else {
+                              console.log("Unable to retrieve data");
+                          }
                         }
                       };
                     

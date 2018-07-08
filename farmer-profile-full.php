@@ -65,7 +65,6 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                     <a href="#" class="dropdown-item d-flex">
-                      <!-- <span class="avatar mr-3 align-self-center" style="background-image: url(demo/faces/male/41.jpg)"></span> -->
                       <div>
                         <p>New farmer signed on - <strong>Musa Abdullahi</strong></p>
                         <div class="small text-muted">10 minutes ago</div>
@@ -90,7 +89,7 @@
                 <div class="dropdown">
                   <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
                     <span class="avatar avatar-blue">
-                      <!-- <?php
+                      <?php
                         $firstname = $_SESSION['user']['firstname'];
                         $lastname = $_SESSION['user']['lastname'];
 
@@ -104,20 +103,20 @@
                         } else if ($_SESSION['user']['user_type'] === 'agent') {
                           echo "A";
                         }
-                      ?> -->
+                      ?>
                     </span>
                     <span class="ml-2 d-none d-lg-block">
                       <span class="text-primary">
-                        <!-- <?php 
+                        <?php 
                           if ($_SESSION['user']['firstname']) {
                             echo $_SESSION['user']['firstname'].' '.$_SESSION['user']['lastname'];
                           } else {
                             echo ucfirst($_SESSION['user']['username']);
                           }
-                        ?>   -->
+                        ?>  
                       </span>
                       <small class="text-muted d-block mt-1">
-                        <!-- <?php echo ucfirst($_SESSION['user']['user_type']); ?> -->
+                        <?php echo ucfirst($_SESSION['user']['user_type']); ?>
                       </small>
                     </span>
                   </a>
@@ -132,13 +131,7 @@
                       <span class="float-right"><span class="badge badge-primary">6</span></span>
                       <i class="dropdown-icon fe fe-mail"></i> Inbox
                     </a>
-                    <!-- <a class="dropdown-item" href="#">
-                      <i class="dropdown-icon fe fe-send"></i> Message
-                    </a> -->
                     <div class="dropdown-divider"></div>
-                    <!-- <a class="dropdown-item" href="#">
-                      <i class="dropdown-icon fe fe-help-circle"></i> Need help?
-                    </a> -->
                     <a class="dropdown-item" href="../login.html">
                       <i class="dropdown-icon fe fe-log-out"></i> Sign out
                     </a>
@@ -186,7 +179,6 @@
                     <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-send"></i> Push</a>
                     <div class="dropdown-menu dropdown-menu-arrow">
                       <a href="./sms" class="dropdown-item"><i class="fe fe-message-square"></i> SMS</a>
-                      <!-- <a href="./charts" class="dropdown-item">Charts</a> -->
                       <a href="./voice" class="dropdown-item"><i class="fe fe-phone-outgoing"></i> Voice Calls</a>
                     </div>
                   </li>
@@ -206,44 +198,26 @@
               </div>
             </div>
             <div class="row row-cards">
-              <div class="col-lg-3">
+              <div class="col-lg-4 col-sm-12">
                 <div class="row">
                   <div class="col-md-6 col-lg-12">
                     <div class="card">
-                      <div class="card-body username_pic"></div>
+                      <div class="dimmer active">
+                        <div class="loader"></div>
+                        <div class="dimmer-content">
+                          <div class="card-body username_pic"></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-9">
+              <div class="col-lg-8 col-sm-12">
                 <div class="card">
-                  <div class="card-header"></div>
                   <div class="card-body">
                     <div id="carousel-indicators" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                        <li data-target="#carousel-indicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-indicators" data-slide-to="1" class=""></li>
-                        <li data-target="#carousel-indicators" data-slide-to="2" class=""></li>
-                        <li data-target="#carousel-indicators" data-slide-to="3" class=""></li>
-                        <li data-target="#carousel-indicators" data-slide-to="4" class=""></li>
-                      </ol>
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img class="d-block w-100" alt="" src="./demo/photos/aneta-ivanova-776-1500.jpg" data-holder-rendered="true">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="d-block w-100" alt="" src="./demo/photos/anthony-intraversato-257182-1500.jpg" data-holder-rendered="true">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="d-block w-100" alt="" src="./demo/photos/artem-sapegin-229391-1500.jpg" data-holder-rendered="true">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="d-block w-100" alt="" src="./demo/photos/bobby-burch-145906-1500.jpg" data-holder-rendered="true">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="d-block w-100" alt="" src="./demo/photos/casey-horner-339165-1500.jpg" data-holder-rendered="true">
-                        </div>
-                      </div>
+                      <ol class="carousel-indicators"></ol>
+                      <div class="carousel-inner mb-5"></div>
                     </div>
                     <div class="profile-details-full"></div>
                   </div>
@@ -333,8 +307,31 @@
                             var entry = data.feed.entry;
                             // console.log(entry);
                             var userDetails = entry.find( results => results.id.$t === `https://spreadsheets.google.com/feeds/list/1aZ8aYMpnsVpB6E0iOS5v_eX6sCloxLYlIvyJJoscurA/1/public/values/${userId}`);
-                            console.log(userDetails);
-
+                            
+                            var farmPicArr = userDetails.gsx$farmpicturesmaximumof5.$t.split(',');
+                            // console.log(farmPicArr);
+                            farmPicArr.forEach((e, i) => {
+                              if (i === 0) {
+                                $(".carousel-indicators").prepend(`
+                                  <li data-target="#carousel-indicators" data-slide-to="${i}" class="active"></li>
+                                `)
+                                $(".carousel-inner").prepend(`
+                                  <div class="carousel-item active">
+                                    <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
+                                  </div>
+                                `)
+                              } else {
+                                $(".carousel-indicators").prepend(`
+                                  <li data-target="#carousel-indicators" data-slide-to="${i}"></li>
+                                `)
+                                $(".carousel-inner").prepend(`
+                                  <div class="carousel-item">
+                                    <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
+                                  </div>
+                                `)
+                              }
+                            });
+                            
                             $(".username_pic").prepend(`
                               <div class="mb-4 text-center">
                                 <img src="${getPic(userDetails.gsx$pictureoffarmer.$t)}" alt="${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}" class="img-fluid">
@@ -352,79 +349,79 @@
 
                             $(".profile-details-full").prepend(`
                               <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Phone Number(s)</label>
                                     <div class="form-control-plaintext">0${userDetails.gsx$primaryphonenumber.$t}${sph(userDetails.gsx$secondaryphonenumberifavailable.$t)}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Email Address (if available)</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$emailaddress.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Gender</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$gender.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Annual Farm Income (₦)</label>
                                     <div class="form-control-plaintext">${(userDetails.gsx$annualincomerange.$t)*100000}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Age</label>
                                     <div class="form-control-plaintext">${DOB(userDetails.gsx$dateofbirth.$t)}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Family Size</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$familysize.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Highest Level of Education</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$highestlevelofeducation.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Land Size (ha)</label>
                                     <div class="form-control-plaintext">${ath(userDetails.gsx$totallandareaacres.$t)}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-3 col-md-4">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">State</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$state.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-sm-6 col-md-4">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Local Government Area</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$localgovernmentarealga.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Town/Village</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$townorvillage.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Planted Crops</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$plantedcrops.$t}</div>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-6 col-md-6">
                                   <div class="form-group">
                                     <label class="form-label">Source of Farm Labour</label>
                                     <div class="form-control-plaintext">${userDetails.gsx$sourceoffarmlabour.$t}</div>
@@ -432,6 +429,9 @@
                                 </div>
                               </div>
                             `);
+
+                            $(".dimmer").removeClass("active");
+                              
                           } else {
                             console.log("Unable to retrieve data");
                           }
