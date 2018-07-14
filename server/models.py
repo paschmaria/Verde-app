@@ -256,7 +256,8 @@ class Farmer(models.Model):
         return "{} {}".format(self.first_name, self.last_name)
 
     def get_absolute_url(self):
-        return ""
+        print("it got here")
+        return reverse("farmer-profile", kwargs={"farmer_id": self.id})
 
     def save(self, *args, **kwargs):
         if not self.age:

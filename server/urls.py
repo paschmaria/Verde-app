@@ -32,6 +32,7 @@ urlpatterns = [
 
     url(r'^reports/$', reports, name="reports"),
     url(r'^market-log/$', market_log, name="market-log"),
+    url(r'^farmer/(?P<farmer_id>[0-9]+)$', farmer_profile, name="farmer-profile"),
     url(r'^farmers/overview$', farmers_overview, name="farmers-overview"),
     url(r'^farmers/bio-data$', farmers_biodata, name="farmers-bio-data"),
     url(r'^farmers/demography$', farmers_demography,

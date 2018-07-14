@@ -206,6 +206,17 @@ def farmers_biodata(request):
     return render(request, 'farmer-biodata.html', {'farmers': farmers})
 
 
+@login_required
+def farmer_profile(request, farmer_id):
+    print("here => ",farmer_id)
+    try:
+        farmer = Farmer.objects.get(id=farmer_id)
+    except:
+        print("error")
+        return redirect('')    
+    
+    return render(request, 'farmer-profile.html', {{ 'farmer': farmer}})
+
 
 @login_required
 def soil_test(request):
