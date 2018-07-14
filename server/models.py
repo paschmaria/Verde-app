@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.dispatch import receiver
+from django.urls import reverse
 
 from datetime import datetime
 import ast
@@ -249,6 +250,13 @@ class Farmer(models.Model):
 
     objects = models.Manager()
     active_objects = FarmerManager()
+
+    @property
+    def full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+    def get_absolute_url(self):
+        return ""
 
     def save(self, *args, **kwargs):
         if not self.age:

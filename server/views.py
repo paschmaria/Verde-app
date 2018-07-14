@@ -200,6 +200,14 @@ def farmers_overview(request):
 
 
 @login_required
+def farmers_biodata(request):
+    farmers = Farmer.objects.filter(extension_worker=request.user)
+    
+    return render(request, 'farmer-biodata.html', {'farmers': farmers})
+
+
+
+@login_required
 def soil_test(request):
 
     farmers_names = Farmer.active_objects.names_data(user=request.user)
