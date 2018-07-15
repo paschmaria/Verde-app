@@ -92,6 +92,15 @@ class FarmerManager(models.Manager):
 
         return [x1, x2, x3]
 
+    def location_data(self):
+        data = self.get_queryset()
+        states = Farmer.STATES
+        states_data = {}
+        for state in states:
+            states_data[state.split(" ")[0]] = data.filter(state = state).count()
+        print(state)
+        return states_data 
+
     def edu_data(self):
         data = self.get_queryset()
         none = data.filter(max_edu_level='1').count()
@@ -208,8 +217,11 @@ class FarmerManager(models.Manager):
 
 class Farmer(models.Model):
     """
-        
+
     """
+    STATES = ["Abia State", "Adamawa State", "Akwa Ibom State", "Anambra State", "Bauchi State", "Bayelsa State", "Benue State", "Borno State", "Cross River State", "Delta State", "Ebonyi State", "Edo State", "Ekiti State", "Enugu State", "FCT", "Gombe State", "Imo State", "Jigawa State",
+              "Kaduna State", "Kano State", "Katsina State", "Kebbi State", "Kogi State", "Kwara State", "Lagos State", "Nasarawa State", "Niger State", "Ogun State", "Ondo State", "Osun State", "Oyo State", "Plateau State", "Rivers State", "Sokoto State", "Taraba State", "Yobe State", "Zamfara State"]
+
     GENDERS = (('m', 'Male'), ('f', 'Female'))
 
     EDU_LEVELS = (
@@ -242,8 +254,9 @@ class Farmer(models.Model):
     planted_crops = models.CharField(max_length=120, blank=True)
     source_of_labour = models.CharField(max_length=120, blank=True)
     annual_production_volume = models.FloatField(blank=True, null=True)
+    reg_date = models.DateField(auto_now_add=True)
 
-    #for the messages
+    # for the messages
     message_cost = models.FloatField(blank=True, default=0)
 
     extension_worker = models.ForeignKey(User, related_name='reg_farmers')
@@ -254,6 +267,25 @@ class Farmer(models.Model):
     @property
     def full_name(self):
         return "{} {}".format(self.first_name, self.last_name)
+
+    @property
+    def education_level(self):
+        for level in self.EDU_LEVELS:
+            if level[0] == self.max_edu_level:
+                return level[1]
+        return "None"
+
+    @property
+    def full_gender(self):
+        for level in self.GENDERS:
+            if self.gender == level[0]:
+                return level[1]
+        return "None"
+
+    @property
+    def farm_pictures(self):
+        pictures = [x.picture.url for x in self.farm_pics.all()]
+        return pictures
 
     def get_absolute_url(self):
         print("it got here")
@@ -366,10 +398,3 @@ class SoilTestData(FarmInfo):
     def __str__(self):
         return "{}_{}-{}".format(self.farmer.first_name, self.farmer.last_name,
                                  self.created)
-
-
-
-
-        
-
-                    

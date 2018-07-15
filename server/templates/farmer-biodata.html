@@ -4,9 +4,9 @@
     <div class="container">
         <div class="page-header" style="flex-direction: row;">
             <h1 class="page-title">Farmers' Biodata</h1>
-            <div class="page-subtitle">1 - 20 of 20 farmers</div>
-            <div class="page-options d-flex">
-                <select class="form-control custom-select w-auto">
+            <div class="page-subtitle">1 - {{farmers.count}} of {{farmers.count}} farmers</div>
+            <form method="GET" class="page-options d-flex">
+                <select name="order" class="form-control custom-select w-auto">
                     <option value="asc">Newest</option>
                     <option value="desc">Oldest</option>
                 </select>
@@ -14,9 +14,9 @@
                     <span class="input-icon-addon">
                         <i class="fe fe-search"></i>
                     </span>
-                    <input type="text" class="form-control w-10" placeholder="Search farmers">
-                </div>
-            </div>
+                    <input type="text" name="search" class="form-control w-10" placeholder="Search farmers">
+                </div> 
+            </form>
         </div>
         <div class="card">
             <div class="table-responsive">
@@ -51,7 +51,7 @@
                                         <td>
                                             <p class="m-0">{{farmer.full_name }}</p>
                                             <div class="small text-muted">
-                                                Registered: {{ farmer.birth_date }}
+                                                Registered: {{ farmer.reg_date }}
                                             </div>
                                         </td>
                                         <td>
@@ -91,7 +91,6 @@
                                                     <i class="fe fe-more-vertical"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                        {{ farmer.get_absolute_url }}
                                                     <a href="{{ farmer.get_absolute_url }}" id="navigator" class="dropdown-item">
                                                         <i class="dropdown-icon fe fe-eye"></i> View Full Profile </a>
                                                 </div>

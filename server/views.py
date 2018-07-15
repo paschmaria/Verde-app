@@ -183,6 +183,7 @@ def farmers_demography(request):
     age_data = Farmer.active_objects.age_data()
     gender_data = Farmer.active_objects.gender_data()
     land_data = Farmer.active_objects.land_data()
+    location_data = Farmer.active_objects.location_data()
 
     return render(
         request, "farmer-demography.html", {
@@ -190,7 +191,8 @@ def farmers_demography(request):
             "edu_data": edu_data,
             "age_data": age_data,
             "gender_data": gender_data,
-            "land_data": land_data
+            "land_data": land_data,
+            "location_data": location_data
         })
 
 
@@ -208,14 +210,14 @@ def farmers_biodata(request):
 
 @login_required
 def farmer_profile(request, farmer_id):
-    print("here => ",farmer_id)
+    print("here => ", farmer_id)
     try:
         farmer = Farmer.objects.get(id=farmer_id)
     except:
         print("error")
-        return redirect('')    
-    
-    return render(request, 'farmer-profile.html', {{ 'farmer': farmer}})
+        return render(request, '404.html')   
+
+    return render(request, 'farmer-profile.html', {'farmer': farmer})
 
 
 @login_required

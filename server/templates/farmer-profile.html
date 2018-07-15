@@ -1,5 +1,4 @@
-{% extends 'base_dashboard.html' %} 
-{% load staticfiles %}
+{% extends 'base_dashboard.html' %} {% load staticfiles %} {% block body%}
 <div class="my-3 my-md-5">
     <div class="container">
         <div class="page-header">
@@ -12,10 +11,24 @@
                 <div class="row">
                     <div class="col-md-6 col-lg-12">
                         <div class="card">
-                            <div class="dimmer active">
-                                <div class="loader"></div>
+                            <div class="dimmer">
+                                <!-- <div class="loader"></div> -->
                                 <div class="dimmer-content">
-                                    <div class="card-body username_pic"></div>
+                                    <div class="card-body username_pic">
+                                        <div class="mb-4 text-center">
+                                            <img src="{{ farmer.picture.url }}" alt="{{ farmer.full_name }}" class="img-fluid">
+                                        </div>
+                                        <h4 class="card-title text-center">{{ farmer.full_name }}</h4>
+                                        <div class="card-subtitle text-muted text-center">
+                                            Registered on: {{ farmer.reg_date }}
+                                        </div>
+                                        <div class="mt-5 d-flex align-items-center">
+                                            <div class="ml-auto">
+                                                <a href="javascript:void(0)" class="btn btn-primary disabled">
+                                                    <i class="fe fe-message-square"></i> Send SMS</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -26,14 +39,106 @@
                 <div class="card">
                     <div class="card-body">
                         <div id="carousel-indicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators"></ol>
-                            <div class="carousel-inner mb-5"></div>
+                            <ol class="carousel-indicators">
+                                {% for index in farmer.farm_pictures %}
+                                <li data-target="#carousel-indicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner mb-5">
+                                {% for picture in farmer.farm_pictures %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img class="d-block w-100 img-fluid" alt="farm-picture-{{ forloop.counter0 }}" src="{{ picture }}" data-holder-rendered="true"
+                                                style="max-height: 400px;">
+                                        </div>
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="profile-details-full"></div>
+                        <div class="profile-details-full">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number(s)</label>
+                                        <div class="form-control-plaintext">{{farmer.phone_number}}, {{farmer.phone_number_2}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address (if available)</label>
+                                        <div class="form-control-plaintext">{{ farmer.email }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <div class="form-control-plaintext">{{ farmer.full_gender }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Annual Farm Income (₦)</label>
+                                        <div class="form-control-plaintext">{{ farmer.annual_income }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Age</label>
+                                        <div class="form-control-plaintext">{{ farmer.age }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Family Size</label>
+                                        <div class="form-control-plaintext">{{ farmer.family_size }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Highest Level of Education</label>
+                                        <div class="form-control-plaintext">{{ farmer.education_level }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Land Size (sq. meters)</label>
+                                        <div class="form-control-plaintext">{{ farmer.land_area }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">State</label>
+                                        <div class="form-control-plaintext">{{ farmer.state }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Local Government Area</label>
+                                        <div class="form-control-plaintext">${userDetails.gsx$localgovernmentarealga.$t}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Town/Village</label>
+                                        <div class="form-control-plaintext">{{ farmer.town }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Planted Crops</label>
+                                        <div class="form-control-plaintext">{{ farmer.planted_crops }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Source of Farm Labour</label>
+                                        <div class="form-control-plaintext">{{ farmer.source_of_labour }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <script>
+            <!-- <script>
                 require(["jquery"], function ($) {
                     $(function () {
                         // Create the XHR object.
@@ -115,130 +220,130 @@
                                     if (this.status === 200) {
                                         var data = JSON.parse(this.responseText);
                                         var entry = data.feed.entry;
-                                        // console.log(entry);
+                                        console.log(entry);
                                         var userDetails = entry.find(results => results.id.$t === `https://spreadsheets.google.com/feeds/list/1aZ8aYMpnsVpB6E0iOS5v_eX6sCloxLYlIvyJJoscurA/1/public/values/${userId}`);
 
                                         var farmPicArr = userDetails.gsx$farmpicturesmaximumof5.$t.split(',');
-                                        // console.log(farmPicArr);
+                                        console.log(farmPicArr);
                                         farmPicArr.forEach((e, i) => {
                                             if (i === 0) {
                                                 $(".carousel-indicators").prepend(`
-                                <li data-target="#carousel-indicators" data-slide-to="${i}" class="active"></li>
-                              `)
+                                    <li data-target="#carousel-indicators" data-slide-to="${i}" class="active"></li>
+                                `)
                                                 $(".carousel-inner").prepend(`
-                                <div class="carousel-item active">
-                                  <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
-                                </div>
-                              `)
+                                    <div class="carousel-item active">
+                                    <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
+                                    </div>
+                                `)
                                             } else {
                                                 $(".carousel-indicators").prepend(`
-                                <li data-target="#carousel-indicators" data-slide-to="${i}"></li>
-                              `)
+                                    <li data-target="#carousel-indicators" data-slide-to="${i}"></li>
+                                `)
                                                 $(".carousel-inner").prepend(`
-                                <div class="carousel-item">
-                                  <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
-                                </div>
-                              `)
+                                    <div class="carousel-item">
+                                    <img class="d-block w-100 img-fluid" alt="farm-picture-${i}" src="${getPic(e)}" data-holder-rendered="true" style="max-height: 400px;">
+                                    </div>
+                                `)
                                             }
                                         });
 
                                         $(".username_pic").prepend(`
-                            <div class="mb-4 text-center">
-                              <img src="${getPic(userDetails.gsx$pictureoffarmer.$t)}" alt="${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}" class="img-fluid">
-                            </div>
-                            <h4 class="card-title text-center">${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}</h4>
-                            <div class="card-subtitle text-muted text-center">
-                              Registered on: ${DOR(userDetails.title.$t)}
-                            </div>
-                            <div class="mt-5 d-flex align-items-center">
-                              <div class="ml-auto">
-                                <a href="javascript:void(0)" class="btn btn-primary disabled"><i class="fe fe-message-square"></i> Send SMS</a>
-                              </div>
-                            </div>
-                          `);
+                                <div class="mb-4 text-center">
+                                <img src="${getPic(userDetails.gsx$pictureoffarmer.$t)}" alt="${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}" class="img-fluid">
+                                </div>
+                                <h4 class="card-title text-center">${userDetails.gsx$firstname.$t} ${userDetails.gsx$lastname.$t}</h4>
+                                <div class="card-subtitle text-muted text-center">
+                                Registered on: ${DOR(userDetails.title.$t)}
+                                </div>
+                                <div class="mt-5 d-flex align-items-center">
+                                <div class="ml-auto">
+                                    <a href="javascript:void(0)" class="btn btn-primary disabled"><i class="fe fe-message-square"></i> Send SMS</a>
+                                </div>
+                                </div>
+                            `);
 
                                         $(".profile-details-full").prepend(`
-                            <div class="row">
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Phone Number(s)</label>
-                                  <div class="form-control-plaintext">0${userDetails.gsx$primaryphonenumber.$t}${sph(userDetails.gsx$secondaryphonenumberifavailable.$t)}</div>
+                                <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Phone Number(s)</label>
+                                    <div class="form-control-plaintext">0${userDetails.gsx$primaryphonenumber.$t}${sph(userDetails.gsx$secondaryphonenumberifavailable.$t)}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Email Address (if available)</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$emailaddress.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Email Address (if available)</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$emailaddress.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Gender</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$gender.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Gender</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$gender.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Annual Farm Income (₦)</label>
-                                  <div class="form-control-plaintext">${(userDetails.gsx$annualincomerange.$t) * 100000}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Annual Farm Income (₦)</label>
+                                    <div class="form-control-plaintext">${(userDetails.gsx$annualincomerange.$t) * 100000}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Age</label>
-                                  <div class="form-control-plaintext">${DOB(userDetails.gsx$dateofbirth.$t)}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Age</label>
+                                    <div class="form-control-plaintext">${DOB(userDetails.gsx$dateofbirth.$t)}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Family Size</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$familysize.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Family Size</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$familysize.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Highest Level of Education</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$highestlevelofeducation.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Highest Level of Education</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$highestlevelofeducation.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Land Size (ha)</label>
-                                  <div class="form-control-plaintext">${ath(userDetails.gsx$totallandareaacres.$t)}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Land Size (ha)</label>
+                                    <div class="form-control-plaintext">${ath(userDetails.gsx$totallandareaacres.$t)}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">State</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$state.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">State</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$state.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Local Government Area</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$localgovernmentarealga.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Local Government Area</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$localgovernmentarealga.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Town/Village</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$townorvillage.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Town/Village</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$townorvillage.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Planted Crops</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$plantedcrops.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Planted Crops</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$plantedcrops.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                  <label class="form-label">Source of Farm Labour</label>
-                                  <div class="form-control-plaintext">${userDetails.gsx$sourceoffarmlabour.$t}</div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                    <label class="form-label">Source of Farm Labour</label>
+                                    <div class="form-control-plaintext">${userDetails.gsx$sourceoffarmlabour.$t}</div>
+                                    </div>
                                 </div>
-                              </div>
-                            </div>
-                          `);
+                                </div>
+                            `);
 
                                         $(".dimmer").removeClass("active");
 
@@ -253,11 +358,9 @@
 
                     })
                 })
-            </script>
+            </script> -->
         </div>
     </div>
 
 </div>
-
-{% block body%} 
 {% endblock %}
