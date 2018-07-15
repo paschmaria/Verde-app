@@ -97,7 +97,8 @@ class FarmerManager(models.Manager):
         states = Farmer.STATES
         states_data = {}
         for state in states:
-            states_data[state.split(" ")[0]] = data.filter(state = state).count()
+            state_text  = state.split(" State")[0].replace(' ', '_') 
+            states_data[state_text] = data.filter(state = state).count()
         print(state)
         return states_data 
 
