@@ -43,3 +43,12 @@ Populate Soil Recommendations
 
 - Head over to /update-recommends , your db will be updated accordingly
 
+Suggested fixes
+---------------
+
+- Please change the vale of the data-value attribute in farmer age cell (farmer-biodata.html) to reflect farmer.age/100
+- The chart for 'Distribution by Land Area' isn't dislaying properly, I tried to check what was exactly wrong to no avail. Can you check it out?
+- What d'you suggest we do with the map? I'm thinking of using something else. Check out https://developers.arcgis.com/get-started/
+- Soil recommendation returns only the crops, it doesn't show the recommendation
+- Can you generate the responses for notifications so I'll style the way they are displayed? Like when you register a farmer, when you analyse soil samples etc.
+- Secondary Phone number is an optional field and may not be provided during registration. display it optionally in the biodata page (and profile page). Also, consider the case where number is registered using +234-, instead of 0-.
