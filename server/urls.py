@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^farmers/demography$', farmers_demography,
         name="farmers-demography"),
     url(r'^farmers/crop-info$', farmers_overview, name="farmers-crop-info"),
-    url(r'', index, name="landing"),
+    url(r'^', index, name="landing"),
 
 
 ]
