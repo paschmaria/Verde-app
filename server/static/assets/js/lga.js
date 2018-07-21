@@ -5,24 +5,38 @@ let lga_select = document.querySelector("#id_lga");
 //data here has been declared in lga_data.js
 //let states_list = data.map(res => res.state.name); //get states_list
 
-// get list of lgas
-function lgas_list(state_id) {
+function get_state_info(state_id){
   let state_item;
   for (let state of data) {
-    console.log(state)
+    console.log(state);
     if (state.state.id == state_id) {
       state_item = state.state;
     }
   }
+
+  if (state_item) {
+    return state_item
+  }
+
+  return null
+
+}
+
+// get list of lgas
+function lgas_list(state_id) {
+  
+  state_item = get_state_info(state_id)
+
   if (state_item) {
     return state_item.locals;
   }
+
   return null;
 }
 
 
 //update zones field
-function updateZone(state) {
+function updateZone(state_id) {
   let eco_zone;
 
   zones = zones_data.map(zone => {
@@ -33,7 +47,7 @@ function updateZone(state) {
 
   for (let zone of zones) {
     //format of state is => Adamawa State, split removes the state part
-    let state = state_select.value.split(" ")
+    let state = get_state_info(state_id).name.split(" ")
     
     if (state.length > 2){
       state = state[0] + " " + state[1]
@@ -60,9 +74,9 @@ function updateLgaSelect(state_id) {
   lga_list = lgas_list(state_id);
   lga_select.options.length = 1;
 
-  // if (zone_field) {
-  //   updateZone(state_id);
-  // }
+  if (zone_field) {
+    updateZone(state_id);
+  }
 
   if (!lga_list) {
     return;
