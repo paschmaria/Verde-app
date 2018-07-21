@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.dispatch import receiver
 from django.urls import reverse
+from django.db.models import Count
 
 from datetime import datetime
 import ast
@@ -73,8 +74,17 @@ def update_message_cost(sender, instance, created, **kwargs):
 
 
 class FarmerManager(models.Manager):
+    
     def get_queryset(self):
         return super(FarmerManager, self).get_queryset()
+
+    def drop_table(self):
+        from django.db import connection
+        cursor = connection.cursor()
+        table_name = self.model._meta.db_table
+        print(table_name)
+        sql = "DROP TABLE if exists %s cascade;" % (table_name, )
+        cursor.execute(sql)
 
     def gender_data(self):
         no_of_females = self.get_queryset().filter(gender="f").count()
@@ -94,12 +104,14 @@ class FarmerManager(models.Manager):
 
     def location_data(self):
         data = self.get_queryset()
-        states = Farmer.STATES
+        states = State.objects.annotate(num_farmers=Count('farmer'))
         states_data = {}
+
         for state in states:
-            state_text  = state.split(" State")[0].replace(' ', '_') 
-            states_data[state_text] = data.filter(state = state).count()
-        print(state)
+            state_text  = state.name.split(" State")[0].replace(' ', '_') 
+            states_data[state_text] = state.num_farmers
+            
+
         return states_data 
 
     def edu_data(self):
@@ -216,13 +228,45 @@ class FarmerManager(models.Manager):
         return farmers_names
 
 
+class State(models.Model):
+    name = models.CharField(max_length=120)
+
+    @staticmethod
+    def state_data():
+        states_data = []
+
+        for state in State.objects.all():
+            data_item = {
+                "state": {
+                    "name": state.name,
+                    "id": state.id,
+                    "locals": [
+                        {"name": x.name, "id": x.id} for x in Lga.objects.filter(state=state)
+                    ]
+                }
+            }
+            states_data.append(data_item)
+
+        # print(state_data)
+        return states_data
+    
+        
+    
+    def __str__(self):
+        return "{}".format(self.name)
+
+class Lga(models.Model):
+    name = models.CharField(max_length=120)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{}".format(self.name)
+
 class Farmer(models.Model):
     """
 
     """
-    STATES = ["Abia State", "Adamawa State", "Akwa Ibom State", "Anambra State", "Bauchi State", "Bayelsa State", "Benue State", "Borno State", "Cross River State", "Delta State", "Ebonyi State", "Edo State", "Ekiti State", "Enugu State", "FCT", "Gombe State", "Imo State", "Jigawa State",
-              "Kaduna State", "Kano State", "Katsina State", "Kebbi State", "Kogi State", "Kwara State", "Lagos State", "Nasarawa State", "Niger State", "Ogun State", "Ondo State", "Osun State", "Oyo State", "Plateau State", "Rivers State", "Sokoto State", "Taraba State", "Yobe State", "Zamfara State"]
-
+    
     GENDERS = (('m', 'Male'), ('f', 'Female'))
 
     EDU_LEVELS = (
@@ -243,13 +287,18 @@ class Farmer(models.Model):
     picture = CloudinaryField('image', null=True)
 
     gender = models.CharField(max_length=1, choices=GENDERS)
-    state = models.CharField(max_length=120, blank=True)
+    
+    # state = models.CharField(max_length=120)
+    # lga = models.CharField(max_length=120)
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
+    lga = models.ForeignKey(Lga, on_delete=models.SET_NULL, null=True)
+
     family_size = models.IntegerField()
     annual_income = models.IntegerField(blank=True, null=True)
     max_edu_level = models.CharField(
         max_length=120, blank=True, choices=EDU_LEVELS)
     location = models.CharField(max_length=120, blank=True)
-    town = models.CharField(max_length=120, blank=True)
+    # town = models.CharField(max_length=120, blank=True)
 
     land_area = models.FloatField(blank=True, null=True)
     planted_crops = models.CharField(max_length=120, blank=True)

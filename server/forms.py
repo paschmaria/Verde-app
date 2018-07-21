@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Farmer, FarmPicture, SoilTestData
+from .models import Farmer, FarmPicture, SoilTestData, State, Lga
 
 class SignUpForm(UserCreationForm):
     
@@ -12,6 +12,22 @@ class SignUpForm(UserCreationForm):
 
 
 class RegFarmerForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['lga'].queryset = Lga.objects.none()
+
+        if 'state' in self.data:
+            try:
+                state_id = int(self.data.get('state'))
+                self.fields['lga'].queryset = Lga.objects.filter(
+                    state_id=state_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['lga'].queryset = self.instance.state.lga_set.order_by(
+                'name')
+        
 
     def clean_phone_number(self):
         data = self.cleaned_data['phone_number']

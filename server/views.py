@@ -15,7 +15,7 @@ import cloudinary.uploader
 import africastalking
 
 from .forms import SignUpForm, RegFarmerForm, SoilTestForm
-from .models import FarmPicture, FarmerManager, Farmer, SMS
+from .models import FarmPicture, FarmerManager, Farmer, SMS, State
 from .responses2db import update_recommendations
 from .utils import getRecommends
 # Create your views here.
@@ -119,6 +119,7 @@ def upload_image(image):
 
 @login_required
 def register_farmer(request):
+    state_data = State.state_data()
 
     if request.method == 'POST':
         print("post request came")
@@ -138,6 +139,7 @@ def register_farmer(request):
         print("vol_value", volume_value)
 
         form = RegFarmerForm(request.POST, request.FILES)
+        
 
         if form.is_valid():
             farmer = form.save(commit=False)
@@ -166,11 +168,11 @@ def register_farmer(request):
             return redirect('register-farmer')
 
         print(form.errors)
-        return render(request, "register-farmer.html", {'form': form})
+        return render(request, "register-farmer.html", {'form': form, 'state_data': state_data})
 
     else:
         form = RegFarmerForm()
-        return render(request, "register-farmer.html", {'form': form})
+        return render(request, "register-farmer.html", {'form': form, 'state_data': state_data})
 
     return render(request, "register-farmer.html")
 
@@ -183,6 +185,7 @@ def farmers_demography(request):
     age_data = Farmer.active_objects.age_data()
     gender_data = Farmer.active_objects.gender_data()
     land_data = Farmer.active_objects.land_data()
+    
     location_data = Farmer.active_objects.location_data()
 
     return render(
@@ -204,6 +207,21 @@ def farmers_overview(request):
 @login_required
 def farmers_biodata(request):
     farmers = Farmer.objects.filter(extension_worker=request.user)
+
+    if request.method == "GET":
+        search = request.GET.get('search')
+        order = request.GET.get('order', 'asc')
+        
+        if search:
+            farmers = Farmer.objects.filter(first_name__icontains=search, last_name__icontains=search)
+
+        if order:
+            if order == 'asc':
+                farmers = Farmer.objects.order_by('-reg_date')
+            if order == "desc":
+                farmers = Farmer.objects.order_by('reg_date')
+
+        print(request.GET)
     
     return render(request, 'farmer-biodata.html', {'farmers': farmers})
 
@@ -473,4 +491,11 @@ def market_log(request):
 @login_required
 def update_recommends(request):
     update_recommendations()
+    return render(request, 'reports.html')
+
+
+@login_required
+def update_states(request):
+    from .states2db import update_states
+    update_states()
     return render(request, 'reports.html')

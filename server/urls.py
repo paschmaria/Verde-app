@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^voice-reply/$', voice_reply, name="voice-reply"),
     
     url(r'^update-recommends/$', update_recommends, name="update-recommends"),
+    url(r'^update-states/$', update_states, name="update-states"),
 
 
     url(r'^reports/$', reports, name="reports"),

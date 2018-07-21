@@ -1,29 +1,25 @@
 let zone_field = document.querySelector("#zone"); //select zone field
-let state_select = document.querySelector("#state-select"); //select state field
-let town_select = document.querySelector("#town-select");
+let state_select = document.querySelector("#id_state"); //select state field
+let town_select = document.querySelector("#id_lga");
 
 //data here has been declared in lga_data.js
-let states_list = data.map(res => res.state.name); //get states_list
+//let states_list = data.map(res => res.state.name); //get states_list
 
 // get list of lgas
-function lga_list(state_name) {
+function lga_list(state_id) {
   let state_item;
   for (let state of data) {
-    if (state.state.name == state_name) {
+    console.log(state)
+    if (state.state.id == state_id) {
       state_item = state.state;
     }
   }
   if (state_item) {
-    return state_item.locals.map(res => {
-      return res.name;
-    });
+    return state_item.locals;
   }
   return null;
 }
 
-for (let state of states_list) {
-  state_select.options[state_select.options.length] = new Option(state, state);
-}
 
 //update zones field
 function updateZone(state) {
@@ -60,20 +56,22 @@ function updateZone(state) {
 }
 
 //update town Select field
-function updateTownSelect(state_name) {
-  town_list = lga_list(state_name);
+function updateLgaSelect(state_id) {
+  town_list = lga_list(state_id);
   town_select.options.length = 1;
 
-  if (zone_field) {
-    updateZone(state_name);
-  }
+  // if (zone_field) {
+  //   updateZone(state_name);
+  // }
 
   if (!town_list) {
     return;
   }
 
+  console.log(town_list)
+
   for (let town of town_list) {
-    town_select.options[town_select.options.length] = new Option(town, town);
+    town_select.options[town_select.options.length] = new Option(town.name, town.id);
   }
 
   return;

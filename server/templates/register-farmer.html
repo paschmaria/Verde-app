@@ -283,17 +283,21 @@
                   <div class="col-lg-4 col-md-12">
                     <div class="form-group">
                       <label class="form-label">State<span class="form-required">*</span></label>
-                      <select name="state" id="state-select" onChange="updateTownSelect(this.value);" class="form-control custom-select" required>
+                       {{ form.state|attr:"class:form-control custom-select"|attr:"required"|attr:"onChange: updateLgaSelect(this.value)" }}
+                      <p class="error">{{ form.state.errors }}</p>
+                       <!-- <select name="state" id="state-select" onChange="updateTownSelect(this.value);" class="form-control custom-select" required>
                         <option value="">Select state</option>
-                      </select>
+                      </select> -->
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-12">
                     <div class="form-group">
                       <label class="form-label">Local Gov't Area (LGA)<span class="form-required">*</span></label>
-                      <select name="town" id="town-select"  class="form-control custom-select" required>
+                       {{ form.lga|attr:"class:form-control custom-select"|attr:"required" }}
+                        <p class="error">{{ form.lga.errors }}</p>
+                       <!-- <select name="town" id="town-select"  class="form-control custom-select" required>
                         <option value="">Select LGA</option>
-                      </select>
+                      </select> -->
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-12">
@@ -302,7 +306,9 @@
                       <input type="text" name="farmer_town" class="form-control" autocomplete="off" required>
                     </div>
                   </div>
-                  <script src="{% static 'assets/js/lga_data.js'%}"></script>
+                  <script>
+                    data = {{ state_data|safe }}
+                  </script>
                   <script src="{% static 'assets/js/lga.js'%}"></script>
                 </div>
               </div>
@@ -459,11 +465,11 @@
                       <div class="form-label">Major source of Farm labour<span class="form-required">*</span></div>
                       <div>
                         <label class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" name="farmer_farm_labour" value="family" checked required>
+                          <input type="checkbox" class="custom-control-input" name="source_of_labour" value="family" checked >
                           <span class="custom-control-label">Family</span>
                         </label>
                         <label class="custom-control custom-checkbox custom-control-inline">
-                          <input type="checkbox" class="custom-control-input" name="farmer_farm_labour" value="hired_hands" required>
+                          <input type="checkbox" class="custom-control-input" name="source_of_labour" value="hired_hands" >
                           <span class="custom-control-label">Hired Hands</span>
                         </label>
                       </div>
