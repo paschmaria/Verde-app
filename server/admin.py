@@ -12,3 +12,5 @@ admin.site.register(SoilTestData)
 admin.site.register(State)
 admin.site.register(Lga)
 admin.site.register(Zone)
+
+admin.site.site_header = "Verde App Admin"
