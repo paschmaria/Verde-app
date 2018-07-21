@@ -15,7 +15,7 @@ import cloudinary.uploader
 import africastalking
 
 from .forms import SignUpForm, RegFarmerForm, SoilTestForm
-from .models import FarmPicture, FarmerManager, Farmer, SMS, State
+from .models import FarmPicture, FarmerManager, Farmer, SMS, State, Zone
 from .responses2db import update_recommendations
 from .utils import getRecommends
 # Create your views here.
@@ -102,19 +102,6 @@ def signup(request):
 def dashboard(request):
 
     return render(request, 'dashboard.html')
-
-
-def upload_image(image):
-    if image:
-
-        result = cloudinary.uploader.upload(image)
-        print(result)
-        print(dir(result))
-
-        return False
-
-        return json.dumps(result)
-    return False
 
 
 @login_required
@@ -242,11 +229,12 @@ def farmer_profile(request, farmer_id):
 def soil_test(request):
 
     state_data = State.state_data()
+    zone_data = Zone.zone_data()
+
     farmers_names = Farmer.active_objects.names_data(user=request.user)
     form = SoilTestForm()
     from pprint import pprint
-    pprint(state_data)
-
+    
     if request.method == 'POST':
         print("post request came")
         #print(request.FILES)
@@ -277,6 +265,7 @@ def soil_test(request):
 
         state = request.POST.get('state')
         lga = request.POST.get('lga')
+        town = request.POST.get('town')
 
         form = SoilTestForm(request.POST, request.FILES)
 
@@ -287,7 +276,7 @@ def soil_test(request):
             soil_test.last_fertilizer_app = "{}-{}-{}".format(
                 fertilizer_year, fertilizer_month, fertilizer_day)
             soil_test.farm_size = calc_land_area(land_value, land_unit)
-            soil_test.location = str({'state': state, 'town': town})
+            soil_test.location = str({'state': state, 'lga': lga, 'town': town})
 
             soil_test.save()
 
@@ -299,13 +288,15 @@ def soil_test(request):
             return render(request, 'soil-test.html', {
                 "form": form,
                 "farmers_names": farmers_names,
-                'state_data': state_data
+                'state_data': state_data,
+                "zone_data": zone_data
             })
 
     return render(request, 'soil-test.html', {
         "form": form,
         "farmers_names": farmers_names,
-        'state_data': state_data
+        'state_data': state_data,
+        "zone_data": zone_data
     })
 
 
@@ -501,6 +492,7 @@ def update_recommends(request):
 
 @login_required
 def update_states(request):
-    from .states2db import update_states
+    from .states2db import update_states, update_zones
     update_states()
+    update_zones()
     return render(request, 'reports.html')

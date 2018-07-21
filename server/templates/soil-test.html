@@ -104,7 +104,9 @@
                       <input type="text" id="zone" name="zone" class="form-control" aria-label="ecological zones" readonly>
                     </div>
                   </div>
-                  <script src="{% static 'assets/js/agro_zones.js'%}"></script>
+                  <script>
+                      zones_data = {{ zone_data|safe }}
+                  </script>
                   <script>
                       data = {{ state_data|safe }}
                   </script>

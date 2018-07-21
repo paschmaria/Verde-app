@@ -8,7 +8,6 @@ let lga_select = document.querySelector("#id_lga");
 function get_state_info(state_id){
   let state_item;
   for (let state of data) {
-    console.log(state);
     if (state.state.id == state_id) {
       state_item = state.state;
     }
@@ -45,17 +44,12 @@ function updateZone(state_id) {
     return { [name]: states };
   });
 
+  console.log(zones)
+
   for (let zone of zones) {
     //format of state is => Adamawa State, split removes the state part
-    let state = get_state_info(state_id).name.split(" ")
+    let state = get_state_info(state_id).name
     
-    if (state.length > 2){
-      state = state[0] + " " + state[1]
-      console.log("state is " , state)
-    }else{
-      state = state[0]
-    }
-
     if (Object.values(zone)[0].indexOf(state) != -1) {
       console.log("it got here")
       eco_zone = eco_zone
@@ -65,6 +59,19 @@ function updateZone(state_id) {
   }
 
   if (eco_zone) {
+    require(['jquery', 'selectize'], function ($, selectize) {
+      $('#input-tags').selectize({
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+        create: function (input) {
+          return {
+            value: input,
+            text: input
+          }
+        }
+      });
+    });
     zone_field.value = eco_zone
   }
 }
@@ -81,8 +88,6 @@ function updateLgaSelect(state_id) {
   if (!lga_list) {
     return;
   }
-
-  console.log(lga_list)
 
   for (let lga of lga_list) {
     lga_select.options[lga_select.options.length] = new Option(lga.name, lga.id);

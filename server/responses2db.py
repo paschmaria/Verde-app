@@ -21,7 +21,7 @@ def update_recommendations():
                 "bo_rate": bo_rate,
             }
             
-            recommendation = SoilRecommend.objects.create(
+            recommendation, created = SoilRecommend.objects.get_or_create(
                 crop = crop,
                 nutrient = nutrient,
                 fertility_class = fertility_class,
@@ -30,7 +30,8 @@ def update_recommendations():
                 nutrient_rate = nutrient_rate,
                 fertilizer_rate = str(fertilizer_rate)
             )
-            print("created recommendation for crop =>{}, fertility=>{}, zone={}".format(crop, fertility_class, zone) )
+            if created:
+                print("created recommendation for crop =>{}, fertility=>{}, zone={}".format(crop, fertility_class, zone) )
 
     
 

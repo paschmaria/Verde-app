@@ -254,6 +254,33 @@ class Lga(models.Model):
     def __str__(self):
         return "{}".format(self.name)
 
+
+class Zone(models.Model):
+    name = models.CharField(max_length=120)
+    states = models.ManyToManyField(State)
+
+    @staticmethod
+    def zone_data():
+        zones_data = []
+
+        for zone in Zone.objects.all():
+            data_item = {
+                "zone": {
+                    "name": zone.name,
+                    "id": zone.id,
+                    "states": [
+                        {"name": x.name, "id": x.id} for x in zone.states.all()
+                    ]
+                }
+            }
+            zones_data.append(data_item)
+
+        # print(state_data)
+        return zones_data
+
+    def __str__(self):
+        return "{}".format(self.name)
+
 class Farmer(models.Model):
     """
 

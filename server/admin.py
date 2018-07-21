@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Profile, Farmer, FarmPicture, SMS, SoilRecommend, SoilTestData, State, Lga
+from .models import Profile, Farmer, FarmPicture, SMS, SoilRecommend, SoilTestData, State, Lga, Zone
 
 admin.site.register(Profile)
 admin.site.register(Farmer)
@@ -11,3 +11,4 @@ admin.site.register(SoilRecommend)
 admin.site.register(SoilTestData)
 admin.site.register(State)
 admin.site.register(Lga)
+admin.site.register(Zone)
