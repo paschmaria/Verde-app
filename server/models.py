@@ -78,14 +78,6 @@ class FarmerManager(models.Manager):
     def get_queryset(self):
         return super(FarmerManager, self).get_queryset()
 
-    def drop_table(self):
-        from django.db import connection
-        cursor = connection.cursor()
-        table_name = self.model._meta.db_table
-        print(table_name)
-        sql = "DROP TABLE if exists %s cascade;" % (table_name, )
-        cursor.execute(sql)
-
     def gender_data(self):
         no_of_females = self.get_queryset().filter(gender="f").count()
         no_of_males = self.get_queryset().filter(gender="m").count()
@@ -298,7 +290,7 @@ class Farmer(models.Model):
     max_edu_level = models.CharField(
         max_length=120, blank=True, choices=EDU_LEVELS)
     location = models.CharField(max_length=120, blank=True)
-    # town = models.CharField(max_length=120, blank=True)
+    town = models.CharField(max_length=120, blank=True)
 
     land_area = models.FloatField(blank=True, null=True)
     planted_crops = models.CharField(max_length=120, blank=True)

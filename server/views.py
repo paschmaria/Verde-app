@@ -241,8 +241,11 @@ def farmer_profile(request, farmer_id):
 @login_required
 def soil_test(request):
 
+    state_data = State.state_data()
     farmers_names = Farmer.active_objects.names_data(user=request.user)
     form = SoilTestForm()
+    from pprint import pprint
+    pprint(state_data)
 
     if request.method == 'POST':
         print("post request came")
@@ -273,7 +276,7 @@ def soil_test(request):
         fertilizer_year = request.POST.get('fertilizer_year')
 
         state = request.POST.get('state')
-        town = request.POST.get('town')
+        lga = request.POST.get('lga')
 
         form = SoilTestForm(request.POST, request.FILES)
 
@@ -295,12 +298,14 @@ def soil_test(request):
             print("errors ==> ", form.errors)
             return render(request, 'soil-test.html', {
                 "form": form,
-                "farmers_names": farmers_names
+                "farmers_names": farmers_names,
+                'state_data': state_data
             })
 
     return render(request, 'soil-test.html', {
         "form": form,
-        "farmers_names": farmers_names
+        "farmers_names": farmers_names,
+        'state_data': state_data
     })
 
 

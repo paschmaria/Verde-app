@@ -77,17 +77,20 @@
                   </label>
                   <div class="row gutters-xs">
                     <div class="col-4">
-                      <select name="state" id="state-select" onChange="updateTownSelect(this.value)" class="form-control custom-select" required>
+                       <select name="state" id="id_state" onChange="updateLgaSelect(this.value)" class="form-control custom-select" required>
                         <option value="">Select state</option>
+                        {% for state in state_data %}
+                          <option value="{{ state.state.id }}">{{ state.state.name }}</option>
+                        {% endfor %}
                       </select>
                     </div>
                     <div class="col-4">
-                      <select name="town" id="town-select" class="form-control custom-select" required>
+                      <select name="lga" id="id_lga" class="form-control custom-select" required>
                         <option value="">Select LGA</option>
                       </select>
                     </div>
                     <div class="col-4">
-                      <input type="text" name="farmer_town" class="form-control" autocomplete="off" required>
+                      <input type="text" name="town" class="form-control" autocomplete="off" required>
                     </div>
                   </div>
                 </div>
@@ -102,7 +105,9 @@
                     </div>
                   </div>
                   <script src="{% static 'assets/js/agro_zones.js'%}"></script>
-                  <script src="{% static 'assets/js/lga_data.js'%}"></script>
+                  <script>
+                      data = {{ state_data|safe }}
+                  </script>
                   <script src="{% static 'assets/js/lga.js'%}"></script>
                 </div>
 
